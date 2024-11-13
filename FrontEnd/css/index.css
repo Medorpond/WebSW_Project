@@ -1,0 +1,22 @@
+nav ul {
+    list-style: none; /* 불릿 포인트 제거 */
+    display: flex; /* 수평 배열 */
+    padding: 0; /* 기본 패딩 제거 */
+    margin: 0; /* 기본 마진 제거 */
+    background-color: #333;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li a{
+    text_decoration: none;
+    color: white;
+    padding: 15px 20px;
+    display: block;
+}
+
+nav ul li a:hover{
+    background-color: #555;
+}
