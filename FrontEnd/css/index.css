@@ -1,22 +1,51 @@
+header{
+    position: fixed; /* 헤더를 화면 상단에 고정 */
+    top: 0; /* 상단에 Anchor */
+    left: 0; /* 좌측에 Anchor */
+    width: 100%; /* 좌우 너비 */
+    height: auto;
+
+    flex-direction: column; /* 세로 정렬 */
+    z-index: 1000; /* 항상 다른 요소들 위에 표시 */
+
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+}
+
+.upperBanner {
+    width: 100%; /* 좌우 너비 */
+    height: 60px; /* 상하 폭 */
+    padding: 0 20px; /* 좌우 여백 */
+
+    display: flex; /* 수평 배열 */
+    justify-content: center; /* 중앙 정렬 */
+
+    background-color: #f8f9fa; /* 배경색 */
+
+}
+
 nav ul {
     list-style: none; /* 불릿 포인트 제거 */
     display: flex; /* 수평 배열 */
-    padding: 0; /* 기본 패딩 제거 */
+    justify-content: center; /* 중앙 정렬 */
+
+    padding: 10px 0; /* 기본 패딩 제거 */
     margin: 0; /* 기본 마진 제거 */
+
     background-color: #333;
 }
 
-nav ul li {
+#mainNav ul li {
     margin-right: 20px;
 }
 
-nav ul li a{
-    text_decoration: none;
+#mainNav ul li a{
+    text_decoration: none; /*No Underlines for hyperlink*/
+    font-weight: bold;
     color: white;
     padding: 15px 20px;
     display: block;
 }
 
-nav ul li a:hover{
+#mainNav ul li a:hover{
     background-color: #555;
 }
