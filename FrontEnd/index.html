@@ -6,35 +6,44 @@
     <title>대운 한의원</title>
 
     <link rel="stylesheet" href="./css/index.css"> <!--CSS 파일-->
+    <link id="subpage-css" rel="stylesheet" href=""> <!-- 서브페이지 css 로드 -->
+
     <script src="./js/index.js"></script> <!--JavaScript 파일-->
+    <script id="subpage-js" src=""></script> <!-- 서브페이지 .js 로드 -->
 </head>
 
 <body>
     <!-- Header Section -->
     <header>
-        <h1>
-            <a href="./index.html">
-                대운 한의원
-            </a>
-        </h1>
+        <!-- Listed Menu Section -->
+        <nav>
+            <div id="mainNav">
+                <h1>
+                    <a href="./index.html">
+                        대운 한의원
+                    </a>
+                </h1>
 
-        <!-- Navigation Section -->
-        <nav id="mainNav">
-            <ul>
-                <li><a href = "#" data-section="로드할 내용">표시될 내용</a></li>
-                <li><a href = "#" data-section="로드할 내용">표시될 내용</a></li>
-                <li><a href = "#" data-section="로드할 내용">표시될 내용</a></li>
-                <li><a href = "#" data-section="로드할 내용">표시될 내용</a></li>
-            </ul>
-        </nav>
+                <ul class="menuList">
+                    <li><a href = "#" data-section="subpage">표시될 내용</a></li>
+                    <li><a href = "#" data-section="subpage">표시될 내용</a></li>
+                    <li><a href = "#" data-section="subpage">표시될 내용</a></li>
+                    <li><a href = "#" data-section="subpage">표시될 내용</a></li>
+                </ul>
+            </div>
 
-        <nav id="subNav">
-            <ul>
-                <li><a href = "#" data-section="로드할 내용">표시될 내용</a></li>
-                <li><a href = "#" data-section="로드할 내용">표시될 내용</a></li>
-                <li><a href = "#" data-section="로드할 내용">표시될 내용</a></li>
-                <li><a href = "#" data-section="로드할 내용">표시될 내용</a></li>
-            </ul>
+            <div id="subNav">
+                <ul class="menuList">
+                    <li><a href = "#" data-section="subpage">표시될 내용</a></li>
+                    <li><a href = "#" data-section="subpage">표시될 내용</a></li>
+                </ul>
+
+                <div id="logIn">
+                    <a href = "#" data-section="subpage">로그인</a>
+                </div>
+            </div>
+
+
         </nav>
     </header>
 

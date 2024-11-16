@@ -1,6 +1,6 @@
 /* index.css */
 
-/* 초기 스타일 설정 */
+/* 공통 스타일 초기화 */
 * {
     margin: 0;
     padding: 0;
@@ -9,104 +9,109 @@
 
 body {
     font-family: Arial, sans-serif;
+    line-height: 1.6;
 }
 
-/* 헤더 스타일 */
+/* Header 스타일 */
 header {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%; /* 화면 전체 너비 */
-    background-color: #fff;
-    z-index: 1000; /* 다른 요소 위에 위치 */
-    display: flex; /* 내부 요소 가로 배치 */
-    justify-content: space-between;
+    width: 100%;
+    background-color: #f5f5f5;
     align-items: center;
-    padding: 10px 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 하단 그림자 */
-    transition: transform 0.3s ease-in-out; /* 스크롤 시 애니메이션 */
+    padding: 10px 10px;
+    border-bottom: 1px solid #ccc;
+    z-index: 1000;
 }
 
-/* 스크롤 시 헤더 숨김 */
-header.hidden {
-    transform: translateY(-100%); /* 헤더를 위로 이동 */
-}
-
-/* h1 스타일 */
-header h1 {
-    flex: 0 0 200px; /* 고정된 너비 (좌측 고정) */
-    text-align: left;
-}
-
-header h1 a {
-    text-decoration: none;
-    font-size: 1.5em;
-    color: #333;
-    display: block;
+header nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 /* mainNav 스타일 */
 #mainNav {
-    flex: 0 0 400px; /* 고정된 너비 */
     display: flex;
-    justify-content: center; /* 항목 중앙 정렬 */
+    align-items: center;
 }
+
+/* 로고 스타일 */
+#mainNav h1 {
+    width: auto;
+    white-space: nowrap;
+}
+
+#mainNav h1 a {
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+}
+
+
 
 #mainNav ul {
     display: flex;
-    list-style: none; /* 기본 목록 스타일 제거 */
-    margin: 0;
-    padding: 0;
-    justify-content: space-around; /* 항목 간 균등 배분 */
-    width: 100%; /* mainNav 너비에 맞춤 */
+    list-style: none;
 }
 
 #mainNav ul li {
-    text-align: center;
+    padding: 10px;
 }
 
 #mainNav ul li a {
     text-decoration: none;
-    padding: 10px 15px;
-    display: block;
-    color: #333;
+    white-space: nowrap;
+    color: black;
+    font-size: 16px;
 }
 
 /* subNav 스타일 */
 #subNav {
-    flex: 0 0 200px; /* 고정된 너비 (우측 고정) */
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
 }
 
 #subNav ul {
     display: flex;
     list-style: none;
-    margin: 0;
-    padding: 0;
 }
 
 #subNav ul li {
-    margin-left: 10px;
+    padding: 10px;
 }
 
 #subNav ul li a {
     text-decoration: none;
-    color: #333;
-    padding: 5px 10px;
-    display: block;
+    white-space: nowrap;
+    color: black;
+    font-size: 10px;
 }
 
-/* 반응형 디자인: 햄버거 메뉴 전환 */
-@media (max-width: 900px) {
-    #mainNav {
-        display: none; /* mainNav 숨김 */
+/* 로그인 버튼 스타일 */
+#logIn {
+    align-content: center;
+}
+
+#logIn a {
+    text-decoration: none;
+    white-space: nowrap;
+    font-size: 16px;
+    color: black;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 800px) {
+    ul.menuList {
+        display: none !important; /* 무조건 적용 */
     }
 
-    #subNav:after {
-        content: '\2630'; /* 햄버거 메뉴 아이콘 */
-        font-size: 1.5em;
+    #logIn::after {
+        content: "☰";
+        font-size: 24px;
         cursor: pointer;
-        margin-left: 10px;
+        margin-left: auto;
     }
 }
