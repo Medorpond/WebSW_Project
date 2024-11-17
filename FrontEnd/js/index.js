@@ -56,6 +56,6 @@ function loadStyleSheet(url){
 function loadScript(url){
     const subpageJs = document.getElementById("subpage-js");
     if(subpageJs){
-        subpageJs.href = url;
+        subpageJs.src = url;
     }
 }
