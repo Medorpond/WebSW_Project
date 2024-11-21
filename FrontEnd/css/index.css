@@ -109,7 +109,7 @@ header nav {
         display: none !important; /* 무조건 적용 */
     }
 
-    #logIn::after {
+    #subNav::after {
         content: "☰";
         font-size: 24px;
         cursor: pointer;
