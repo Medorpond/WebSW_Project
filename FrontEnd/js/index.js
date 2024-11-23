@@ -13,6 +13,13 @@ function onDOMLoad(){
 
     //버튼 이벤트 초기화
     initBtn();
+
+    // SPA 뒤로가기, 앞으로가기 기능 추가
+    window.onpopstate = function(event) {
+        if (event.state && event.state.page) {
+            loadPage(event.state.page);
+        }
+    };
 }
 
 // 버튼 동작 이벤트 추가 함수
@@ -90,6 +97,9 @@ function loadPage(pageName) {
      loadHTML(contentHtml);
      loadStyleSheet(contentCss);
      loadScript(contentJs)
+    
+    // URL과 히스토리 업데이트
+    history.pushState({page: pageName}, pageName, `#${pageName}`)
 }
 
 function loadHTML(url){
