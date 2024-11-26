@@ -1,0 +1,186 @@
+.screen {
+    background-color: #f5f7ff;
+    display: flex;
+    justify-content: space-between;  
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    font-family: var(--large-title-font-family);
+    padding: 20px 0; 
+  }
+  
+
+/* 메인 컨테이너 */
+.main-container {
+    width: 90%;
+    max-width: 1280px;
+    height: auto;
+    min-height: 832px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    transform: translateY(5%);
+    gap: 30px;
+
+  }
+  
+/* 안내 텍스트 */
+.centered-text {
+    margin: 0;
+    text-align: center;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: var(--main-textk);
+    flex: 0 0 auto; 
+    position: relative;
+    top: 15%; 
+    margin-bottom: 40px;
+  }
+
+  
+  /* 입력 폼 */
+  .input-form {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  /* 폼 그룹 */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .form-label {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--darkk);
+    margin-bottom: 10px;
+  }
+  
+  .dropdown-header {
+    font-size: 1.2rem;
+    font-weight: 400;
+    height: 70px;
+    color: #000000;
+
+  }
+
+  .form-input {
+    width: 100%;
+    height: 70px;
+    padding: 10px 15px;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #000000;
+    background-color: #ffffff;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+    box-shadow: var(--textbox);
+    outline: none;
+    transition: border-color 0.3s ease;
+    
+  }
+  
+  .form-input:focus {
+    border-color: #96c3ff;
+  }
+  
+  /* 드롭다운 컨테이너 */
+  .dropdown-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #ffffff;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  .dropdown-arrow {
+    font-size: 1.2rem;
+    color: #7f9cb3;
+  }
+  
+  .dropdown-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 200px;
+    background-color: #ffffff;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
+    overflow-y: auto;
+    z-index: 100;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  
+  .dropdown-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--darkk);
+  }
+  
+  .dropdown-item:hover {
+    background-color: #f0f4ff;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+/* 네비게이션 버튼 - 공통 위치 */
+.nav-buttons {
+    width: 100%;
+    max-width: 1280px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 5%;
+    position: fixed; /* 화면에 고정 */
+    bottom: 10%; /* 화면 하단에서 20px 위로 띄움 */
+    left: 0; /* 좌측 기준 */
+    right: 0; /* 우측 기준 */
+    z-index: 100; /* 다른 요소 위에 표시 */
+    pointer-events: auto;
+    cursor: pointer;
+  }
+  
+  .nav-button {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .nav-icon {
+    width: 100%;
+    height: 100%;
+  }
+
+  .logo {
+    position: fixed;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px; /* 로고 크기 조정 */
+    height: auto;
+  }
+  

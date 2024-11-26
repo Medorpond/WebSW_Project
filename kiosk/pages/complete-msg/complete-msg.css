@@ -1,0 +1,63 @@
+.screen {
+    background-color: #f5f7ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    font-family: var(--large-title-font-family);
+    padding: 20px 0;
+  }
+  
+  /* 메인 컨테이너 */
+  .main-container {
+    width: 90%;
+    max-width: 1280px;
+    height: auto;
+    min-height: 832px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    transform: translateY(5%);
+  }
+  
+  /* 안내 텍스트 - 공통 위치 */
+  .centered-text {
+    margin: 0;
+    text-align: center;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: var(--main-textk);
+    margin-bottom: 70px;
+  }
+  
+  /* 완료 메시지 */
+  .completion-message {
+    margin-top: 10%;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--darkk);
+    line-height: 3rem;
+    margin-bottom: 50px;
+  }
+
+  /* 카운트다운 텍스트 */
+.countdown-text {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: var(--maink);
+}
+
+  .logo {
+    position: fixed;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px; /* 로고 크기 조정 */
+    height: auto;
+  }
+  

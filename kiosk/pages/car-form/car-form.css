@@ -1,0 +1,138 @@
+.screen {
+    background-color: #f5f7ff;
+    display: flex;
+    justify-content: space-between;  
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    font-family: var(--large-title-font-family);
+    padding: 20px 0; 
+  }
+  
+
+/* 메인 컨테이너 */
+.main-container {
+    width: 90%;
+    max-width: 1280px;
+    height: auto;
+    min-height: 832px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    transform: translateY(5%);
+    gap: 30px;
+  }
+  
+/* 안내 텍스트 */
+.centered-text {
+    margin: 0;
+    text-align: center;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: var(--main-textk);
+    flex: 0 0 auto; 
+    position: relative;
+    top: 15%; 
+    margin-bottom: 40px;
+  }
+  
+  /* 입력 폼 */
+  .input-form {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  /* 폼 그룹 */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .form-label {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--darkk);
+    margin-bottom: 10px;
+  }
+  
+  .form-input {
+    width: 100%;
+    height: 70px;
+    padding: 10px 15px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #000000;
+    background-color: #ffffff;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+    box-shadow: var(--textbox);
+    outline: none;
+    transition: border-color 0.3s ease;
+    margin-bottom: 20px;
+  }
+  
+  .form-input:focus {
+    border-color: #96c3ff;
+  }
+  
+/* 네비게이션 버튼 - 공통 위치 */
+.nav-buttons {
+    width: 100%;
+    max-width: 1280px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 5%;
+    position: fixed; /* 화면에 고정 */
+    bottom: 10%; /* 화면 하단에서 20px 위로 띄움 */
+    left: 0; /* 좌측 기준 */
+    right: 0; /* 우측 기준 */
+    z-index: 100; /* 다른 요소 위에 표시 */
+    pointer-events: auto;
+    cursor: pointer;
+  }
+  
+  .nav-button {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .nav-icon {
+    width: 100%;
+    height: 100%;
+  }
+
+  .logo {
+    position: fixed;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px; /* 로고 크기 조정 */
+    height: auto;
+  }
+  
+  
+  /* 반응형 */
+  @media (max-width: 768px) {
+    .form-input {
+      height: 45px;
+      font-size: 1rem;
+    }
+  
+    .nav-buttons {
+      margin-top: 15px;
+    }
+  
+    .nav-button {
+      width: 60px;
+      height: 60px;
+    }
+  }
+  
