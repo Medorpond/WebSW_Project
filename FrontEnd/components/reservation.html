@@ -5,44 +5,26 @@
     <link rel="stylesheet" href="../css/reservation.css">
     <script src="../js/reservation.js" defer></script>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
 
 <div id="reservation">
-    <!-- 기방문여부확인페이지 -->
+    <!-- 예약 안내 페이지 -->
     <div id="priorVisitCheck">
-        <button id="firstVisitBtn">초진</button>
-        <button id="returningVisitBtn">재진</button>
-        <button class="nextBtn">앞으로 가기</button>
+        <p>대충 예약 정보 안내 페이지</p>
+        <button class="nextBtn">다음으로</button>
     </div>
     <!-- 개인 정보 수집 페이지 -->
     <div id="personalDataCollecting">
+        <h2>예약을 위해 성함과 전화번호를 입력해주세요.</h2>
         <!-- 이름 -->
         <label for="name">이름:</label>
         <input type="text" id="name" name="name" required>
-        <br><br>
-
-        <!-- 생년월일 -->
-        <label for="birthdate">생년월일:</label>
-        <input type="date" id="birthdate" name="birthdate" required>
-        <br><br>
-
-        <!-- 성별 -->
-        <label>성별:</label>
-        <input type="radio" id="genderMale" name="gender" value="male" required>
-        <label for="genderMale">남성</label>
-        <input type="radio" id="genderFemale" name="gender" value="female" required>
-        <label for="genderFemale">여성</label>
-        <br><br>
 
         <!-- 연락처 -->
         <label for="contact">연락처:</label>
-        <input type="tel" id="contact" name="contact" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" placeholder="010-1234-5678" required>
-        <br><br>
-
-        <!-- 주소 -->
-        <label for="address">주소:</label>
-        <input type="text" id="address" name="address" required>
-        <br><br>
+        <input type="tel" id="contact" name="contact" pattern="[0-9]{11}" placeholder="01012345678" required>
 
         <!-- 개인정보 수집 동의 -->
         <form id="consentForm">
@@ -53,90 +35,30 @@
 
         <!-- 뒤로가기 및 앞으로가기 버튼 -->
         <button class="backBtn">뒤로가기</button>
-        <button class="nextBtn" disabled>앞으로가기</button>
+        <button class="nextBtn">다음으로</button>
     </div>
     <!-- 예약 날짜 선택 페이지 -->
     <div id="visitDateSelection">
         <h2>방문 일정 선택</h2>
 
-        <!-- 방문 날짜 -->
-        <label for="availableDates">방문 가능한 날짜:</label>
-        <select id="availableDates" name="availableDates" required>
-            <!-- 가능한 날짜를 동적으로 추가 -->
-            <!-- 예시: <option value="2024-12-01">2024년 12월 1일</option> -->
-        </select>
-        <br><br>
-
-        <!-- 방문 시간 -->
-        <label for="availableTimes">방문 가능한 시간:</label>
-        <select id="availableTimes" name="availableTimes" required>
-            <!-- 가능한 시간을 동적으로 추가 -->
-            <!-- 예시: <option value="10:00">10:00</option> -->
-        </select>
-        <br><br>
+        <div id="reservationCalendar"></div>
+        <div id="reservationTimeSlot" style="margin-top: 20px;"></div>
 
         <!-- 버튼 -->
-        <button id="backBtn">뒤로가기</button>
-        <button id="nextBtn" disabled>다음으로</button>
-    </div>
-    <!-- 온라인 문진 페이지 -->
-    <div id="medicalQuestionnaire">
-        <!-- 기본정보 -->
-        <h2>기본정보</h2>
-        <label for="height">키 (cm):</label>
-        <input type="number" id="height" name="height" placeholder="예: 170" required>
-        <br><br>
-
-        <label for="weight">몸무게 (kg):</label>
-        <input type="number" id="weight" name="weight" placeholder="예: 65" required>
-        <br><br>
-
-        <!-- 증상 관련 -->
-        <h2>방문 목적</h2> <!-- 추후 Dropdown 형식으로 수정 및 선택항목에 맞는 서류 요청 -->
-        <label for="visitPurpose">방문 목적:</label>
-        <textarea id="visitPurpose" name="visitPurpose" rows="4" placeholder="방문 목적을 간단히 작성하세요." required></textarea>
-        <br><br>
-
-        <h2>현재 증상</h2>
-        <label for="symptoms">현재 느끼는 주요 증상:</label>
-        <textarea id="symptoms" name="symptoms" rows="4" placeholder="현재 느끼는 증상을 간단히 작성하세요." required></textarea>
-        <br><br>
-
-        <!-- 과거 병력 -->
-        <h2>과거 병력</h2>
-        <label for="pastMedicalHistory">과거 병력:</label>
-        <textarea id="pastMedicalHistory" name="pastMedicalHistory" rows="4" placeholder="진단받은 병이나 수술 이력을 작성하세요." required></textarea>
-        <br><br>
-
-        <!-- 복용 중인 약 -->
-        <h2>복용 중인 약</h2>
-        <label for="medications">현재 복용 중인 약물:</label>
-        <textarea id="medications" name="medications" rows="4" placeholder="현재 복용 중인 약물을 작성하세요." required></textarea>
-        <br><br>
-
-        <!-- 알레르기 -->
-        <h2>알레르기</h2>
-        <label for="allergies">알레르기 여부:</label>
-        <textarea id="allergies" name="allergies" rows="4" placeholder="알레르기가 있는 경우 작성하세요." required></textarea>
-        <br><br>
-
-        <!-- 뒤로가기 및 앞으로가기 버튼 -->
         <button class="backBtn">뒤로가기</button>
-        <button class="nextBtn" disabled>앞으로가기</button>
+        <button class="nextBtn">다음으로</button>
     </div>
     <!-- 예약 확인 페이지 -->
     <div id="confirmReservation">
         <h2>예약 확인</h2>
 
         <p><strong>이름:</strong> <span id="confirmedName">[이름]</span></p>
-        <p><strong>생년월일:</strong> <span id="confirmedBirthdate">[생년월일]</span></p>
         <p><strong>연락처:</strong> <span id="confirmedContact">[연락처]</span></p>
-        <p><strong>방문 목적:</strong> <span id="confirmedPurpose">[방문 목적]</span></p>
         <p><strong>예약 날짜:</strong> <span id="confirmedDate">[예약 날짜]</span></p>
 
-        <br>
 
-        <button class="backBtn">수정하기</button>
+
+        <button class="backBtn">뒤로가기</button>
         <button class="nextBtn">예약 확정</button>
     </div>
 </div>

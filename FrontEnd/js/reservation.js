@@ -1,65 +1,83 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const reservationSections = document.querySelectorAll("#reservation > div");
-    let currentSectionIndex = 0;
+    const sections = Array.from(document.querySelectorAll("#reservation > div"));
+    let currentIndex = 0;
 
-    // 초기 표시
-    reservationSections[currentSectionIndex].classList.add("active");
+    // 초기화: 첫 번째 섹션 활성화
+    sections[currentIndex].classList.add("active");
 
-    // 뒤로가기 및 앞으로가기 버튼 설정
-    const backButtons = document.querySelectorAll(".backBtn");
-    const nextButtons = document.querySelectorAll(".nextBtn");
+    // 버튼 동작 설정
+    document.querySelectorAll(".nextBtn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            if (currentIndex < sections.length - 1) {
+                sections[currentIndex].classList.remove("active");
+                currentIndex++;
+                sections[currentIndex].classList.add("active");
+            }
+        });
+    });
 
-    // 현재 섹션의 필수 입력값 검사
-    function validateCurrentSection() {
-        const inputs = reservationSections[currentSectionIndex].querySelectorAll("input, textarea, select");
-        for (const input of inputs) {
-            if (!input.checkValidity()) {
-                return false;
+    document.querySelectorAll(".backBtn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            if (currentIndex > 0) {
+                sections[currentIndex].classList.remove("active");
+                currentIndex--;
+                sections[currentIndex].classList.add("active");
+            }
+        });
+    });
+
+
+    //flatpickr Calendar Library
+    const calendarElement = document.getElementById('reservationCalendar');
+    const timeSlotsContainer = document.getElementById('reservationTimeSlot');
+    flatpickr(calendarElement, {
+        inline: true,               // 달력이 화면에 고정되어 보이도록 설정
+        enableTime: false,          // 달력에서 직접 시간 선택은 비활성화
+        dateFormat: "Y-m-d",        // 날짜 포맷 설정
+        minDate: "today",           // 오늘 이후의 날짜만 선택 가능
+        enable: [
+            function(date) {
+                // 요일 인덱스: 0(일요일) ~ 6(토요일)
+                const day = date.getDay();
+                return (day === 2 || day === 4 || day === 6); // 화(2), 목(4), 토(6)만 활성화
+            }
+        ],
+
+        onChange: function(selectedDates, dateStr, instance) {
+            if (selectedDates.length > 0) {
+                const selectedDate = selectedDates[0];
+                const day = selectedDate.getDay();
+
+                // 기존의 시간대 버튼을 초기화
+                timeSlotsContainer.innerHTML = '';
+
+                let timeSlots = [];
+                // 요일에 따른 가용 시간대 설정
+                if (day === 2 || day === 4) {
+                    // 화요일(2), 목요일(4): 19:00 - 21:00
+                    timeSlots = ["19:00", "19:30", "20:00", "20:30", "21:00"];
+                } else if (day === 6) {
+                    // 토요일(6): 15:00 - 17:00
+                    timeSlots = ["15:00", "15:30", "16:00", "16:30", "17:00"];
+                }
+
+                // 시간대 버튼을 동적으로 생성
+                if (timeSlots.length > 0) {
+                    timeSlots.forEach(time => {
+                        const button = document.createElement('button');
+                        button.textContent = time;
+                        button.className = 'time-slot-button';
+                        button.addEventListener('click', function() {
+                            alert('선택한 시간: ' + time);
+                            // 예약 프로세스를 추가 구현할 수 있습니다.
+                        });
+                        timeSlotsContainer.appendChild(button);
+                    });
+                }
             }
         }
-        return true;
-    }
-
-    // 이전 섹션으로 이동
-    backButtons.forEach(button => {
-        button.addEventListener("click", () => {
-            if (currentSectionIndex > 0) {
-                reservationSections[currentSectionIndex].classList.remove("active");
-                currentSectionIndex -= 1;
-                reservationSections[currentSectionIndex].classList.add("active");
-                updateNextButtonState();
-            }
-        });
     });
 
-    // 다음 섹션으로 이동
-    nextButtons.forEach(button => {
-        button.addEventListener("click", () => {
-            if (validateCurrentSection() && currentSectionIndex < reservationSections.length - 1) {
-                reservationSections[currentSectionIndex].classList.remove("active");
-                currentSectionIndex += 1;
-                reservationSections[currentSectionIndex].classList.add("active");
-                updateNextButtonState();
-            }
-        });
-    });
-
-    // nextBtn 활성화/비활성화 업데이트
-    function updateNextButtonState() {
-        const nextButton = reservationSections[currentSectionIndex].querySelector(".nextBtn");
-        if (nextButton) {
-            nextButton.disabled = !validateCurrentSection();
-        }
-    }
-
-    // 모든 입력값에 이벤트 리스너 추가
-    reservationSections.forEach(section => {
-        const inputs = section.querySelectorAll("input, textarea, select");
-        inputs.forEach(input => {
-            input.addEventListener("input", updateNextButtonState);
-        });
-    });
-
-    // 초기 상태 업데이트
-    updateNextButtonState();
 });
+
+
