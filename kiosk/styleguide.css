@@ -1,0 +1,33 @@
+:root {
+    --main: rgba(244, 233, 209, 1);
+    --large-text: rgba(144, 94, 94, 1);
+    --maink: rgba(169, 197, 255, 1);
+    --darkk: rgba(137, 148, 173, 1);
+    --main-textk: rgba(96, 147, 255, 1);
+    --backgroundk: rgba(245, 247, 255, 1);
+    --blankk: rgba(201, 211, 232, 1);
+    --large-title-font-family: "Pretendard", Helvetica;
+    --large-title-font-weight: 700;
+    --large-title-font-size: 50px;
+    --large-title-letter-spacing: 0px;
+    --large-title-line-height: normal;
+    --large-title-font-style: normal;
+    --mid-title-font-family: "Pretendard", Helvetica;
+    --mid-title-font-weight: 600;
+    --mid-title-font-size: 45px;
+    --mid-title-letter-spacing: 0px;
+    --mid-title-line-height: normal;
+    --mid-title-font-style: normal;
+    --large-content-font-family: "Pretendard", Helvetica;
+    --large-content-font-weight: 500;
+    --large-content-font-size: 40px;
+    --large-content-letter-spacing: 0px;
+    --large-content-line-height: normal;
+    --large-content-font-style: normal;
+    --large-button: 0px 10px 10px 0px rgba(0, 0, 0, 0.25);
+    --textbox: 0px 4px 6px rgba(0, 0, 0, 0.05);
+    --button: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    --checkbox: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+    --mini-button: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  

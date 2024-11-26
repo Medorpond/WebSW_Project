@@ -1,0 +1,119 @@
+.screen {
+  background-color: #f5f7ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  font-family: var(--large-title-font-family);
+}
+
+/* 메인 컨테이너 */
+.main-container {
+  width: 90%;
+  max-width: 1280px;
+  height: auto;
+  min-height: 832px;
+  display: flex;
+  flex-direction: column; /* 세로 정렬 */
+  align-items: center;
+  justify-content: flex-start;
+  transform: translateY(5%);
+}
+
+/* 안내 텍스트 */
+.centered-text {
+  margin: 0;
+  text-align: center;
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: var(--main-textk);
+  flex: 0 0 auto; 
+  position: relative;
+  top: 15%; 
+  margin-bottom: 100px;
+}
+
+/* 카드 컨테이너 */
+.card-container {
+  display: flex;
+  justify-content: center; /* 카드 좌우 정렬 */
+  align-items: center;
+  gap: 150px; /* 카드 간 간격 */
+}
+
+/* 공통 카드 스타일 */
+.card {
+  width: 280px;
+  height: 400px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: var(--mini-button);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card-title {
+  font-size: 2.5rem;
+  font-weight: 700;  
+  color: var(--main-textk);
+  margin-bottom: 10px;
+}
+
+.card-line {
+  width: 80%;
+  height: 2px;
+  background-color: #b3d4fc;
+  margin: 10px 0;
+}
+
+.card-subtitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #7f9cb3;
+  text-align: center;
+}
+
+/* Hover 상태 */
+.card:hover {
+  background-color: var(--maink); /* 박스 배경색 변경 */
+}
+
+.card:hover .card-title {
+  color: #ffffff; /* 텍스트 색상 변경 */
+}
+
+.card:hover .card-line{
+  background-color: #e4ebf0;
+}
+
+.card:hover .card-subtitle {
+  color: #e4ebf0;
+}
+
+/* 선택된 상태 */
+.card.selected {
+  background-color: var(--maink); /* 박스 배경색 유지 */
+}
+
+.card.selected .card-title {
+  color: #ffffff; /* 텍스트 색상 유지 */
+}
+
+.card.selected .card-subtitle {
+  color: #e4ebf0;
+}
+
+.logo {
+  position: fixed;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px; /* 로고 크기 조정 */
+  height: auto;
+}
