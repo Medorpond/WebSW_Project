@@ -94,16 +94,21 @@ function loadPage(pageName) {
      const contentCss = "./css/" + pageName + ".css";
      const contentJs = "./js/" + pageName + ".js";
 
-     loadHTML(contentHtml);
-     loadStyleSheet(contentCss);
-     loadScript(contentJs)
+     loadHTML(contentHtml)
+        .then(()=> {
+            loadStyleSheet(contentCss);
+            return loadScript(contentJs);
+        })// 명시적으로 DOM 로드 후 js 로드
+        .catch((error) =>{
+            console.error("페이지 로드 실패: ", error);
+        })
     
     // URL과 히스토리 업데이트
     history.pushState({page: pageName}, pageName, `#${pageName}`)
 }
 
 function loadHTML(url){
-    fetch(url)
+    return fetch(url)
         .then((response) => {
             if (!response.ok) {
                 throw new Error("네트워크 응답에 문제가 있습니다.");
