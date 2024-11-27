@@ -41,7 +41,7 @@ function closeSidebar(){
 // 메뉴 동적 생성
 function initNavMenu(){
     const mainMenuItems = [
-        { name: "Main Nav 01", dataSection: "subpage"},
+        { name: "Main Nav 01", dataSection: "reservation"},
         { name: "Main Nav 02", dataSection: "subpage"},
         { name: "Main Nav 03", dataSection: "subpage"},
         { name: "Main Nav 04", dataSection: "subpage"}
@@ -97,7 +97,7 @@ function loadPage(pageName) {
      loadHTML(contentHtml)
         .then(()=> {
             loadStyleSheet(contentCss);
-            return loadScript(contentJs);
+            loadScript(contentJs);
         })// 명시적으로 DOM 로드 후 js 로드
         .catch((error) =>{
             console.error("페이지 로드 실패: ", error);
@@ -132,8 +132,64 @@ function loadStyleSheet(url){
 }
 
 function loadScript(url){
-    const subpageJs = document.getElementById("subpage-js");
-    if(subpageJs){
-        subpageJs.src = url;
-    }
+    return new Promise((resolve, reject) => {
+        // 기존 subpage-js 삭제
+        const existingScript = document.getElementById("subpage-js");
+        if (existingScript) {
+            existingScript.remove(); // 기존 스크립트를 DOM에서 제거
+        }
+
+        // library 삭제
+        const libraryScripts = document.querySelectorAll("script.lib");
+        libraryScripts.forEach((script) => {
+            script.remove(); // library 스크립트 제거
+        });
+
+        // 새 script 태그 생성
+        const script = document.createElement('script');
+        script.src = url;
+        script.async = false; // 스크립트가 로드된 후 바로 실행되도록 설정
+        script.defer = true; // HTML 파싱 이후 실행되도록 설정
+        script.id = "subpage-js"; // 동일한 ID 설정
+        script.onload = () => {
+            console.log(`Script loaded and executed: ${url}`);
+            resolve();
+        };
+        script.onerror = () => {
+            reject(new Error(`Failed to load script: ${url}`));
+        };
+
+        // <head>에 새 script 태그 추가
+        document.head.appendChild(script);
+    });
+}
+
+function loadLibrary(url){
+    return new Promise((resolve, reject) => {
+            // 라이브러리가 이미 로드되었는지 확인
+            const existingLibrary = Array.from(document.querySelectorAll("script.lib"))
+                .find(script => script.src === url);
+            if (existingLibrary) {
+                console.log(`Library already loaded: ${url}`);
+                resolve();
+                return;
+            }
+
+            // 새 script 태그 생성
+            const script = document.createElement("script");
+            script.src = url;
+            script.async = false; // 동기 로드
+            script.defer = true; // HTML 파싱 후 실행
+            script.classList.add("lib");
+            script.onload = () => {
+                console.log(`Library loaded and executed: ${url}`);
+                resolve();
+            };
+            script.onerror = () => {
+                reject(new Error(`Failed to load library: ${url}`));
+            };
+
+            // <head>에 script 추가
+            document.head.appendChild(script);
+        });
 }
