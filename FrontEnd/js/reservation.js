@@ -1,25 +1,15 @@
-// sections 배열 확인 및 초기화
-if (!window.sections) {
-    window.sections = Array.from(document.querySelectorAll("#reservation > div"));
-}
+sections = Array.from(document.querySelectorAll("#reservation > div"));
+currentIndex = 0;
+const reservationData = {
+    personalInfo: {
+        name: "",
+        contact: ""
+    },
 
-// currentIndex 확인 및 초기화
-if (!window.currentIndex) {
-    window.currentIndex = 0;
-} else {currentIndex = 0;}
-
-// reservationData 객체 확인 및 초기화
-if (!window.reservationData) {
-    window.reservationData = {
-        personalInfo: {
-            name: "",
-            contact: ""
-        },
-        resSchedule: {
-            date: "",
-            time: "",
-        }
-    };
+    resSchedule: {
+        date: "",
+        time: "",
+    }
 }
 
 //document.addEventListener("DOMContentLoaded", initPage);
@@ -213,13 +203,23 @@ function initConfirmReservation(){
             time: reservationData.resSchedule.time,
         };
 
-        fetch('../BackEnd/php/updateReservation.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(requestData),
-        })
+//        fetch('../BackEnd/php/updateReservation.php', {
+//            method: 'POST',
+//            headers: {
+//                'Content-Type': 'application/json',
+//            },
+//            body: JSON.stringify(requestData),
+//        })
+
+        function fakeFetch() {
+            return new Promise((resolve) => {
+                resolve({
+                    ok: true,
+                    json: () => Promise.resolve({ success: true }), // 항상 성공하는 JSON 데이터 반환
+                });
+            });
+        }
+        fakeFetch()
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);

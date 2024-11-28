@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // HTTP 응답 헤더: JSON 형식 설정
 header('Content-Type: application/json');
 
