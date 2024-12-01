@@ -1,20 +1,4 @@
-/* index.css */
-
-/* 공통 스타일 초기화 */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-}
-
-body {
-
-}
-
-
-#pageContent.blur{
+*.blur{
     filter: blur(5px);
     transition: filter 0.3s ease-in-out;
     pointer-events: none; /* 사용자가 클릭할 수 없도록 설정 */
@@ -193,9 +177,4 @@ header nav {
     border: none;
     border-top: 1px solid #ccc;
     margin: 15px 0;
-}
-
-/* Content 영역의 범용 스타일 */
-#content {
-
 }

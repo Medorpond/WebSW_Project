@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <script src="../js/index.js" defer></script>
+
+        <link rel="stylesheet" href="../css/reservation.css">
+        <script src="../js/reservation.js" defer></script>
+        <!-- flatpickr 스타일 다운로드 -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    </head>
+
+    <body>
+        <div id="reservation">
+            <!-- 예약 안내 페이지 -->
+            <div id="priorVisitCheck">
+                <p>대충 예약 정보 안내 페이지</p>
+                <button class="nextBtn">예약하기</button>
+            </div>
+            <!-- 개인 정보 수집 페이지 -->
+            <div id="personalDataCollecting">
+                <h2>예약을 위해 성함과 전화번호를 입력해주세요.</h2>
+                <!-- 이름 -->
+                <label for="resName">이름:</label>
+                <input type="text" id="resName" name="resName" required>
+
+                <!-- 연락처 -->
+                <label for="resContact">연락처:</label>
+                <input type="tel" id="resContact" name="resContact" pattern="[0-9]{11}" placeholder="01012345678" required>
+
+                <!-- 개인정보 수집 동의 -->
+                <form id="consentForm">
+                    <p>개인정보 수집 및 이용에 대한 동의 내용을 여기에 작성하세요.</p>
+                    <label for="resDataCollectionAgree">개인정보 수집 및 이용에 동의합니다.</label>
+                    <input type="checkbox" id="resDataCollectionAgree" name="resDataCollectionAgree" required>
+                </form>
+
+                <!-- 뒤로가기 및 앞으로가기 버튼 -->
+                <button class="backBtn">뒤로가기</button>
+                <button class="nextBtn">다음으로</button>
+            </div>
+            <!-- 예약 날짜 선택 페이지 -->
+            <div id="visitDateSelection">
+                <h2>방문 일정 선택</h2>
+
+                <div id="reservationCalendar"></div>
+                <div id="reservationTimeSlot"></div>
+
+                <!-- 버튼 -->
+                <button class="backBtn">뒤로가기</button>
+                <button class="nextBtn">다음으로</button>
+            </div>
+            <!-- 예약 확인 페이지 -->
+            <div id="confirmReservation">
+                <h2>예약 확인</h2>
+
+                <p><strong>이름:</strong> <span id="confirmedName">[이름]</span></p>
+                <p><strong>연락처:</strong> <span id="confirmedContact">[연락처]</span></p>
+                <p><strong>예약 날짜:</strong> <span id="confirmedDate">[예약 날짜]</span></p>
+
+
+
+                <button class="backBtn">뒤로가기</button>
+                <button id="confirmReservationBtn">예약 확정</button>
+            </div>
+            <!-- 예약 완료 페이지 -->
+            <div id="resEndPage">
+                <p><strong>예약이 완료되었습니다!</strong></p>
+                <!-- 찾아오시는 길 지도로 임베드 -->
+                <button id="homeBtn">메인 페이지로</button>
+            </div>
+        </div>
+    </body>
+</html>
