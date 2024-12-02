@@ -1,0 +1,131 @@
+/* reservation.css */
+
+/* 1. 기본 설정 - 중앙 정렬 및 적절한 좌우 여백 */
+#reservation {
+    max-width: 800px; /* 최대 폭 제한 */
+    margin: 0 auto; /* 중앙 정렬 */
+    padding: 20px; /* 내부 여백 */
+    border: 1px solid #ddd; /* 외곽선 */
+    border-radius: 8px; /* 모서리 둥글게 */
+    background-color: #f9f9f9; /* 배경 색상 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 약간의 그림자 */
+}
+
+/* 기본적으로 모든 division 숨김 */
+#reservation > div {
+    display: none;
+}
+
+/* 활성화된 division만 보이도록 설정 */
+#reservation > div.active {
+    display: block;
+}
+
+/* 텍스트 스타일 */
+#reservation h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+#reservation p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: #555;
+}
+
+/* 버튼 스타일 */
+#reservation button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#reservation button:hover {
+    background-color: #0056b3;
+}
+
+/* 입력 필드 스타일 */
+#reservation input[type="text"],
+#reservation input[type="tel"],
+#reservation input[type="checkbox"] {
+    margin-bottom: 1rem;
+    padding: 10px;
+    width: 100%;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#reservation input[type="checkbox"] {
+    width: auto;
+}
+
+/* 2. 반응형 디자인 */
+@media (max-width: 768px) {
+    #reservation {
+        max-width: 90%;
+        padding: 15px;
+    }
+
+    #reservation h2 {
+        font-size: 1.25rem;
+    }
+
+    #reservation button {
+        font-size: 0.9rem;
+    }
+
+    #reservation input[type="text"],
+    #reservation input[type="tel"] {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #reservation {
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    #reservation h2 {
+        font-size: 1rem;
+    }
+
+    #reservation button {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+    }
+
+    #reservation input[type="text"],
+    #reservation input[type="tel"] {
+        font-size: 0.8rem;
+    }
+}
+
+/* Calendar Style */
+#availableTimeSlots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.time-slot-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.time-slot-button:hover {
+    background-color: #0056b3;
+}

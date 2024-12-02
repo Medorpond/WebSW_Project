@@ -1,0 +1,60 @@
+<header>
+    <nav id="generalNav">
+        <div id="mainNav">
+            <h1>
+                <a href="/pages/home/">
+                    <img src="/assets/imgs/logo.png" alt="대운 한의원">
+                </a>
+            </h1>
+
+            <ul id="mainMenu">
+                <!-- mainMenu will load Dynamically here -->
+            </ul>
+        </div>
+
+        <div id="subNav">
+            <ul id="subMenu">
+                <!-- subMenu will load Dynamically here -->
+            </ul>
+
+            <div id="logIn">
+                <button id="managerLogInBtn">
+                    <img src="/assets/icons/manager.png" alt="관리자 로그인">
+                </button>
+            </div>
+            <button id="openSidebarBtn">☰</button>
+        </div>
+    </nav>
+</header>
+
+<!-- Sidebar Section -->
+<aside id="sidebar" role="complementary" aria-label="Site Navigation">
+    <button id="closeSidebarBtn" aria-label="Close Sidebar">&times;</button>
+
+    <ul id="sidebarMain">
+        <!-- mainMenu will load Dynamically here -->
+    </ul>
+
+    <hr class = "menuDivider">
+
+    <ul id="sidebarSub">
+        <!-- subMenu will load Dynamically here -->
+    </ul>
+</aside>
+
+<!-- 관리자 로그인 창 -->
+<div id="logInPopup" class="hidden">
+    <div class="popup-content">
+        <h2>관리자 로그인</h2>
+        <form id="loginForm">
+            <label for="adminId">관리자 ID:</label>
+            <input type="text" id="adminId" name="adminId" placeholder="아이디 입력" required />
+
+            <label for="adminPassword">비밀번호:</label>
+            <input type="password" id="adminPassword" name="adminPassword" placeholder="비밀번호 입력" required />
+
+            <button type="submit" id="loginButton">로그인</button>
+        </form>
+        <button id="closePopup">닫기</button>
+    </div>
+</div>
