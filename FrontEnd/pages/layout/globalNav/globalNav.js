@@ -13,30 +13,66 @@ function onDOMLoad(){
 function initBtn(){
     document.getElementById('openSidebarBtn').addEventListener('click', openSidebar)
     document.getElementById('closeSidebarBtn').addEventListener('click', closeSidebar)
+    document.getElementById('managerLogInBtn').addEventListener('click', popLoginPage)
+    document.getElementById('closePopup').addEventListener('click', closeLoginPage)
+    document.getElementById('loginButton').addEventListener('click', loginBtn)
 }
 
 function openSidebar(){
     document.getElementById('sidebar').classList.add('active');
-    //document.getElementById('pageContent').classList.add('blur');
+    document.querySelector('header').classList.add('blur');
+    document.querySelector('main').classList.add('blur');
+    document.querySelector('footer').classList.add('blur');
 }
 
 function closeSidebar(){
     document.getElementById('sidebar').classList.remove('active');
-    //document.getElementById('pageContent').classList.remove('blur');
+    document.querySelector('header').classList.remove('blur');
+    document.querySelector('main').classList.remove('blur');
+    document.querySelector('footer').classList.remove('blur');
+
 }
+
+// 팝업 열기
+function popLoginPage(){
+    document.getElementById('logInPopup').classList.remove('hidden'); // 팝업 표시
+    document.querySelector('header').classList.add('blur');
+    document.querySelector('main').classList.add('blur');
+    document.querySelector('footer').classList.add('blur');
+}
+
+// 팝업 닫기
+function closeLoginPage() {
+    document.getElementById('logInPopup').classList.add('hidden'); // 팝업 숨기기
+    document.querySelector('header').classList.remove('blur');
+    document.querySelector('main').classList.remove('blur');
+    document.querySelector('footer').classList.remove('blur');
+}
+
+// 로그인 폼 처리
+function loginBtn(e) {
+    e.preventDefault(); // 기본 폼 제출 동작 방지
+    const id = document.getElementById('adminId').value;
+    const password = document.getElementById('adminPassword').value;
+
+    console.log('로그인 시도:', id, password);
+    alert('로그인 성공');
+    document.getElementById('logInPopup').classList.add('hidden'); // 팝업 숨기기
+    document.querySelector('header').classList.remove('blur');
+    document.querySelector('main').classList.remove('blur');
+    document.querySelector('footer').classList.remove('blur');
+}
+
 
 // 메뉴 동적 생성
 function initNavMenu(){
     const mainMenuItems = [
-        { name: "예약하기", href: "/pages/reservation/reservation.html"},
-        { name: "Main Nav 02", href: "/pages/subpage/subpage.html"},
-        { name: "Main Nav 03", href: "/pages/subpage/subpage.html"},
-        { name: "Main Nav 04", href: "/pages/subpage/subpage.html"}
+        { name: "진료 예약", href: "/pages/reservation/reservation.html"},
+        { name: "예약 확인", href: "/pages/subpage/subpage.html"}
     ];
 
     const subMenuItems = [
-        { name: "Sub Nav 01", dataSection: "/pages/subpage/subpage.html"},
-        { name: "Sub Nav 02", dataSection: "/pages/subpage/subpage.html"}
+        { name: "FAQ", dataSection: "/pages/subpage/subpage.html"},
     ];
 
     const mainNavMenu = document.getElementById("mainMenu");

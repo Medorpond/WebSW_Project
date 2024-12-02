@@ -1,58 +1,73 @@
+.hidden {
+    display: none !important;
+}
+
+/* Blur 효과 */
+.blur {
+    filter: blur(5px);
+    transition: filter 0.3s ease-in-out;
+    pointer-events: none; /* 클릭 방지 */
+}
+
 /* Header 스타일 */
-nav {
+header{
     position: sticky;
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #f5f5f5;
-    display: flex;
-    justify-content: space-between;
+    display: flex;          /* Flexbox 활성화 */
+    justify-content: center; /* 수평 중앙 정렬 */
     align-items: center;
-    padding: 10px 20px;
+    background-color: #ffffff;
     border-bottom: 1px solid #ccc;
     z-index: 1000;
 }
-#mainNav {
+nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    padding: 0 10px;
+}
+#mainNav, #subNav {
     display: flex;
     align-items: center;
+    padding: 0 10px;
 }
 
 /* 로고 영역 */
 #mainNav h1 {
-    margin: 0 10px;
     font-size: 20px;
     font-weight: bold;
     white-space: nowrap;
     width: auto;
+    margin: 0 5px;
 }
 
 #mainNav h1 a img {
-    width: 173px !important; /* 비율에 맞춘 너비 */
-    height: 50px !important; /* 고정된 높이 */
+    width: 242px; /* 비율에 맞춘 너비 */
+    height: 70px; /* 고정된 높이 */
     display: block;
 }
 
-#mainNav h1 a img {
-    width: 929px;
-    height: 268px;
-    display: block;
-}
 
 /* Main Navigation 메뉴 스타일 */
-#mainNav ul {
+#mainNav ul, #subNav ul {
     display: flex;
     list-style: none;
-    margin: 0 10px;
     padding: 0;
+    margin: 0 10px;
 }
 
 #mainNav ul li {
-    margin: 0 10px;
+    margin: 0 20px;
 }
 
 #mainNav ul li a {
     text-decoration: none;
-    font-size: 16px;
+    font-size: 20px;
+    font-weight: bold;
     color: #333;
     transition: color 0.2s ease-in-out;
 }
@@ -61,19 +76,6 @@ nav {
     color: #007BFF;
 }
 
-/* subNav 스타일 */
-#subNav {
-    display: flex;
-    align-items: center;
-}
-
-/* Sub Navigation 스타일 */
-#subNav ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
 
 #subNav ul li {
     margin: 0 10px;
@@ -81,7 +83,7 @@ nav {
 
 #subNav ul li a {
     text-decoration: none;
-    font-size: 14px;
+    font-size: 16px;
     color: #666;
     transition: color 0.2s ease-in-out;
 }
@@ -89,6 +91,22 @@ nav {
 #subNav ul li a:hover {
     color: #007BFF;
 }
+#logIn{
+    width: 30px; /* 이미지 너비에 맞춤 */
+    height: 30px; /* 이미지 높이에 맞춤 */
+}
+
+#logIn button {
+    all: unset; /* 기본 스타일 초기화 */
+    display: inline-block; /* 버튼을 인라인 요소로 설정 */
+    cursor: pointer; /* 클릭 가능한 상태 */
+}
+
+#logIn button img {
+    width: 30px; /* 이미지 크기 조정 */
+    height: auto;
+}
+
 
 /* 사이드바 토글 버튼 */
 #openSidebarBtn {
@@ -104,19 +122,18 @@ nav {
 #sidebar {
     position: fixed;
     top: 0;
-    right: 0;
+    right: -300px;
     width: 300px;
     height: 100%;
     background-color: #fff;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
-    transform: translateX(100%);
     transition: transform 0.3s ease-in-out;
     z-index: 1001;
     padding: 20px;
 }
 
 #sidebar.active {
-    transform: translateX(0);
+    transform: translateX(-100%);
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
 }
 
 #closeSidebarBtn {
@@ -151,13 +168,6 @@ nav {
     color: #007BFF;
 }
 
-/* Blur 효과 */
-.blur {
-    filter: blur(5px);
-    transition: filter 0.3s ease-in-out;
-    pointer-events: none; /* 클릭 방지 */
-}
-
 /* 반응형 디자인 */
 @media (max-width: 800px) {
     header {
@@ -178,6 +188,73 @@ nav {
     }
 }
 
+/* 팝업창 배경 */
+#logInPopup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* 팝업 내용 */
+.popup-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    text-align: center;
+}
+
+.popup-content h2 {
+    margin-bottom: 20px;
+}
+
+.popup-content label {
+    display: block;
+    text-align: left;
+    margin: 10px 0 5px;
+    font-size: 14px;
+}
+
+.popup-content input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.popup-content button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.popup-content button:hover {
+    background-color: #0056b3;
+}
+
+/* 닫기 버튼 스타일 */
+#closePopup {
+    margin-top: 10px;
+    background-color: #dc3545;
+}
+
+#closePopup:hover {
+    background-color: #a71d2a;
+}
 
 /**.blur{*/
 /*    filter: blur(5px);*/

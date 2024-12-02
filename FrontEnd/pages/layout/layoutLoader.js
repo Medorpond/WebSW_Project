@@ -6,7 +6,7 @@ async function initLayout() {
                 .then(res => res.text()) // HTML 로드
                 .then(html => {
                     // DOM 에 HTML 삽입
-                    document.querySelector('header').innerHTML = html;
+                    document.getElementById('headerSection').innerHTML = html;
                 })
                 .then(() => {
                     // JavaScript 로드
@@ -21,8 +21,17 @@ async function initLayout() {
             fetch('/pages/layout/footer/footer.html')
                 .then(res => res.text()) // HTML 로드
                 .then(html => {
-                    // DOM에 HTML 삽입
+                    // DOM 에 HTML 삽입
                     document.querySelector('footer').innerHTML = html;
+                })
+                .then(() => {
+                    // JavaScript 로드
+                    return loadScript('/pages/layout/footer/footer.js').then(() => {
+                        // 초기화 함수 호출 (option)
+                        if (typeof onDOMLoad === 'function') {
+                            onDOMLoad();
+                        }
+                    });
                 })
         ]);
 

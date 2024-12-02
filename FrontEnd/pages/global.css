@@ -5,3 +5,8 @@
     font-family: Arial, sans-serif;
     line-height: 1.6;
 }
+
+body.blur {
+    filter: blur(5px);
+    pointer-events: none; /* 클릭 방지 */
+}
