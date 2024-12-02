@@ -7,15 +7,15 @@ async function initLayout() {
                 .then(html => {
                     // DOM 에 HTML 삽입
                     document.querySelector('header').innerHTML = html;
-
                 })
                 .then(() => {
                     // JavaScript 로드
-                    loadScript('/pages/layout/globalNav/globalNav.js');
-                    // 초기화 함수 호출 (option)
-                    if (typeof onDOMLoad === 'function') {
-                        onDOMLoad();
-                    }
+                    return loadScript('/pages/layout/globalNav/globalNav.js').then(() => {
+                        // 초기화 함수 호출 (option)
+                        if (typeof onDOMLoad === 'function') {
+                            onDOMLoad();
+                        }
+                    });
                 }),
 
             fetch('/pages/layout/footer/footer.html')
