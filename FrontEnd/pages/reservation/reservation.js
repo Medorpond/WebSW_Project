@@ -1,5 +1,5 @@
-sections = Array.from(document.querySelectorAll("#reservation > div"));
-currentIndex = 0;
+let sections;
+let currentIndex = 0;
 const reservationData = {
     personalInfo: {
         name: "",
@@ -12,12 +12,11 @@ const reservationData = {
     }
 }
 
-//document.addEventListener("DOMContentLoaded", initPage);
-initPage();
+document.addEventListener("DOMContentLoaded", initPage);
 
 function initPage(){
-    //필요 라이브러리 추가
-    loadLibrary("https://cdn.jsdelivr.net/npm/flatpickr");
+
+    sections = Array.from(document.querySelectorAll("#reservation > div"));
 
     // 버튼 기본 동작 설정
     initButtons();
@@ -30,11 +29,6 @@ function initPage(){
 
     // 예약 정보 확인 페이지 초기화
     initConfirmReservation();
-
-    // 예약 완료 페이지 메인 버튼 초기화
-    document.querySelector('#homeBtn').addEventListener('click', () => {
-        loadPage('subpage');
-    });
 
     // 초기화: 첫 번째 섹션 활성화
     sections[currentIndex].classList.add("active");
@@ -99,7 +93,7 @@ function initResSchedule() {
     const enabledDays = [];
     const timeSlotMapping = {};
 
-    fetch('./data/resDateOption.json')
+    fetch('/data/resDateOption.json')
         .then(response => {
             if (!response.ok){
                 throw new Error("Failed to load config file")
