@@ -1,0 +1,16 @@
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+main {]
+    width: 100%;
+    justify-self: center;
+    align-content: center;
+}
+
+.image-section {
+    width: auto;
+    height: 100%;
+    display: block;
+}

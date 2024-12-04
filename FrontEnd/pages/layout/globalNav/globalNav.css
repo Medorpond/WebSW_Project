@@ -187,7 +187,6 @@ nav {
         text-align: center;
     }
 }
-
 /* 팝업창 배경 */
 #logInPopup {
     position: fixed;
@@ -199,59 +198,78 @@ nav {
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 /* 팝업 내용 */
 .popup-content {
+    position: relative;
     background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 300px;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    width: 320px;
     text-align: center;
 }
 
 .popup-content h2 {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
+    color: #333;
+    font-size: 24px;
 }
 
 .popup-content label {
     display: block;
     text-align: left;
-    margin: 10px 0 5px;
+    margin: 6px 6px;
     font-size: 14px;
+    color: #555;
 }
 
 .popup-content input {
     width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
     box-sizing: border-box;
+    font-size: 16px;
 }
 
 .popup-content button {
     width: 100%;
-    padding: 10px;
-    background-color: #007BFF;
+    padding: 12px;
+    margin-top: 12px;
+    background-color: #4A6D2F;
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
 .popup-content button:hover {
-    background-color: #0056b3;
+    background-color: #395922;
 }
 
 /* 닫기 버튼 스타일 */
 #closePopup {
-    margin-top: 10px;
-    background-color: #dc3545;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    color: #555;
+    font-size: 24px;
+    line-height: 1;
+    padding: 0;
+    margin: 0;
+    border: none;
+    cursor: pointer;
 }
 
 #closePopup:hover {
-    background-color: #a71d2a;
+    color: #FF6B6B;
 }

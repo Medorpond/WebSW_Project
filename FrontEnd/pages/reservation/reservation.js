@@ -1,238 +1,163 @@
-let sections;
-let currentIndex = 0;
-const reservationData = {
-    personalInfo: {
-        name: "",
-        contact: ""
-    },
-
-    resSchedule: {
-        date: "",
-        time: "",
-    }
-}
-
 document.addEventListener("DOMContentLoaded", initPage);
 
-function initPage(){
-
-    sections = Array.from(document.querySelectorAll("#reservation > div"));
-
-    // 버튼 기본 동작 설정
-    initButtons();
-
-    // 개인 정보 수집 페이지 초기화
-    initUserInputField()
-
-    // 예약 일정 선택 페이지 초기화
-    initResSchedule();
-
-    // 예약 정보 확인 페이지 초기화
-    initConfirmReservation();
-
-    // 초기화: 첫 번째 섹션 활성화
-    sections[currentIndex].classList.add("active");
-
-}
-function initButtons(){
-    document.querySelectorAll(".nextBtn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-            if (currentIndex < sections.length - 1) {
-                sections[currentIndex].classList.remove("active");
-                currentIndex++;
-                sections[currentIndex].classList.add("active");
-            }
-        });
-    });
-    document.querySelectorAll(".backBtn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-            if (currentIndex > 0) {
-                sections[currentIndex].classList.remove("active");
-                currentIndex--;
-                sections[currentIndex].classList.add("active");
-            }
-        });
-    });
-}
-
-function initUserInputField(){
-    const nameInput = document.getElementById('resName');
-    const contactInput = document.getElementById('resContact');
-    const agreeCheckbox = document.getElementById('resDataCollectionAgree'); // 개인정보 수집 동의 체크박스
-    const nextBtn = document.querySelector('#personalDataCollecting > .nextBtn');
-
-    // 입력 필드 상태 확인 함수
-    function validateInputs() {
-        // 유효성 검사
-        const isNameValid = nameInput.value.trim().length > 0;
-        const isContactValid = /^[0-9]{11}$/.test(contactInput.value.trim());
-        const isAgreeChecked = agreeCheckbox.checked;
-
-        // 데이터 업데이트
-        reservationData.personalInfo.name = isNameValid ? nameInput.value.trim() : "";
-        reservationData.personalInfo.contact = isContactValid ? contactInput.value.trim() : "";
-
-        // 버튼 활성화 여부
-        nextBtn.disabled = !(isNameValid && isContactValid && isAgreeChecked);
-    }
-
-    // 트리거 설정
-    nameInput.addEventListener('input', validateInputs);
-    contactInput.addEventListener('input', validateInputs);
-    agreeCheckbox.addEventListener('change', validateInputs);
-
-    // 초기 상태 설정
-    validateInputs();
-}
-
-function initResSchedule() {
-    const calendarElement = document.getElementById('reservationCalendar');
-    const timeSlotsContainer = document.getElementById('reservationTimeSlot');
-    const nextBtn = document.querySelector('#visitDateSelection .nextBtn');
-
-    const enabledDays = [];
-    const timeSlotMapping = {};
-
+function initPage() {
+    // 예약 정보 초기화
     fetch('/data/resDateOption.json')
         .then(response => {
-            if (!response.ok){
-                throw new Error("Failed to load config file")
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
             }
             return response.json();
         })
         .then(data => {
-            enabledDays.push(...data.enabledDays); // 배열에 요일 추가
-            Object.assign(timeSlotMapping, data.timeSlots); // 객체에 키-값 복사
+            // data가 유효한지 확인
+            if (!data || !data.enabledDays || !data.timeSlots) {
+                throw new Error("Invalid data structure");
+            }
 
-            flatpickr(calendarElement, {
-                inline: true,
-                enableTime: false,
-                dateFormat: "Y-m-d",
-                minDate: "today",
-                enable: [
-                    date => enabledDays.length > 0 && enabledDays.includes(date.getDay())
-                ],
+            const availableDays = data.enabledDays.map(day => getDayName(day)).join(", ");
+            const timeSlots = Object.entries(data.timeSlots).map(([day, times]) =>
+                `${getDayName(day)}: ${times.join(", ")}`
+            ).join("<br>");
 
-                onChange: function (selectedDates, dateStr) {
-                    const selectedDate = selectedDates[0];
-                    if (selectedDate) {
-                        reservationData.resSchedule.date = dateStr;
-                        reservationData.resSchedule.time = null; // 시간 초기화
-                        timeSlotsContainer.innerHTML = ""; // 시간대 초기화
+            document.querySelector("#available-days span").innerHTML = availableDays;
+            document.querySelector("#available-times span").innerHTML = timeSlots;
 
-                        const day = selectedDate.getDay();
-                        const timeSlots = timeSlotMapping[day] || [];
-
-                        timeSlots.forEach(time => {
-                            const button = document.createElement('button');
-                            button.textContent = time;
-                            button.className = "time-slot-button";
-
-                            button.addEventListener("click", function () {
-                                reservationData.resSchedule.time = time;
-                                document.querySelectorAll('.time-slot-button').forEach(btn => btn.classList.remove('active'));
-                                button.classList.add('active');
-                                validateSchedule();
-                            });
-
-                            timeSlotsContainer.appendChild(button);
-                        });
-
-                        validateSchedule();
-                    }
-                }
-            });
-        }).catch(error => {
-            console.error("Error loading config: ", error);
+            // flatpickr 달력 생성
+            setupCalendar(data);
         })
+        .catch(err => console.error("Error loading JSON data:", err));
 
-    function isScheduleValid() {
-        return reservationData.resSchedule.date.trim().length > 0 &&
-               reservationData.resSchedule.time !== null;
-    }
+    document.querySelector("#calendar-container").addEventListener("change", updateConfirmation);
+    document.querySelector("#time-selector").addEventListener("click", event => {
+        if (event.target.classList.contains("time-btn")) {
+            document.querySelectorAll(".time-btn").forEach(btn => btn.classList.remove("selected"));
+            event.target.classList.add("selected");
+            updateConfirmation();
+        }
+    });
 
-    function validateSchedule() {
-        nextBtn.disabled = !isScheduleValid();
-    }
+    // 예약하기 버튼 클릭 이벤트
+    document.querySelector(".submit-btn").addEventListener("click", event => {
+        event.preventDefault();
 
-    validateSchedule();
-}
+        // 예약 데이터
+        const reservationData = {
+            name: document.querySelector("#name").value,
+            phone: document.querySelector("#phone").value,
+            date: document.querySelector("#calendar-container").value,
+            time: document.querySelector(".time-btn.selected")?.textContent || "",
+            privacyAgreement: document.querySelector("#privacy-agreement").checked
+        };
 
-function initConfirmReservation(){
-    const confirmedName = document.getElementById('confirmedName');
-    const confirmedContact = document.getElementById('confirmedContact');
-    const confirmedDate = document.getElementById('confirmedDate');
-    const resConfirmBtn = document.querySelector('#confirmReservationBtn');
-    const pageTriggerBtn = document.querySelector('#visitDateSelection > .nextBtn'); // 이전 Division (페이지) id 하드코딩
-
-    resConfirmBtn.addEventListener('click', sendReservationToServer);
-    pageTriggerBtn.addEventListener('click', updateReservationData);
-    updateReservationData();
-
-    // 예약 정보를 화면에 업데이트
-    function updateReservationData() {
-        const { name, contact } = reservationData.personalInfo;
-        const { date } = reservationData.resSchedule;
-
-        confirmedName.textContent = name || "[이름]";
-        confirmedContact.textContent = contact || "[연락처]";
-        confirmedDate.textContent = date || "[예약 날짜]";
-    }
-
-    // 서버로 데이터 전송
-    function sendReservationToServer() {
-        // 데이터 검증
-        if (!reservationData.personalInfo.name
-            || !reservationData.personalInfo.contact
-            || !reservationData.resSchedule.date
-            || !reservationData.resSchedule.time) {
-            alert("예약 정보가 누락되었습니다. 확인 후 다시 시도해주세요.");
+        if (!reservationData.name || !reservationData.phone || !reservationData.date || !reservationData.time || !reservationData.privacyAgreement) {
+            alert("모든 필드를 입력해주세요.");
             return;
         }
 
-        const requestData = {
-            name: reservationData.personalInfo.name,
-            contact: reservationData.personalInfo.contact,
-            date: reservationData.resSchedule.date,
-            time: reservationData.resSchedule.time,
-        };
-
-//        fetch('../BackEnd/php/updateReservation.php', {
-//            method: 'POST',
-//            headers: {
-//                'Content-Type': 'application/json',
-//            },
-//            body: JSON.stringify(requestData),
-//        })
-
-        function fakeFetch() {
-            return new Promise((resolve) => {
-                resolve({
-                    ok: true,
-                    json: () => Promise.resolve({ success: true }), // 항상 성공하는 JSON 데이터 반환
-                });
-            });
+        // .php 요청 부분 (더미 성공 처리)
+        const isSuccess = true; // 임시 더미 값
+        if (isSuccess) {
+            alert("예약이 성공적으로 완료되었습니다!");
+            window.location.href = "/pages/home/index.html"; // 메인 페이지로 이동
+        } else {
+            alert("예약에 실패했습니다. 다시 시도해주세요.");
         }
-        fakeFetch()
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+    });
+}
+
+// 요일 이름 반환
+function getDayName(dayIndex) {
+    const days = ["일", "월", "화", "수", "목", "금", "토"];
+    return days[dayIndex % 7];
+}
+
+function setupCalendar(data) {
+    const now = new Date();
+    const currentTime = now.getHours() * 100 + now.getMinutes();
+    const minDate = currentTime < 1800 ? now : new Date(now.setDate(now.getDate() + 1));
+
+    flatpickr("#calendar-container", {
+        dateFormat: "Y-m-d",
+        inline: true,
+        minDate: minDate,
+        disable: [
+            function(date) {
+                // 요일 체크
+                if (!data.enabledDays.includes(date.getDay())) {
+                    return true;
+                }
+                // 특정 날짜 체크
+                const dateString = date.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\. /g, '-').replace('.', '');
+                return data.disabledDates.includes(dateString);
             }
-            return response.json();
-        })
-        .then(data => {
-            if (data.success) {
-                sections[currentIndex].classList.remove('active');
-                sections[currentIndex + 1].classList.add('active');
-            } else {
-                alert("예약 처리 중 문제가 발생했습니다: " + (data.message || "Unknown error"));
+        ],
+        onChange: function(selectedDates, dateStr, instance) {
+            updateTimeSelector(data, new Date(dateStr).getDay());
+        },
+        monthSelectorType: 'static',
+        altFormat: "Y.m",
+        altInput: true,
+        appendTo: document.querySelector("#calendar-container"),
+        locale: {
+            months: {
+                shorthand: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+                longhand: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
             }
-        })
-        .catch(error => {
-            console.error("예약 전송 오류:", error);
-            alert("서버와 통신 중 오류가 발생했습니다.");
-        });
+        },
+        onReady: function(dateObj, dateStr, instance) {
+            const yearElement = instance.currentYearElement;
+            const monthElement = instance.monthElements[0];
+            const monthParent = monthElement.parentNode;
+            monthParent.insertBefore(yearElement, monthElement);
+            yearElement.style.width = '70px';
+            yearElement.style.border = 'none';
+            yearElement.style.backgroundColor = 'transparent';
+            yearElement.readOnly = true;
+        }
+    });
+}
+
+// 시간 선택 버튼 동적 업데이트
+function updateTimeSelector(data, dayIndex) {
+    const timeSelector = document.querySelector("#time-selector");
+    timeSelector.innerHTML = ""; // 초기화
+
+    const times = data.timeSlots[dayIndex] || [];
+    if (times.length === 0) {
+        timeSelector.innerHTML = "<p>선택한 날짜에 예약 가능한 시간이 없습니다.</p>";
+        return;
     }
+
+    times.forEach(time => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.textContent = time;
+        btn.classList.add("time-btn");
+
+        if (Math.random() < 0.3) { // 30% 확률로 비활성화 (더미데이터)
+            btn.disabled = true;
+        }
+
+        timeSelector.appendChild(btn);
+    });
 }
 
 
+// 예약 확인 정보 업데이트
+function updateConfirmation() {
+    const name = document.querySelector("#name").value;
+    const date = document.querySelector("#calendar-container").value;
+    const time = document.querySelector(".time-btn.selected")?.textContent || "";
+    const confirmationDiv = document.querySelector(".confirmation");
+    const confirmationText = document.querySelector("#confirmation-text");
+
+    if (name && date && time) {
+        const [year, month, day] = date.split("-");
+        const dayIndex = new Date(date).getDay();
+        confirmationText.textContent = `${name} 님, ${year}.${month}.${day}. (${getDayName(dayIndex)}) ${time}`;
+        confirmationDiv.style.display = "block";
+    } else {
+        confirmationDiv.style.display = "none";
+    }
+}

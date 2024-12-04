@@ -28,7 +28,9 @@ footer {
     display: table-cell; /* 열 스타일 */
     padding: 5px 5px; /* 좌우 간격 */
     vertical-align: middle;
+    white-space: nowrap;
 }
+
 
 /* label 열 고정 너비 설정 */
 .info .label {
@@ -47,12 +49,12 @@ footer {
     margin-right: 10px; /* 기호와 텍스트 간 간격 */
 }
 
-
 footer .links a {
     color: #fff;
     text-decoration: none;
     margin: 0 10px;
     font-size: 14px;
+    white-space: nowrap;
 }
 
 footer .links a:hover {
@@ -76,4 +78,78 @@ footer .social-icons a:hover {
 
 footer .family-site {
     margin-top: 20px;
+}
+
+
+
+@media (max-width: 800px) {
+    .info {
+        display: block;
+        width: 100%;
+    }
+
+    .info .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+    }
+
+    .info .label,
+    .info .value {
+        display: inline-block;
+        width: auto;
+        padding: 2px 0;
+    }
+
+    .info .label {
+        width: auto;
+        margin-right: 5px;
+    }
+
+    /* 구분 기호 유지 */
+    .info .value:before {
+        content: '|';
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+
+    /* 두 개의 label-value 쌍을 한 행에 배치 */
+    .info .row > div {
+        width: 50%;
+        box-sizing: border-box;
+        padding-right: 10px;
+    }
+
+    /* 마지막 행의 단일 쌍 처리 */
+    .info .row:last-child > div {
+        width: 100%;
+    }
+
+    /* 행 구분선 */
+    .info .row:not(:last-child) {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        padding-bottom: 5px;
+    }
+}
+
+/* 링크 스타일 유지 및 화면 내 표시 */
+@media (max-width: 600px) {
+    footer .links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    }
+
+    footer .links::-webkit-scrollbar {
+        display: none;  /* WebKit */
+    }
+
+    footer .links a {
+        flex-shrink: 0;
+        font-size: 12px; /* 글자 크기 축소 */
+    }
 }

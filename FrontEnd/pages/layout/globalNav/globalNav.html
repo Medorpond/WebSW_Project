@@ -45,6 +45,7 @@
 <!-- 관리자 로그인 창 -->
 <div id="logInPopup" class="hidden">
     <div class="popup-content">
+        <button id="closePopup">&times;</button>
         <h2>관리자 로그인</h2>
         <form id="loginForm">
             <label for="adminId">관리자 ID:</label>
@@ -52,9 +53,24 @@
 
             <label for="adminPassword">비밀번호:</label>
             <input type="password" id="adminPassword" name="adminPassword" placeholder="비밀번호 입력" required />
-
-            <button type="submit" id="loginButton">로그인</button>
         </form>
-        <button id="closePopup">닫기</button>
+        <button type="submit" id="loginButton">로그인</button>
     </div>
 </div>
+
+
+<!--&lt;!&ndash; 관리자 로그인 창 &ndash;&gt;-->
+<!--<div id="logInPopup" class="hidden">-->
+<!--    <div class="popup-content">-->
+<!--        <h2>관리자 로그인</h2>-->
+<!--        <form id="loginForm">-->
+<!--            <label for="adminId">관리자 ID:</label>-->
+<!--            <input type="text" id="adminId" name="adminId" placeholder="아이디 입력" required />-->
+
+<!--            <label for="adminPassword">비밀번호:</label>-->
+<!--            <input type="password" id="adminPassword" name="adminPassword" placeholder="비밀번호 입력" required />-->
+<!--        </form>-->
+<!--        <button type="submit" id="loginButton">로그인</button>-->
+<!--        <button id="closePopup">닫기</button>-->
+<!--    </div>-->
+<!--</div>-->
