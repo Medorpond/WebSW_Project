@@ -34,7 +34,7 @@ nextPage.addEventListener('click', () => {
   }
 
   // 모든 입력란이 올바르게 채워진 경우 페이지 이동
-  window.location.href = '/kiosk/pages/address/address.html';
+  window.location.href = '/kiosk/pages/address/address.php';
 });
 
 // "이전" 버튼 클릭 이벤트

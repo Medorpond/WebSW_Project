@@ -23,11 +23,11 @@ const etcCard = document.getElementById('etc');
 const nextPage = document.getElementById('next');
 nextPage.addEventListener('click', () => {
   if (selectedCard === 'health') {
-    window.location.href = '/kiosk/pages/complete-msg/complete-msg.html';
+    window.location.href = '/kiosk/pages/complete-msg/complete-msg.php';
   } else if (selectedCard === 'car') {
-    window.location.href = '/kiosk/pages/car-information/car-information.html';
+    window.location.href = '/kiosk/pages/car-information/car-information.php';
   } else if (selectedCard === 'etc') {
-    window.location.href = '/kiosk/pages/complete-msg/complete-msg.html';
+    window.location.href = '/kiosk/pages/complete-msg/complete-msg.php';
   } else {
     alert('항목을 선택해주세요!');
   }

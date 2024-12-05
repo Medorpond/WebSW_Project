@@ -58,6 +58,16 @@
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+.card:hover {
+  transform: translateY(-5px); /* 카드가 살짝 위로 올라가는 효과 */
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* 선택된 상태 */
+.card.selected {
+  background-color: var(--maink); /* 박스 배경색 유지 */
+}
+
 .card-title {
   font-size: 2.5rem;
   font-weight: 700;  

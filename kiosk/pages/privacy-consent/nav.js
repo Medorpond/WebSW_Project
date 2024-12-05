@@ -36,5 +36,12 @@ nextPage.addEventListener('click', () => {
   }
 
   // 페이지 이동
-  window.location.href = '/kiosk/pages/information-form/information-form.html';
+  window.location.href = '/kiosk/pages/information-form/information-form.php';
+});
+
+
+// "이전" 버튼 클릭 이벤트
+const previousPage = document.getElementById('previous');
+previousPage.addEventListener('click', () => {
+  window.history.back();
 });
