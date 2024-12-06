@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>예약 관리</title>
+    <!--CSS 파일-->
+    <link rel="stylesheet" href="/pages/global.css">
+    <link rel="stylesheet" href="/pages/adminPage/reservationManage/reservationManager.css">
+
+    <!-- flatpickr 스타일 다운로드 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- flatpickr 스크립트 다운로드 -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <!--JavaScript 파일-->
+    <script src="/pages/layout/layoutLoader.js"></script>
+    <script src="/pages/adminPage/reservationManage/reservationManage.js"></script>
+
+</head>
+
+<body>
+<div id="headerSection">
+    <!-- Header Section -->
+</div>
+
+<main>
+    <section class="reservation">
+        <h1>예약 관리</h1>
+        <!-- 예약 정보 안내 디비전 -->
+        <div class="reservation-info" style="display: none"> <!-- style="display: none" -->
+            <hr>
+            <h3>예약 안내</h3>
+            <div id="available-days">
+                <!-- 예약 가능 요일 (동적 생성 예정) -->
+                <p>예약 가능 요일: <span>[요일 정보]</span></p>
+            </div>
+            <div id="available-times">
+                <!-- 요일별 예약 가능 시간 (동적 생성 예정) -->
+                <p>예약 가능 시간: <br> <span>[시간 정보]</span></p>
+            </div>
+            <div id="additional-info">
+                <!-- 기타 안내 문구 -->
+                <p>원하시는 예약 요일과 시간을 선택해주세요.</p>
+            </div>
+            <hr>
+        </div>
+        <div class ="reservationData">
+            <div id="calendar-container">
+                <!-- 달력 생성 영역 -->
+            </div>
+            <form class="reservation-form">
+                <!-- 요일 선택 버튼 -->
+                <div class="available-days">
+                    <button type="button" class="day-btn">월</button>
+                    <button type="button" class="day-btn">화</button>
+                    <button type="button" class="day-btn">수</button>
+                    <button type="button" class="day-btn">목</button>
+                    <button type="button" class="day-btn">금</button>
+                    <button type="button" class="day-btn">토</button>
+                    <button type="button" class="day-btn">일</button>
+                </div>
+
+                <!-- 예약 시간 설정 -->
+                <div class="reservation-time">
+                    <label>예약 가능 시간</label>
+                    <div class="time-range">
+                        <input type="time" class="time-input">
+                        <span>~</span>
+                        <input type="time" class="time-input">
+                    </div>
+                </div>
+
+                <!-- 예약 시간 단위 설정 -->
+                <div class="time-unit">
+                    <label>예약 시간 단위</label>
+                    <div class="unit-selector">
+                        <input type="number" min="1" class="unit-input">
+                        <span>분</span>
+                    </div>
+                </div>
+
+                <!-- 단위 시간당 예약 가능 환자 수 -->
+                <div class="patients-per-unit">
+                    <label>단위 시간 당 예약 가능 환자</label>
+                    <div class="patients-input">
+                        <input type="number" min="1">
+                        <span>명</span>
+                    </div>
+                </div>
+
+                <!-- 휴무일 설정 -->
+                <div class="holiday-period">
+                    <label>휴무일</label>
+                    <div class="date-range">
+                        <div id="holiday-start">
+                            <input type="text" placeholder="MM" class="month-input">
+                            <span>월</span>
+                            <input type="text" placeholder="DD" class="day-input">
+                            <span>일</span>
+                        </div>
+                        <span>~</span>
+                        <div id="holiday-end">
+                            <input type="text" placeholder="MM" class="month-input">
+                            <span>월</span>
+                            <input type="text" placeholder="DD" class="day-input">
+                            <span>일</span>
+                        </div>
+                    </div>
+                    <div class="holiday-checkbox">
+                        <label for="holiday-toggle">당일 휴무</label>
+                        <input type="checkbox" id="holiday-toggle">
+
+                    </div>
+                </div>
+
+                <!-- 저장 버튼 -->
+                <button type="submit" class="save-btn">저장하기</button>
+            </form>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <!-- Footer Section -->
+</footer>
+</body>
+</html>
