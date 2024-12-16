@@ -29,24 +29,6 @@
 <main>
     <section class="reservation">
         <h1>예약 관리</h1>
-        <!-- 예약 정보 안내 디비전 -->
-        <div class="reservation-info" style="display: none"> <!-- style="display: none" -->
-            <hr>
-            <h3>예약 안내</h3>
-            <div id="available-days">
-                <!-- 예약 가능 요일 (동적 생성 예정) -->
-                <p>예약 가능 요일: <span>[요일 정보]</span></p>
-            </div>
-            <div id="available-times">
-                <!-- 요일별 예약 가능 시간 (동적 생성 예정) -->
-                <p>예약 가능 시간: <br> <span>[시간 정보]</span></p>
-            </div>
-            <div id="additional-info">
-                <!-- 기타 안내 문구 -->
-                <p>원하시는 예약 요일과 시간을 선택해주세요.</p>
-            </div>
-            <hr>
-        </div>
         <div class ="reservationData">
             <div id="calendar-container">
                 <!-- 달력 생성 영역 -->
@@ -54,14 +36,20 @@
             <form class="reservation-form">
                 <!-- 요일 선택 버튼 -->
                 <div class="available-days">
+                    <button type="button" class="day-btn">일</button>
                     <button type="button" class="day-btn">월</button>
                     <button type="button" class="day-btn">화</button>
                     <button type="button" class="day-btn">수</button>
                     <button type="button" class="day-btn">목</button>
                     <button type="button" class="day-btn">금</button>
                     <button type="button" class="day-btn">토</button>
-                    <button type="button" class="day-btn">일</button>
                 </div>
+                <!-- 예약 가능 여부 설정 -->
+                <div class="day-checkbox">
+                    <label for="day-toggle">예약 가능</label>
+                    <input type="checkbox" id="day-toggle">
+                </div>
+
 
                 <!-- 예약 시간 설정 -->
                 <div class="reservation-time">
@@ -108,11 +96,6 @@
                             <input type="text" placeholder="DD" class="day-input">
                             <span>일</span>
                         </div>
-                    </div>
-                    <div class="holiday-checkbox">
-                        <label for="holiday-toggle">당일 휴무</label>
-                        <input type="checkbox" id="holiday-toggle">
-
                     </div>
                 </div>
 

@@ -80,7 +80,7 @@ function setupCalendar(data) {
     flatpickr("#calendar-container", {
         dateFormat: "Y-m-d",
         inline: true,
-        minDate: minDate,
+        minDate: "today",
         disable: [
             function(date) {
                 // 요일 체크

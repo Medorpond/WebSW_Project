@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", initAdminResPage);
 
 let resDateOption = {};
 let flatpickrInstance;
+let currentDayIndex;
 
 function initAdminResPage() {
     // 기존 데이터 로드
@@ -10,14 +11,15 @@ function initAdminResPage() {
         .then(data => {
             resDateOption = data;
             setupAdminCalendar();
-            updateUIWithData();
         })
-        .catch(err => console.error("Error loading JSON data:", err));
+        .catch(err => console.error("Error loading data:", err));
 
     // 요일 선택 버튼 이벤트 리스너
     document.querySelectorAll('.day-btn').forEach(btn => {
-        btn.addEventListener('click', toggleDay);
+        btn.addEventListener('click', onDayClick);
     });
+
+    document.querySelector('#day-toggle').addEventListener('change', toggleDay);
 
     // 예약 시간 설정 이벤트 리스너
     document.querySelectorAll('.time-input').forEach(input => {
@@ -27,14 +29,13 @@ function initAdminResPage() {
     // 예약 시간 단위 설정 이벤트 리스너
     document.querySelector('.unit-input').addEventListener('change', updateTimeSlots);
 
+    // 예약 가능 환자 수 설정 이벤트 리스너
+    document.querySelector('.patients-input input').addEventListener('change', updateAvailablePatient)
+
     // 휴무일 설정 이벤트 리스너
     document.querySelectorAll('.date-range input').forEach(input => {
         input.addEventListener('change', updateHolidays);
     });
-
-    // 당일 휴무 토글 이벤트 리스너
-    document.querySelector('#holiday-toggle').addEventListener('change', toggleSingleDayHoliday);
-
     // 저장 버튼 이벤트 리스너
     document.querySelector('.save-btn').addEventListener('click', saveChanges);
 }
@@ -43,6 +44,7 @@ function setupAdminCalendar() {
     flatpickrInstance = flatpickr("#calendar-container", {
         dateFormat: "Y-m-d",
         inline: true,
+        minDate: "today",
         disable: [
             function(date) {
                 // 요일 체크
@@ -81,10 +83,7 @@ function setupAdminCalendar() {
 }
 
 function setupInputListeners() {
-    // 요일 선택 버튼 리스너
-    document.querySelectorAll('.day-btn').forEach(btn => {
-        btn.addEventListener('click', updateCalendarOnInput);
-    });
+    document.querySelector('#day-toggle').addEventListener('change', updateCalendarOnInput);
 
     // 예약 시간 입력 리스너
     document.querySelectorAll('.time-input').forEach(input => {
@@ -98,15 +97,9 @@ function setupInputListeners() {
     document.querySelectorAll('.date-range input').forEach(input => {
         input.addEventListener('change', updateCalendarOnInput);
     });
-
-    // 당일 휴무 토글 리스너
-    document.querySelector('#holiday-toggle').addEventListener('change', updateCalendarOnInput);
 }
 
 function updateCalendarOnInput() {
-    // 입력값에 따라 resDateOption 업데이트
-    updateResDateOption();
-
     // flatpickr 인스턴스 업데이트
     flatpickrInstance.set('disable', [
         function(date) {
@@ -120,80 +113,67 @@ function updateCalendarOnInput() {
     flatpickrInstance.redraw();
 }
 
-function updateResDateOption() {
-    // 요일 설정 업데이트
-    resDateOption.enabledDays = Array.from(document.querySelectorAll('.day-btn.active')).map(btn =>
-        ['일', '월', '화', '수', '목', '금', '토'].indexOf(btn.textContent)
-    );
-
-    // 시간 설정 업데이트
-    const startTime = document.querySelectorAll('.time-input')[0].value;
-    const endTime = document.querySelectorAll('.time-input')[1].value;
-    resDateOption.timeSlots = [`${startTime}-${endTime}`];
-
-    // 시간 단위 업데이트
-    resDateOption.timeUnit = parseInt(document.querySelector('.unit-input').value);
-
-    // 휴무일 업데이트
-    updateHolidayDates();
-}
-
-function updateHolidayDates() {
-    const startMonth = document.querySelector('#holiday-start .month-input').value;
-    const startDay = document.querySelector('#holiday-start .day-input').value;
-    const endMonth = document.querySelector('#holiday-end .month-input').value;
-    const endDay = document.querySelector('#holiday-end .day-input').value;
-
-    if (startMonth && startDay && endMonth && endDay) {
-        const startDate = new Date(new Date().getFullYear(), startMonth - 1, startDay);
-        const endDate = new Date(new Date().getFullYear(), endMonth - 1, endDay);
-
-        resDateOption.disabledDates = [];
-        for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
-            resDateOption.disabledDates.push(d.toISOString().split('T')[0]);
-        }
-    }
-
-    // 당일 휴무 처리
-    if (document.querySelector('#holiday-toggle').checked) {
-        const today = new Date().toISOString().split('T')[0];
-        if (!resDateOption.disabledDates.includes(today)) {
-            resDateOption.disabledDates.push(today);
-        }
-    }
-}
 
 function updateUIWithData() {
-    // 요일 버튼 업데이트
-    resDateOption.enabledDays.forEach(day => {
-        document.querySelectorAll('.day-btn')[day].classList.add('active');
-    });
+    const dayToggle = document.getElementById('day-toggle');
+    const timeInputs = document.querySelectorAll('.time-input');
+    const unitInput = document.querySelector('.unit-input');
+    const patientsInput = document.querySelector('.patients-input input');
 
-    // 시간 설정 업데이트
-    const [startTime, endTime] = resDateOption.timeSlots[0].split('-');
-    document.querySelectorAll('.time-input')[0].value = startTime;
-    document.querySelectorAll('.time-input')[1].value = endTime;
+    const isDayActive = resDateOption.enabledDays.includes(currentDayIndex);
 
-    // 시간 단위 업데이트
-    document.querySelector('.unit-input').value = resDateOption.timeUnit;
+    dayToggle.checked = isDayActive;
 
-    // 환자 수 업데이트
-    document.querySelector('.patients-input input').value = resDateOption.patientsPerUnit;
+    if(isDayActive){
+        timeInputs.forEach(input => input.disabled = false);
+        unitInput.disabled = false;
+        patientsInput.disabled = false;
 
-    updateCalendarView();
+        const timeSlots = resDateOption.timeSlots[currentDayIndex.toString()];
+        if (timeSlots && timeSlots.length > 0) {
+            timeInputs[0].value = timeSlots[0];
+            timeInputs[1].value = timeSlots[timeSlots.length - 1];
+        }
+
+        if (timeSlots && timeSlots.length > 1) {
+            const startTime = new Date(`1970-01-01T${timeSlots[0]}`);
+            const endTime = new Date(`1970-01-01T${timeSlots[1]}`);
+            unitInput.value = (endTime - startTime) / (1000 * 60);
+        }
+        else{
+            unitInput.value = 0;
+        }
+
+        patientsInput.value = resDateOption.patientsPerUnit;
+    }
+    else{
+        timeInputs.forEach(input => input.disabled = true);
+        unitInput.disabled = true;
+        patientsInput.disabled = true;
+    }
 }
 
-function toggleDay(event) {
-    const dayIndex = Array.from(event.target.parentNode.children).indexOf(event.target);
-    event.target.classList.toggle('active');
+function onDayClick(event) {
+    // 누른 요소의 Index 추출
+    currentDayIndex = Array.from(event.target.parentNode.children).indexOf(event.target);
+    // 각 Day의 'active' 클래스 토글
+    Array.from(event.target.parentNode.children).forEach(element => {
+        element.classList.remove('active');
+    });
 
-    if (event.target.classList.contains('active')) {
-        resDateOption.enabledDays.push(dayIndex);
+    event.target.classList.add('active');
+
+    updateUIWithData();
+}
+
+function toggleDay(event){
+    if (event.target.checked) {
+        resDateOption.enabledDays.push(currentDayIndex);
     } else {
-        resDateOption.enabledDays = resDateOption.enabledDays.filter(day => day !== dayIndex);
+        resDateOption.enabledDays = resDateOption.enabledDays.filter(day => day !== currentDayIndex);
     }
 
-    updateCalendarView();
+    updateUIWithData();
 }
 
 function updateTimeSlots() {
@@ -201,75 +181,98 @@ function updateTimeSlots() {
     const endTime = document.querySelectorAll('.time-input')[1].value;
     const timeUnit = document.querySelector('.unit-input').value;
 
-    resDateOption.timeSlots = [`${startTime}-${endTime}`];
-    resDateOption.timeUnit = parseInt(timeUnit);
+    // 시작 시간과 종료 시간을 Date 객체로 변환
+    let currentTime = new Date(`2000-01-01T${startTime}:00`);
+    const endDateTime = new Date(`2000-01-01T${endTime}:00`);
 
-    updateCalendarView();
+    // timeSlots 배열 생성
+    const timeSlots = [];
+
+    // 시작 시간부터 종료 시간까지 timeUnit 간격으로 시간 추가
+    while (currentTime < endDateTime) {
+        timeSlots.push(currentTime.toTimeString().slice(0, 5));
+        currentTime.setMinutes(currentTime.getMinutes() + timeUnit);
+    }
+
+    // resDateOption의 timeSlots 업데이트
+    resDateOption.timeSlots[currentDayIndex.toString()] = timeSlots;
+
+    // JSON 형태로 출력 (테스트용)
+    console.log(JSON.stringify(resDateOption, null, 2));
 }
 
 function updateHolidays() {
+    alert("Update begins");
+
     const startMonth = document.querySelector('#holiday-start .month-input').value;
     const startDay = document.querySelector('#holiday-start .day-input').value;
     const endMonth = document.querySelector('#holiday-end .month-input').value;
     const endDay = document.querySelector('#holiday-end .day-input').value;
 
     if (startMonth && startDay && endMonth && endDay) {
-        const startDate = new Date(new Date().getFullYear(), startMonth - 1, startDay);
-        const endDate = new Date(new Date().getFullYear(), endMonth - 1, endDay);
+        const currentYear = new Date().getFullYear();
+        let startYear = currentYear;
+        let endYear = currentYear;
+
+        // 시작 날짜와 종료 날짜 생성
+        let startDate = new Date(startYear, parseInt(startMonth) - 1, parseInt(startDay), 9);
+        let endDate = new Date(endYear, parseInt(endMonth) - 1, parseInt(endDay), 9);
+
+        // 오늘 날짜
+        const today = new Date();
+        today.setHours(9, 0, 0, 0);
+
+        // 시작 날짜가 오늘보다 이전이면 내년으로 설정
+        if (startDate < today) {
+            startYear++;
+            endYear++;
+            startDate.setFullYear(startYear);
+            endDate.setFullYear(endYear);
+        }
+
+        // 종료 날짜가 시작 날짜보다 이전이면 내년으로 설정
+        if (endDate < startDate) {
+            endYear++;
+            endDate.setFullYear(endYear);
+        }
 
         resDateOption.disabledDates = [];
         for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
             resDateOption.disabledDates.push(d.toISOString().split('T')[0]);
         }
-
-        updateCalendarView();
     }
 }
 
-function toggleSingleDayHoliday() {
-    const isChecked = document.querySelector('#holiday-toggle').checked;
-    if (isChecked) {
-        document.querySelector('#calendar-container').classList.add('holiday-mode');
-    } else {
-        document.querySelector('#calendar-container').classList.remove('holiday-mode');
-    }
-}
-
-function toggleDateDisable(dateStr) {
-    const index = resDateOption.disabledDates.indexOf(dateStr);
-    if (index > -1) {
-        resDateOption.disabledDates.splice(index, 1);
-    } else {
-        resDateOption.disabledDates.push(dateStr);
-    }
-    updateCalendarView();
-}
-
-function updateCalendarView() {
-    flatpickrInstance.set('disable', resDateOption.disabledDates);
-    flatpickrInstance.redraw();
+function updateAvailablePatient(event){
+    // 환자 수 저장
+    resDateOption.patientsPerUnit = parseInt(event.value);
 }
 
 function saveChanges(event) {
     event.preventDefault();
 
-    // 환자 수 저장
-    resDateOption.patientsPerUnit = parseInt(document.querySelector('.patients-input input').value);
-
-    // 서버로 데이터 전송 (실제 구현 필요)
-    fetch('/update-reservation-options', {
+    fetch('NEEDUPDATE.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(resDateOption)
     })
-    .then(response => response.json())
-    .then(data => {
-        alert('설정이 저장되었습니다.');
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('설정 저장에 실패했습니다.');
-    });
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('서버 응답이 실패했습니다.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                alert('설정이 성공적으로 저장되었습니다.');
+            } else {
+                alert('설정 저장에 실패했습니다: ' + (data.message || '알 수 없는 오류'));
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('설정 저장 중 오류가 발생했습니다: ' + error.message);
+        });
 }
