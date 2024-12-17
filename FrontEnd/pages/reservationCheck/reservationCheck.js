@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        alert('예약이 취소되었습니다.');
+                        alert('[예약 취소]\n예약이 취소되었습니다.\n진료 예약을 통해 다시 예약하실 수 있습니다.');
                         appointmentForm.style.display = 'block';
                         appointmentInfo.style.display = 'none';
                         nameInput.value = '';
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .catch(error => console.error('Error:', error));
 
 
-            alert('예약이 취소되었습니다.');  // for test
+            alert('[예약 취소]\n예약이 취소되었습니다.\n진료 예약을 통해 다시 예약하실 수 있습니다.');  // for test
             appointmentForm.style.display = 'block';  // for test
             appointmentInfo.style.display = 'none';  // for test
             nameInput.value = '';  // for test
