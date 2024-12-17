@@ -1,19 +1,21 @@
 <?php
-
 session_start();
 header('Content-Type: application/json');
 
-// DB 연결 설정
-$host = 'localhost';
-$dbname = 'your_database_name';
-$username = 'your_username';
-$password = 'your_password';
+//DB 연결 설정
+$host = 'webswdb.c1o2ecie4r89.ap-northeast-2.rds.amazonaws.com';
+$dbname = 'webswDB';
+$username = 'root';
+$password = 'dnpqtmroot';
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8";
+    $pdo = new PDO($dsn, $username, $password, array(
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
+    ));
 } catch (PDOException $e) {
-    echo json_encode(['success' => false, 'message' => '데이터베이스 연결 오류']);
+    echo json_encode(['success' => false, 'message' => '데이터베이스 연결 오류: ' . $e->getMessage()]);
     exit;
 }
 
@@ -46,4 +48,3 @@ try {
 } catch (PDOException $e) {
     echo json_encode(['success' => false, 'message' => '로그인 처리 중 오류가 발생했습니다.']);
 }
-

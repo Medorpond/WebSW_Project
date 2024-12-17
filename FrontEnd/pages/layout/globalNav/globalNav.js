@@ -82,8 +82,11 @@ function loginBtn(e) {
         .then(data => {
             if (data.success) {
                 alert('로그인 성공');
-                window.opener.location.reload(); // 부모 창 새로고침
-                window.close(); // 팝업 창 닫기
+                document.getElementById('logInPopup').classList.add('hidden'); // 팝업 숨기기
+                document.querySelector('header').classList.remove('blur');
+                document.querySelector('main').classList.remove('blur');
+                document.querySelector('footer').classList.remove('blur');
+                window.location.href = '/pages/home/index.html';
             } else {
                 alert(data.message || '로그인 실패');
             }
