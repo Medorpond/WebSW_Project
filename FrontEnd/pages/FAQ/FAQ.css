@@ -72,6 +72,48 @@
     max-height: 500px;
 }
 
+/* 관리자 모드 스타일 */
+.delete-icon {
+    cursor: pointer;
+    color: #ff4444;
+    margin-right: 10px;
+}
+
+.delete-icon:hover {
+    color: #cc0000;
+}
+
+.edit-controls {
+    margin-top: 10px;
+    text-align: right;
+    display: none;
+}
+
+.edit-controls button {
+    padding: 5px 15px;
+    margin-left: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.save-btn {
+    background: #4CAF50;
+    color: white;
+    border: none;
+}
+
+.cancel-btn {
+    background: #f44336;
+    color: white;
+    border: none;
+}
+
+.editable-text[contenteditable="true"] {
+    border: 1px solid #ddd;
+    padding: 5px;
+    background: #fff;
+}
+
 @media (max-width: 768px) {
     .faq-container {
         padding: 1rem;
