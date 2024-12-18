@@ -17,14 +17,16 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="080d78e6-1fa8-4a53-acf5-b77400b37a48">
-      <console name="웹스DB" type="STANDARD" schema="webswDB" session="Main" />
+      <console name="웹스DB" type="STANDARD" schema="webswDB" session="Main"><![CDATA[select  * from `Reservation`;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="080d78e6-1fa8-4a53-acf5-b77400b37a48" object-ref="consoles/웹스DB" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="080d78e6-1fa8-4a53-acf5-b77400b37a48" />

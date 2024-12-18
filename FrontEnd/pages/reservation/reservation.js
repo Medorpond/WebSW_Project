@@ -45,8 +45,8 @@ function initPage() {
         const reservationData = {
             name: document.querySelector("#name").value,
             contact: document.querySelector("#phone").value,
-            date: document.querySelector("#calendar-container").value,
-            time: document.querySelector(".time-btn.selected")?.textContent || "",
+            time: document.querySelector("#calendar-container").value + " " +
+                (document.querySelector(".time-btn.selected")?.textContent || "") + ":00",
             privacyAgreement: document.querySelector("#privacy-agreement").checked
         };
 
@@ -64,7 +64,6 @@ function initPage() {
             body: JSON.stringify({
                 name: reservationData.name,
                 contact: reservationData.contact,
-                date: reservationData.date,
                 time: reservationData.time
             })
         })

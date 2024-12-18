@@ -15,10 +15,10 @@ if (isset($data['action'])) {
     switch ($data['action']) {
         case 'view':
             try {
-                $stmt = $pdo->prepare("SELECT * FROM Reservation WHERE patient_id = :name AND time = :time");
+                $stmt = $pdo->prepare("SELECT * FROM Reservation WHERE name = :name AND patient_id = :contact");
                 $stmt->execute([
                     ':name' => $data['name'],
-                    ':time' => $data['time']
+                    ':contact' => $data['contact']
                 ]);
 
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -44,10 +44,10 @@ if (isset($data['action'])) {
 
         case 'cancel':
             try {
-                $stmt = $pdo->prepare("DELETE FROM Reservation WHERE patient_id = :name AND time = :time");
+                $stmt = $pdo->prepare("DELETE FROM Reservation WHERE name = :name AND patient_id = :contact");
                 $stmt->execute([
                     ':name' => $data['name'],
-                    ':time' => $data['time']
+                    ':contact' => $data['contact']
                 ]);
 
                 if ($stmt->rowCount() > 0) {
@@ -69,12 +69,12 @@ if (isset($data['action'])) {
             }
             break;
     }
-} else if (isset($data['name'], $data['contact'], $data['date'], $data['time'])) {
+} else if (isset($data['name'], $data['contact'], $data['time'])) {
     try {
-        $stmt = $pdo->prepare("INSERT INTO Reservation (patient_id, date, time, created_at, updated_at) VALUES (:contact, :date, :time, NOW(), NOW())");
+        $stmt = $pdo->prepare("INSERT INTO Reservation (patient_id,  name, time, created_at, updated_at) VALUES (:contact, :name, :time,NOW(), NOW())");
         $stmt->execute([
+            ':name' => $data['name'],
             ':contact' => $data['contact'],
-            ':date' => $data['date'],
             ':time' => $data['time']
         ]);
 
