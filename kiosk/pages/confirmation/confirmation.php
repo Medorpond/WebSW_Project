@@ -1,26 +1,30 @@
+<?php
+// URL 데이터 받기
+$patient_name = htmlspecialchars($_GET['patient_name'] ?? '손님');
+$patient_id = intval($_GET['patient_id'] ?? 0);
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/kiosk/globals.css" />
-    <link rel="stylesheet" href="/kiosk/styleguide.css" />
+  <link rel="stylesheet" href="/kiosk/styleguide.css" />
   <link rel="stylesheet" href="confirmation.css">
   <title>본인 확인</title>
 </head>
 <body>
   <div class="screen">
     <div class="main-container">
-      <!-- 안내 텍스트 -->
       <p class="centered-text">본인 확인</p>
-      
+
       <!-- 사용자 이름 -->
-      <p class="username-text">김대운 님</p>
-      
+      <p class="username-text"><?php echo $patient_name; ?> 님</p>
+
       <!-- 선택 버튼 -->
       <div class="button-container">
-        <div class="option-box">네</div>
-        <div class="option-box">아니요</div>
+        <a href="/kiosk/pages/document-selection/document-selection.php?patient_id=<?php echo $patient_id; ?>" class="option-box">네</a>
+        <a href="/kiosk/pages/exist-information/exist-information.php" class="option-box">아니요</a>
       </div>
     </div>
     <div class="header">

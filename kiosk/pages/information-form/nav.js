@@ -4,7 +4,7 @@ const previousPage = document.getElementById('previous');
 // "다음" 버튼 클릭 이벤트
 nextPage.addEventListener('click', () => {
   const nameInput = document.getElementById('name');
-  const idFrontInput = document.getElementById('id-number');
+  const idFrontInput = document.getElementById('ssh');
   const idBackInput = document.querySelector('.id-container .form-input.short:nth-child(3)');
   const phoneInput = document.getElementById('phone');
 

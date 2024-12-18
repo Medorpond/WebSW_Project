@@ -1,7 +1,7 @@
 // 네비게이션 버튼
 const nextPage = document.getElementById('next');
 nextPage.addEventListener('click', () => {
-  window.location.href = '/kiosk/pages/visit-purpose/visit-purpose.html';
+  window.location.href = '/kiosk/pages/confirmation/confirmation.php';
 });
 
 const previousPage = document.getElementById('previous');
