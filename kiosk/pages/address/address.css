@@ -34,6 +34,15 @@
     margin-bottom: 40px;
   }
 
+#address-form{
+  width: 100%;              /* 폼 너비 고정 */
+  max-width: 800px;        /* 최대 너비 제한 */
+  display: flex;           /* 유연한 레이아웃 적용 */
+  flex-direction: column;  /* 세로 정렬 */
+  align-items: center;     /* 가운데 정렬 */
+  gap: 20px;               /* 필드 간격 */
+}
+
 /* 주소 검색 */
 .address-search {
     position: relative;

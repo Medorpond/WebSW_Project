@@ -12,7 +12,7 @@ nextPage.addEventListener('click', () => {
   }
 
   // 페이지 이동
-  window.location.href = '/kiosk/pages/visit-purpose/visit-purpose.html';
+  window.location.href = '/kiosk/pages/visit-purpose/visit-purpose.php';
 });
 
 previousPage.addEventListener('click', () => {

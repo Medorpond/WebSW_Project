@@ -13,6 +13,6 @@ const interval = setInterval(() => {
 
   if (countdown === 0) {
     clearInterval(interval); // 카운트다운 종료
-    window.location.href = '/kiosk/pages/registration/registration.html'; 
+    window.location.href = '/kiosk/pages/registration/registration.php'; 
   }
 }, 1000); // 1초 간격

@@ -36,9 +36,17 @@
   margin-bottom: 70px;
 }
 
+.document-form {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center; /* 수평 중앙 정렬 */
+}
+
 /* 공통 박스 스타일 */
 .box {
-  width: 80%;
+  width: 100%;
   max-width: 600px;
   height: 80px;
   background-color: #ffffff;
