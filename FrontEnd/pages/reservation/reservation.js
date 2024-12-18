@@ -44,7 +44,7 @@ function initPage() {
         // 예약 데이터
         const reservationData = {
             name: document.querySelector("#name").value,
-            phone: document.querySelector("#phone").value,
+            contact: document.querySelector("#phone").value,
             date: document.querySelector("#calendar-container").value,
             time: document.querySelector(".time-btn.selected")?.textContent || "",
             privacyAgreement: document.querySelector("#privacy-agreement").checked
