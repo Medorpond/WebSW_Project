@@ -2,7 +2,7 @@ async function initLayout() {
     try {
         // 병렬로 layout component 로드
         await Promise.all([
-            fetch('/pages/layout/globalNav/globalNav.html')
+            fetch('/FrontEnd/pages/layout/globalNav/globalNav.html')
                 .then(res => res.text()) // HTML 로드
                 .then(html => {
                     // DOM 에 HTML 삽입
@@ -10,7 +10,7 @@ async function initLayout() {
                 })
                 .then(() => {
                     // JavaScript 로드
-                    return loadScript('/pages/layout/globalNav/globalNav.js').then(() => {
+                    return loadScript('/FrontEnd/pages/layout/globalNav/globalNav.js').then(() => {
                         // 초기화 함수 호출 (option)
                         if (typeof onDOMLoad === 'function') {
                             onDOMLoad();
@@ -18,7 +18,7 @@ async function initLayout() {
                     });
                 }),
 
-            fetch('/pages/layout/footer/footer.html')
+            fetch('/FrontEnd/pages/layout/footer/footer.html')
                 .then(res => res.text()) // HTML 로드
                 .then(html => {
                     // DOM 에 HTML 삽입
@@ -26,7 +26,7 @@ async function initLayout() {
                 })
                 .then(() => {
                     // JavaScript 로드
-                    return loadScript('/pages/layout/footer/footer.js').then(() => {
+                    return loadScript('/FrontEnd/pages/layout/footer/footer.js').then(() => {
                         // 초기화 함수 호출 (option)
                         if (typeof onDOMLoad === 'function') {
                             onDOMLoad();
@@ -37,8 +37,8 @@ async function initLayout() {
 
         // CSS 병렬 로드
         await Promise.all([
-            loadCSS('/pages/layout/globalNav/globalNav.css'),
-            loadCSS('/pages/layout/footer/footer.css')
+            loadCSS('/FrontEnd/pages/layout/globalNav/globalNav.css'),
+            loadCSS('/FrontEnd/pages/layout/footer/footer.css')
         ]);
 
     } catch (error) {

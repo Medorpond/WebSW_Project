@@ -3,12 +3,12 @@ document.addEventListener('DOMContentLoaded', initHome)
 function initHome() {
     const imageContainer = document.querySelector(".slider") ;
     const imagePaths = [
-        '/assets/imgs/ricky.jpg',
-        '/assets/imgs/icon.png',
-        '/assets/imgs/ricky.jpg',
-        '/assets/imgs/icon.png',
-        '/assets/imgs/ricky.jpg',
-        '/assets/imgs/icon.png']
+        '/FrontEnd/assets/imgs/ricky.jpg',
+        '/FrontEnd/assets/imgs/icon.png',
+        '/FrontEnd/assets/imgs/ricky.jpg',
+        '/FrontEnd/assets/imgs/icon.png',
+        '/FrontEnd/assets/imgs/ricky.jpg',
+        '/FrontEnd/assets/imgs/icon.png']
 
     // 이미지 동적 생성
     imagePaths.forEach((path, index) => {

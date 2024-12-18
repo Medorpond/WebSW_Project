@@ -1,23 +1,33 @@
 <?php
-session_start();
-header('Content-Type: application/json');
+/**
+ * @return PDO|void
+ */
+function getPdo()
+{
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
-//DB 연결 설정
-$host = 'webswdb.c1o2ecie4r89.ap-northeast-2.rds.amazonaws.com';
-$dbname = 'webswDB';
-$username = 'root';
-$password = 'dnpqtmroot';
+    $host = 'webswdb.c1o2ecie4r89.ap-northeast-2.rds.amazonaws.com';
+    $dbname = 'webswDB';
+    $username = 'root';
+    $password = 'dnpqtmroot';
 
-try {
-    $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8";
-    $pdo = new PDO($dsn, $username, $password, array(
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
-    ));
-} catch (PDOException $e) {
-    echo json_encode(['success' => false, 'message' => '데이터베이스 연결 오류: ' . $e->getMessage()]);
-    exit;
+    try {
+        $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8";
+        $pdo = new PDO($dsn, $username, $password, array(
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
+        ));
+    } catch (PDOException $e) {
+        echo json_encode(['success' => false, 'message' => '데이터베이스 연결 오류']);
+        exit;
+    }
+    return $pdo;
 }
+
+$pdo = getPdo();
+header('Content-Type: application/json');
 
 // POST 데이터 받기
 $data = json_decode(file_get_contents('php://input'), true);
@@ -33,7 +43,7 @@ if (empty($adminId) || empty($adminPassword)) {
 try {
     // 관리자 정보 조회
     $stmt = $pdo->prepare("SELECT id, password FROM admin_users WHERE username = ?");
-    $stmt->execute([$adminId]);
+    $stmt->execute([$adminId]); // SQL 인젝션 방지
     $admin = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($admin && password_verify($adminPassword, $admin['password'])) {

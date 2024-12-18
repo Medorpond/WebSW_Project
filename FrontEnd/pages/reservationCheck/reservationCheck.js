@@ -19,14 +19,15 @@ document.addEventListener('DOMContentLoaded', function() {
     phoneInput.addEventListener('input', validateInputs);
 
     confirmButton.addEventListener('click', function() {
-        const name = nameInput.value.trim();
-        const time = phoneInput.value.trim();
-
         // Simulating POST request to PHP
-        fetch('NEEDUPDATE.php', {
+        fetch('/BackEnd/php/updateReservation.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, time })
+            body: JSON.stringify({
+                name: nameInput.value.trim(),
+                time: phoneInput.value.trim(),
+                action: 'view'
+            })
         })
             .then(response => response.json())
             .then(data => {
@@ -36,11 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 appointmentInfo.style.display = 'block';
             })
             .catch(error => console.error('Error:', error));
-
-        nameInfo.textContent = `예시문님`;  // for test
-        timeInfo.textContent = `2024. 12. 20 (금) 10시 00분`;  // for test
-        appointmentForm.style.display = 'none';  // for test
-        appointmentInfo.style.display = 'block'; // for test
     });
 
     backButton.addEventListener('click', function() {
@@ -51,12 +47,12 @@ document.addEventListener('DOMContentLoaded', function() {
     cancelButton.addEventListener('click', function() {
         if (confirm('예약을 취소하시겠습니까?\n\n' + nameInfo.textContent + '\n' + timeInfo.textContent)) {
             // Simulating POST request to cancel appointment
-            fetch('NEEDUPDATE.php', {
+            fetch('/BackEnd/php/updateReservation.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    name: nameInfo.textContent.split(': ')[1],
-                    time: timeInfo.textContent.split(': ')[1],
+                    name: nameInput.value.trim(),
+                    time: phoneInput.value.trim(),
                     action: 'cancel'
                 })
             })
@@ -72,14 +68,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 })
                 .catch(error => console.error('Error:', error));
-
-
-            alert('[예약 취소]\n예약이 취소되었습니다.\n진료 예약을 통해 다시 예약하실 수 있습니다.');  // for test
-            appointmentForm.style.display = 'block';  // for test
-            appointmentInfo.style.display = 'none';  // for test
-            nameInput.value = '';  // for test
-            phoneInput.value = '';  // for test
-            validateInputs();  // for test
         }
     });
 });

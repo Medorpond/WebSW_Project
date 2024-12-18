@@ -6,7 +6,7 @@ let currentDayIndex;
 
 function initAdminResPage() {
     // 기존 데이터 로드
-    fetch('/data/resDateOption.json')
+    fetch('/BackEnd/data/resDateOption.json')
         .then(response => response.json())
         .then(data => {
             resDateOption = data;
@@ -251,7 +251,7 @@ function updateAvailablePatient(event){
 function saveChanges(event) {
     event.preventDefault();
 
-    fetch('NEEDUPDATE.php', {
+    fetch('/BackEnd/php/resDateOptionHandler.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

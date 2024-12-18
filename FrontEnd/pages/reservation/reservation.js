@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", initPage);
 
 function initPage() {
     // 예약 정보 초기화
-    fetch('/data/resDateOption.json')
+    fetch('/BackEnd/data/resDateOption.json')
         .then(response => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -55,14 +55,32 @@ function initPage() {
             return;
         }
 
-        // .php 요청 부분 (더미 성공 처리)
-        const isSuccess = true; // 임시 더미 값
-        if (isSuccess) {
-            alert("예약이 성공적으로 완료되었습니다!");
-            window.location.href = "/pages/home/index.html"; // 메인 페이지로 이동
-        } else {
-            alert("예약에 실패했습니다. 다시 시도해주세요.");
-        }
+        // PHP로 예약 요청 전송
+        fetch('/BackEnd/php/updateReservation.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: reservationData.name,
+                contact: reservationData.contact,
+                date: reservationData.date,
+                time: reservationData.time
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("예약이 성공적으로 완료되었습니다!");
+                    window.location.href = "/FrontEnd/pages/reservation/reservation.html";
+                } else {
+                    alert(data.message || "예약에 실패했습니다. 다시 시도해주세요.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("예약 처리 중 오류가 발생했습니다.");
+            });
     });
 }
 

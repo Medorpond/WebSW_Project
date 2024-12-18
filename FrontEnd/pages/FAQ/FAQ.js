@@ -22,7 +22,7 @@ class FAQManager {
     }
 
     async fetchFAQs() {
-        const response = await fetch('NEEDUPDATE.php', {
+        const response = await fetch('/BackEnd/php/FAQ.php', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -124,7 +124,7 @@ class FAQManager {
 
     async deleteFAQ(id) {
         try {
-            const response = await fetch('NEEDUPDATE.php', {
+            const response = await fetch('/BackEnd/php/FAQ.php', {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
@@ -176,7 +176,7 @@ class FAQManager {
         const answer = faqItem.querySelector('.faq-answer .editable-text').textContent;
 
         try {
-            const response = await fetch('NEEDUPDATE.php', {
+            const response = await fetch('/BackEnd/php/FAQ.php', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
