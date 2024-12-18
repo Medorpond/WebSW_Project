@@ -1,4 +1,6 @@
 <?php
+require_once 'BackEnd/php/generalFunction.php';
+
 $pdo = getPdo();
 header('Content-Type: application/json');
 
