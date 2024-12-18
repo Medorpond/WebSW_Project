@@ -24,9 +24,7 @@
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="080d78e6-1fa8-4a53-acf5-b77400b37a48" object-ref="consoles/웹스DB" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="080d78e6-1fa8-4a53-acf5-b77400b37a48" />
