@@ -1,5 +1,5 @@
 <?php
-require_once 'BackEnd/php/generalFunction.php';
+require_once 'generalFunction.php';
 
 $pdo = getPdo();
 header('Content-Type: application/json');
