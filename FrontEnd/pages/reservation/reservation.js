@@ -50,7 +50,7 @@ function initPage() {
             privacyAgreement: document.querySelector("#privacy-agreement").checked
         };
 
-        if (!reservationData.name || !reservationData.contact || !reservationData.date || !reservationData.time || !reservationData.privacyAgreement) {
+        if (!reservationData.name || !reservationData.contact || !reservationData.time || !reservationData.privacyAgreement) {
             alert("모든 필드를 입력해주세요.");
             return;
         }
