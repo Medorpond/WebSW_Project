@@ -187,7 +187,6 @@ nav {
         text-align: center;
     }
 }
-
 /* 팝업창 배경 */
 #logInPopup {
     position: fixed;
@@ -199,241 +198,78 @@ nav {
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 /* 팝업 내용 */
 .popup-content {
+    position: relative;
     background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 300px;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    width: 320px;
     text-align: center;
 }
 
 .popup-content h2 {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
+    color: #333;
+    font-size: 24px;
 }
 
 .popup-content label {
     display: block;
     text-align: left;
-    margin: 10px 0 5px;
+    margin: 6px 6px;
     font-size: 14px;
+    color: #555;
 }
 
 .popup-content input {
     width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
     box-sizing: border-box;
+    font-size: 16px;
 }
 
 .popup-content button {
     width: 100%;
-    padding: 10px;
-    background-color: #007BFF;
+    padding: 12px;
+    margin-top: 12px;
+    background-color: #4A6D2F;
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
 .popup-content button:hover {
-    background-color: #0056b3;
+    background-color: #395922;
 }
 
 /* 닫기 버튼 스타일 */
 #closePopup {
-    margin-top: 10px;
-    background-color: #dc3545;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    color: #555;
+    font-size: 24px;
+    line-height: 1;
+    padding: 0;
+    margin: 0;
+    border: none;
+    cursor: pointer;
 }
 
 #closePopup:hover {
-    background-color: #a71d2a;
+    color: #FF6B6B;
 }
-
-/**.blur{*/
-/*    filter: blur(5px);*/
-/*    transition: filter 0.3s ease-in-out;*/
-/*    pointer-events: none; !* 사용자가 클릭할 수 없도록 설정 *!*/
-/*}*/
-
-
-/*!* Header 스타일 *!*/
-/*header {*/
-/*    !*position: sticky;*!*/
-/*    position: fixed;*/
-/*    top: 0;*/
-/*    left: 0;*/
-/*    width: 100%;*/
-
-/*    background-color: #f5f5f5;*/
-/*    align-items: center;*/
-/*    padding: 5px 10px 5px 10px;*/
-/*    border-bottom: 1px solid #ccc;*/
-/*    z-index: 1000;*/
-/*}*/
-
-/*header nav {*/
-/*    display: flex;*/
-/*    align-items: center;*/
-/*    justify-content: space-between;*/
-/*}*/
-
-/*!* mainNav 스타일 *!*/
-/*#mainNav {*/
-/*    display: flex;*/
-/*    align-items: center;*/
-/*}*/
-
-/*!* 로고 스타일 *!*/
-/*#mainNav h1 {*/
-/*    width: auto;*/
-/*    white-space: nowrap;*/
-/*    margin: 0 10px 0 10px;*/
-/*}*/
-
-/*#mainNav h1 a {*/
-/*    text-decoration: none;*/
-/*    font-size: 20px;*/
-/*    font-weight: bold;*/
-/*    color: black;*/
-/*}*/
-
-/*#mainNav ul {*/
-/*    display: flex;*/
-/*    list-style: none;*/
-/*    margin: 0 5px 0 5px;*/
-/*}*/
-
-/*#mainNav ul li {*/
-/*    margin: 0 5px 0 5px;*/
-/*}*/
-
-/*#mainNav ul li a {*/
-/*    text-decoration: none;*/
-/*    white-space: nowrap;*/
-/*    color: black;*/
-/*    font-size: 16px;*/
-/*}*/
-
-/*!* subNav 스타일 *!*/
-/*#subNav {*/
-/*    display: flex;*/
-/*    align-items: center;*/
-/*}*/
-
-/*#subNav ul {*/
-/*    display: flex;*/
-/*    list-style: none;*/
-/*    margin: 0 5px 0 5px;*/
-/*}*/
-
-/*#subNav ul li {*/
-/*    padding: 0 5px;*/
-/*}*/
-
-/*#subNav ul li a {*/
-/*    text-decoration: none;*/
-/*    white-space: nowrap;*/
-/*    color: black;*/
-/*    font-size: 12px;*/
-/*}*/
-
-/*!* 로그인 버튼 스타일 *!*/
-/*#logIn {*/
-/*    align-content: center;*/
-/*}*/
-
-/*#logIn a {*/
-/*    text-decoration: none;*/
-/*    white-space: nowrap;*/
-/*    font-size: 16px;*/
-/*    color: black;*/
-/*}*/
-
-/*#openSidebarBtn {*/
-/*    display: none;*/
-/*    background: transparent;*/
-/*    border: none;*/
-/*    font-size: 16px;*/
-/*    cursor: pointer;*/
-/*    margin: 0 10px;*/
-/*}*/
-
-
-/*!* 반응형 스타일 *!*/
-/*@media (max-width: 800px) {*/
-/*    #mainMenu, #subMenu {*/
-/*        display: none !important; !* 무조건 적용 *!*/
-/*    }*/
-
-/*    #openSidebarBtn {*/
-/*        display: block;*/
-/*    }*/
-/*}*/
-
-/*!* 사이드바 영역의 범용 스타일 *!*/
-/*#sidebar {*/
-/*    position: fixed;*/
-/*    top: 0;*/
-/*    right: 0; !* 처음에는 화면 밖에 위치 *!*/
-/*    width: 300px; !* 너비는 적절하게 설정 *!*/
-/*    height: 100vh; !* 화면 전체 높이 *!*/
-/*    background-color: #f5f5f5;*/
-/*    box-shadow: -2px 0 5px rgba(0,0,0,0.5);*/
-/*    z-index: 1001; !* 메인 콘텐츠보다 위에 표시 *!*/
-/*    transition: transform 0.3s ease-in-out; !* 팝업 애니메이션 *!*/
-/*    transform: translateX(100%); !* 처음에는 오른쪽으로 숨김 *!*/
-/*    padding: 10px 20px;*/
-/*}*/
-
-/*!* 사이드바 활성화 시 스타일 *!*/
-/*#sidebar.active {*/
-/*    transform: translateX(0);!* 활성화되면 화면 안으로 이동 *!*/
-/*}*/
-
-/*!* 닫기 버튼 스타일 *!*/
-/*#closeSidebarBtn {*/
-/*    position: absolute;*/
-/*    top: 10px;*/
-/*    right: 10px;*/
-/*    background: transparent;*/
-/*    border: none;*/
-/*    font-size: 24px;*/
-/*    cursor: pointer;*/
-/*    color: #333;*/
-/*}*/
-
-/*!* 메뉴 스타일 *!*/
-/*#sidebar ul {*/
-/*    list-style: none;*/
-/*    margin: 10px 5px 10px 5px;*/
-/*}*/
-
-/*#sidebar ul li {*/
-
-/*}*/
-
-/*#sidebar ul li a {*/
-/*    text-decoration: none;*/
-/*    color: #333;*/
-/*}*/
-
-/*#sidebarMain li a {*/
-/*    font-size: 18px;*/
-/*}*/
-
-/*#sidebarSub li a {*/
-/*    font-size: 16px;*/
-/*}*/
-
-/*.menuDivider {*/
-/*    border: none;*/
-/*    border-top: 1px solid #ccc;*/
-/*    margin: 15px 0;*/
-/*}*/

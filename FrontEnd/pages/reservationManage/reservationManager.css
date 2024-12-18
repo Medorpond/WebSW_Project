@@ -212,95 +212,137 @@ main {
     background-color: #f0f0f0;
 }
 
-/* 예약 폼 */
+
+/* 예약 관리 폼 */
 .reservation-form {
     flex: 1;
     max-width: 400px;
     min-width: 300px;
-    padding: 5px;
+    padding: 10px;
 }
 
-.reservation-form input {
-    margin-bottom: 10px;
+/* 요일 선택 버튼 */
+.available-days {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    margin-right: 20px;
+    margin-bottom: 20px;
 }
 
-label {
-    font-weight: bold;
-    margin-top: 10px;
+.day-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: #f0f0f0;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+    max-width: 80px;
+    transition: background-color 0.3s;
 }
 
-.required {
-    color: red;
+.day-btn.active {
+    background-color: #4A6D2F;
+    color: white;
 }
 
-input[type="text"] {
+/* 시간 설정 입력 */
+.time-range, .unit-selector, .patients-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.time-range {
+    margin-right: 25px;
+}
+
+input[type="time"],
+input[type="number"] {
     width: 100%;
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    margin-top: 5px;
 }
 
-/* 시간 선택기 */
-#time-selector {
+/* 휴무일 설정 */
+.holiday-period {
+    margin: 20px 0;
+}
+
+.date-range {
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
     gap: 10px;
     margin-top: 10px;
 }
 
-.time-btn {
-    flex: 1 0 21%;
-    max-width: 23%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #4A6D2F;
-    color: white;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+#holiday-start, #holiday-end {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+    min-width: 140px;
 }
 
-.time-btn:hover:not(:disabled) {
-    background-color: #395922;
+.month-input, .day-input {
+       flex: 1;
+       min-width: 40px;
+       padding: 10px;
+       font-size: 16px;
+       border: 1px solid #ddd;
+       border-radius: 4px;
+       text-align: center;
 }
 
-.time-btn:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
+.holiday-checkbox,
+.day-checkbox{
+    margin-top: 15px;
+    margin-right: 21px;
+    text-align: right;
 }
 
-.time-btn.selected {
-    background-color: #395922;
-}
-
-/* 동의 및 확인 */
-.agreement {
-    margin: 20px 0;
-}
-
-#confirmation-text {
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-.submit-btn {
+/* 저장 버튼 */
+.save-btn {
     width: 100%;
     padding: 15px;
     background-color: #4A6D2F;
-    color: #fff;
+    color: white;
     font-size: 16px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
 }
 
-.submit-btn:hover {
+.save-btn:hover {
     background-color: #395922;
 }
+
+/* 레이블 스타일 */
+label {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+/* 공통 스타일 */
+input:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+}
+
+.required {
+    color: red;
+    margin-left: 4px;
+}
+
+
 
 /* 반응형 디자인 */
 @media (max-width: 1100px) {
@@ -328,6 +370,19 @@ input[type="text"] {
         gap: 20px;
     }
 
+    .date-range {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+    }
+
+    #holiday-start, #holiday-end {
+            gap: 7px;
+            min-width: unset;
+            width: 100%;
+    }
+
+
     #calendar-container,
     .reservation-form {
         flex: none;
@@ -337,7 +392,7 @@ input[type="text"] {
     }
 
     .reservation {
-        width: 90%;
+        width: 100%;
         padding: 10px;
     }
 

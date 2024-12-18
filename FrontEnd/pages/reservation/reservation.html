@@ -1,74 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <script src="../js/index.js" defer></script>
+<html lang="ko">
 
-        <link rel="stylesheet" href="../css/reservation.css">
-        <script src="../js/reservation.js" defer></script>
-        <!-- flatpickr 스타일 다운로드 -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <body>
-        <div id="reservation">
-            <!-- 예약 안내 페이지 -->
-            <div id="priorVisitCheck">
-                <p>대충 예약 정보 안내 페이지</p>
-                <button class="nextBtn">예약하기</button>
+    <title>진료 예약</title>
+    <!--CSS 파일-->
+    <link rel="stylesheet" href="/FrontEnd/pages/global.css">
+    <link rel="stylesheet" href="/FrontEnd/pages/reservation/reservation.css">
+
+    <!-- flatpickr 스타일 다운로드 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- flatpickr 스크립트 다운로드 -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <!--JavaScript 파일-->
+    <script src="/FrontEnd/pages/layout/layoutLoader.js"></script>
+    <script src="/FrontEnd/pages/reservation/reservation.js"></script>
+
+</head>
+
+<body>
+<div id="headerSection">
+    <!-- Header Section -->
+</div>
+
+<main>
+    <section class="reservation">
+        <h1>진료 예약</h1>
+        <!-- 예약 정보 안내 디비전 -->
+        <div class="reservation-info" style="display: none"> <!-- style="display: none" -->
+            <hr>
+            <h3>예약 안내</h3>
+            <div id="available-days">
+                <!-- 예약 가능 요일 (동적 생성 예정) -->
+                <p>예약 가능 요일: <span>[요일 정보]</span></p>
             </div>
-            <!-- 개인 정보 수집 페이지 -->
-            <div id="personalDataCollecting">
-                <h2>예약을 위해 성함과 전화번호를 입력해주세요.</h2>
-                <!-- 이름 -->
-                <label for="resName">이름:</label>
-                <input type="text" id="resName" name="resName" required>
-
-                <!-- 연락처 -->
-                <label for="resContact">연락처:</label>
-                <input type="tel" id="resContact" name="resContact" pattern="[0-9]{11}" placeholder="01012345678" required>
-
-                <!-- 개인정보 수집 동의 -->
-                <form id="consentForm">
-                    <p>개인정보 수집 및 이용에 대한 동의 내용을 여기에 작성하세요.</p>
-                    <label for="resDataCollectionAgree">개인정보 수집 및 이용에 동의합니다.</label>
-                    <input type="checkbox" id="resDataCollectionAgree" name="resDataCollectionAgree" required>
-                </form>
-
-                <!-- 뒤로가기 및 앞으로가기 버튼 -->
-                <button class="backBtn">뒤로가기</button>
-                <button class="nextBtn">다음으로</button>
+            <div id="available-times">
+                <!-- 요일별 예약 가능 시간 (동적 생성 예정) -->
+                <p>예약 가능 시간: <br> <span>[시간 정보]</span></p>
             </div>
-            <!-- 예약 날짜 선택 페이지 -->
-            <div id="visitDateSelection">
-                <h2>방문 일정 선택</h2>
-
-                <div id="reservationCalendar"></div>
-                <div id="reservationTimeSlot"></div>
-
-                <!-- 버튼 -->
-                <button class="backBtn">뒤로가기</button>
-                <button class="nextBtn">다음으로</button>
+            <div id="additional-info">
+                <!-- 기타 안내 문구 -->
+                <p>원하시는 예약 요일과 시간을 선택해주세요.</p>
             </div>
-            <!-- 예약 확인 페이지 -->
-            <div id="confirmReservation">
-                <h2>예약 확인</h2>
-
-                <p><strong>이름:</strong> <span id="confirmedName">[이름]</span></p>
-                <p><strong>연락처:</strong> <span id="confirmedContact">[연락처]</span></p>
-                <p><strong>예약 날짜:</strong> <span id="confirmedDate">[예약 날짜]</span></p>
-
-
-
-                <button class="backBtn">뒤로가기</button>
-                <button id="confirmReservationBtn">예약 확정</button>
-            </div>
-            <!-- 예약 완료 페이지 -->
-            <div id="resEndPage">
-                <p><strong>예약이 완료되었습니다!</strong></p>
-                <!-- 찾아오시는 길 지도로 임베드 -->
-                <button id="homeBtn">메인 페이지로</button>
-            </div>
+            <hr>
         </div>
-    </body>
+        <div class ="reservationData">
+            <div id="calendar-container">
+                <!-- 달력 생성 영역 -->
+            </div>
+            <form class="reservation-form">
+                <label for="name">이름 <span class="required">*</span></label>
+                <input type="text" id="name" placeholder="이름을 입력하세요" required />
+
+                <label for="phone">휴대폰 <span class="required">*</span></label>
+                <input type="text" id="phone" placeholder="휴대폰 번호를 입력하세요" required />
+
+                <label>예약 시간 <span class="required">*</span></label>
+                <div id="time-selector"></div> <!-- 시간 선택 버튼 영역 -->
+
+                <div class="agreement">
+                    <input type="checkbox" id="privacy-agreement" />
+                    <label for="privacy-agreement">개인정보 동의 여부</label>
+                </div>
+
+                <div class="confirmation" style="display: none;">
+                    <p id="confirmation-text">예약 확인: </p>
+                </div>
+
+                <button type="submit" class="submit-btn">예약하기</button>
+            </form>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <!-- Footer Section -->
+</footer>
+</body>
 </html>

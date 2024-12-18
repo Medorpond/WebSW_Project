@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>대운 한의원</title>
+    <!--CSS 파일-->
+    <link rel="stylesheet" href="/FrontEnd/pages/global.css">
+    <link rel="stylesheet" href="reservationCheck.css">
+    <!--JavaScript 파일-->
+    <script src="/FrontEnd/pages/layout/layoutLoader.js"></script>
+    <script src="reservationCheck.js"></script>
+</head>
+
+<body>
+<div id="headerSection">
+    <!-- Header Section -->
+</div>
+
+<main>
+    <h1>예약 확인</h1>
+    <div class="appointment-container">
+        <div id="appointmentForm">
+            <div class="input-group">
+                <label for="name">이름</label>
+                <input type="text" id="name" placeholder="이름을 입력하세요" required>
+            </div>
+            <div class="input-group">
+                <label for="phone">휴대폰</label>
+                <input type="tel" id="phone" placeholder="전화번호를 '-' 없이 입력하세요" required>
+            </div>
+            <button id="confirmAppointment" disabled>예약 확인하기</button>
+        </div>
+        <div id="appointmentInfo" style="display: none;">
+            <p id="nameInfo"></p>
+            <p id="timeInfo"></p>
+            <div id="actionButtons">
+                <button id="backButton">확인</button>
+                <button id="cancelButton">예약 취소</button>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+
+
+<footer>
+    <!-- Footer Section -->
+</footer>
+</body>
+</html>

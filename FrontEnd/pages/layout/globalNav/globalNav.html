@@ -2,8 +2,8 @@
     <nav id="generalNav">
         <div id="mainNav">
             <h1>
-                <a href="/pages/home/">
-                    <img src="/assets/imgs/logo.png" alt="대운 한의원">
+                <a href="/FrontEnd/pages/home/">
+                    <img src="/FrontEnd/assets/imgs/logo.png" alt="대운 한의원">
                 </a>
             </h1>
 
@@ -19,7 +19,7 @@
 
             <div id="logIn">
                 <button id="managerLogInBtn">
-                    <img src="/assets/icons/manager.png" alt="관리자 로그인">
+                    <img src="/FrontEnd/assets/icons/manager.png" alt="관리자 로그인">
                 </button>
             </div>
             <button id="openSidebarBtn">☰</button>
@@ -45,6 +45,7 @@
 <!-- 관리자 로그인 창 -->
 <div id="logInPopup" class="hidden">
     <div class="popup-content">
+        <button id="closePopup">&times;</button>
         <h2>관리자 로그인</h2>
         <form id="loginForm">
             <label for="adminId">관리자 ID:</label>
@@ -52,9 +53,7 @@
 
             <label for="adminPassword">비밀번호:</label>
             <input type="password" id="adminPassword" name="adminPassword" placeholder="비밀번호 입력" required />
-
-            <button type="submit" id="loginButton">로그인</button>
         </form>
-        <button id="closePopup">닫기</button>
+        <button type="submit" id="loginButton">로그인</button>
     </div>
 </div>

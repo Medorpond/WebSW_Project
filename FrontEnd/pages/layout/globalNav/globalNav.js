@@ -1,6 +1,3 @@
-// document.addEventListener("DOMContentLoaded", onDOMLoad);
-// onDOMLoad();
-// DOM 초기화 함수
 function onDOMLoad(){
     // 네비게이션 메뉴 동적 생성 및 초기화
     initNavMenu();
@@ -49,30 +46,50 @@ function closeLoginPage() {
     document.querySelector('footer').classList.remove('blur');
 }
 
-// 로그인 폼 처리
 function loginBtn(e) {
-    e.preventDefault(); // 기본 폼 제출 동작 방지
+    e.preventDefault();
     const id = document.getElementById('adminId').value;
     const password = document.getElementById('adminPassword').value;
 
-    console.log('로그인 시도:', id, password);
-    alert('로그인 성공');
-    document.getElementById('logInPopup').classList.add('hidden'); // 팝업 숨기기
-    document.querySelector('header').classList.remove('blur');
-    document.querySelector('main').classList.remove('blur');
-    document.querySelector('footer').classList.remove('blur');
+    fetch('/BackEnd/php/adminLogInHandler.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            adminId: id,
+            adminPassword: password
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('로그인 성공');
+                document.getElementById('logInPopup').classList.add('hidden'); // 팝업 숨기기
+                document.querySelector('header').classList.remove('blur');
+                document.querySelector('main').classList.remove('blur');
+                document.querySelector('footer').classList.remove('blur');
+                window.location.href = '/pages/home/index.html';
+            } else {
+                alert(data.message || '로그인 실패');
+            }
+        })
+        .catch(error => {
+            console.error('로그인 처리 중 오류 발생:', error);
+            alert('로그인 처리 중 오류가 발생했습니다.');
+        });
 }
 
 
 // 메뉴 동적 생성
 function initNavMenu(){
     const mainMenuItems = [
-        { name: "진료 예약", href: "/pages/reservation/reservation.html"},
-        { name: "예약 확인", href: "/pages/subpage/subpage.html"}
+        { name: "진료 예약", href: "/FrontEnd/pages/reservation/reservation.html"},
+        { name: "예약 확인", href: "/FrontEnd/pages/reservationCheck/reservationCheck.html"}
     ];
 
     const subMenuItems = [
-        { name: "FAQ", dataSection: "/pages/subpage/subpage.html"},
+        { name: "FAQ", dataSection: "/FrontEnd/pages/FAQ/FAQ.html"},
     ];
 
     const mainNavMenu = document.getElementById("mainMenu");
