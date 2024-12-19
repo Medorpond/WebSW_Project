@@ -7,30 +7,37 @@
   line-height: 1.6;
 }
 
-html,
-body {
-    height: 100%;
+/* 전체 페이지 설정 */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-body{
-    display: flex;
-    flex-direction: column; /* 콘텐츠가 수직으로 배치되도록 설정 */
-    min-height: 100vh;
-}
-
-body.blur {
-    filter: blur(5px);
-    pointer-events: none; /* 클릭 방지 */
-}
-
-main {
+/* 레이아웃 설정 */
+.wrapper {
+  min-height: 100vh;
   display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 40px;
-    padding: 20px;
-    margin-bottom: 40px;
+  flex-direction: column;
 }
+
+/* 메인 콘텐츠는 자동 확장 */
+main {
+  gap: 40px;
+      padding: 20px;
+      margin-bottom: 40px;
+  flex: 1;
+}
+
+/* 푸터 스타일 (기존 유지) */
+footer {
+  background-color: #333;
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+  padding: 20px;
+  text-align: center;
+}
+
 /*
 * {
   margin: 0;
@@ -39,14 +46,20 @@ main {
   font-family: 'Arial', sans-serif;
 }
   */
-  .callpatient {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    width: 70%;
-    padding: 20px;
+/* .callpatient 스타일 수정 */
+.callpatient {
+  display: flex;
+  flex-direction: column;
+  align-items: center;  /* 수평 중앙 정렬 */
+  justify-content: center;  /* 수직 중앙 정렬 */
+  gap: 20px;
+  width: 80%;
+  max-width: 80%;  /* 최대 크기 제한 */
+  padding: 20px;
+  margin: 0 auto;  /* 수평 중앙 정렬 */
+  text-align: center;  /* 텍스트 중앙 정렬 */
 }
+
 
 .callpatient h1 {
     font-size: 50px;
@@ -210,3 +223,4 @@ tr:hover {
       overflow-x: auto;
   }
 }
+
