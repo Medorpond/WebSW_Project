@@ -63,16 +63,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (day) {
             dayElement.innerHTML = `
-        <h3>${day}일</h3>
-        <p class="reservation-count">예약: ${reservations.length}건</p>
-        <ul class="reservation-list">
-          ${reservations.map(r => `<li>${r.name} (${r.time.split(' ')[1].slice(0, 5)})</li>`).join('')}
-        </ul>
-      `;
+      <h3>${day}일</h3>
+      <p class="reservation-count">예약: ${reservations.length}건</p>
+      <ul class="reservation-list">
+        ${reservations.map(r => `
+          <li class="reservation-item">
+            <span class="reservation-time">${r.time.split(' ')[1].slice(0, 5)}</span>
+            ${r.name}
+          </li>
+        `).join('')}
+      </ul>
+    `;
         }
 
         return dayElement;
     }
+
 
     fetchAndRenderCalendar();
 });

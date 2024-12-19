@@ -1,55 +1,70 @@
 /* reservationOverview.css */
 main {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    position: relative;
 }
 
 h1 {
     text-align: center;
     color: #333;
+    margin-bottom: 30px;
 }
 
 .date-selector {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
-.date-selector button {
-    background-color: #4CAF50;
+.month-nav {
+    background: none;
     border: none;
-    color: white;
-    padding: 10px 15px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 0 10px;
+    font-size: 24px;
+    color: #4CAF50;
     cursor: pointer;
-    border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#prevMonth {
+    left: 20px;
+}
+
+#nextMonth {
+    right: 20px;
 }
 
 .date-selector span {
-    font-size: 18px;
+    font-size: 24px;
     font-weight: bold;
 }
 
 #calendar {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 10px;
+    gap: 15px;
 }
 
 .calendar-day {
-    border: 1px solid #ddd;
-    padding: 10px;
-    height: 200px;
-    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 15px;
+    height: 250px;
+    background-color: #ffffff;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.calendar-day:hover {
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
 }
 
 .calendar-day h3 {
@@ -57,16 +72,17 @@ h1 {
     color: #333;
     position: sticky;
     top: 0;
-    background-color: #f9f9f9;
-    padding-bottom: 5px;
-    margin-bottom: 5px;
-    border-bottom: 1px solid #ddd;
+    background-color: #ffffff;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #4CAF50;
+    z-index: 1;
 }
 
 .reservation-count {
     font-weight: bold;
     color: #4CAF50;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .reservation-list {
@@ -77,15 +93,24 @@ h1 {
     overflow-y: auto;
 }
 
-.reservation-list li {
-    margin-bottom: 5px;
+.reservation-item {
+    background-color: #f0f8ff;
+    border-radius: 5px;
+    padding: 8px 10px;
+    margin-bottom: 8px;
     font-size: 14px;
-    padding: 3px 0;
-    border-bottom: 1px solid #eee;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.2s ease;
 }
 
-.reservation-list li:last-child {
-    border-bottom: none;
+.reservation-item:hover {
+    background-color: #e6f3ff;
+}
+
+.reservation-time {
+    font-weight: bold;
+    color: #2c3e50;
+    margin-right: 5px;
 }
 
 /* 스크롤바 스타일링 */
