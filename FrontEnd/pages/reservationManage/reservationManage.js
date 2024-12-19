@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", initAdminResPage);
 let resDateOption = {};
 let flatpickrInstance;
 let currentDayIndex;
+let updateTimeout;
 
 function initAdminResPage() {
     // 기존 데이터 로드
@@ -30,12 +31,13 @@ function initAdminResPage() {
     document.querySelector('.unit-input').addEventListener('change', updateTimeSlots);
 
     // 예약 가능 환자 수 설정 이벤트 리스너
-    document.querySelector('.patients-input input').addEventListener('change', updateAvailablePatient)
+    document.querySelector('.patients-input input').addEventListener('change', updateAvailablePatient);
 
     // 휴무일 설정 이벤트 리스너
     document.querySelectorAll('.date-range input').forEach(input => {
-        input.addEventListener('change', updateHolidays);
+        input.addEventListener('change', debounce(updateHolidays, 300));
     });
+
     // 저장 버튼 이벤트 리스너
     document.querySelector('.save-btn').addEventListener('click', saveChanges);
 }
@@ -47,13 +49,7 @@ function setupAdminCalendar() {
         minDate: "today",
         disable: [
             function(date) {
-                // 요일 체크
-                if (!resDateOption.enabledDays.includes(date.getDay())) {
-                    return true;
-                }
-                // 특정 날짜 체크
-                const dateString = date.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\. /g, '-').replace('.', '');
-                return resDateOption.disabledDates.includes(dateString);
+                return isDateDisabled(date);
             }
         ],
         monthSelectorType: 'static',
@@ -78,53 +74,51 @@ function setupAdminCalendar() {
         }
     });
 
-    // 입력값 변경 시 달력 업데이트
     setupInputListeners();
 }
 
 function setupInputListeners() {
-    document.querySelector('#day-toggle').addEventListener('change', updateCalendarOnInput);
-
-    // 예약 시간 입력 리스너
-    document.querySelectorAll('.time-input').forEach(input => {
-        input.addEventListener('change', updateCalendarOnInput);
-    });
-
-    // 예약 시간 단위 입력 리스너
-    document.querySelector('.unit-input').addEventListener('change', updateCalendarOnInput);
-
-    // 휴무일 입력 리스너
+    document.querySelector('#day-toggle').addEventListener('change', updateCalendarOnDayChange);
     document.querySelectorAll('.date-range input').forEach(input => {
-        input.addEventListener('change', updateCalendarOnInput);
+        input.addEventListener('change', debounce(updateCalendarOnHolidayChange, 300));
     });
 }
 
-function updateCalendarOnInput() {
-    // flatpickr 인스턴스 업데이트
-    flatpickrInstance.set('disable', [
-        function(date) {
-            if (!resDateOption.enabledDays.includes(date.getDay())) {
-                return true;
-            }
-            const dateString = date.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\. /g, '-').replace('.', '');
-            return resDateOption.disabledDates.includes(dateString);
-        }
-    ]);
+function updateCalendarOnDayChange() {
+    flatpickrInstance.set('disable', [isDateDisabled]);
     flatpickrInstance.redraw();
 }
 
+function updateCalendarOnHolidayChange() {
+    flatpickrInstance.set('disable', [isDateDisabled]);
+    flatpickrInstance.redraw();
+}
+
+function isDateDisabled(date) {
+    if (!resDateOption.enabledDays.includes(date.getDay())) {
+        return true;
+    }
+    const dateString = date.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\. /g, '-').replace('.', '');
+    return resDateOption.disabledDates.includes(dateString);
+}
+
+function debounce(func, delay) {
+    return function() {
+        clearTimeout(updateTimeout);
+        updateTimeout = setTimeout(() => func.apply(this, arguments), delay);
+    };
+}
 
 function updateUIWithData() {
     const dayToggle = document.getElementById('day-toggle');
     const timeInputs = document.querySelectorAll('.time-input');
     const unitInput = document.querySelector('.unit-input');
     const patientsInput = document.querySelector('.patients-input input');
-
     const isDayActive = resDateOption.enabledDays.includes(currentDayIndex);
 
     dayToggle.checked = isDayActive;
 
-    if(isDayActive){
+    if (isDayActive) {
         timeInputs.forEach(input => input.disabled = false);
         unitInput.disabled = false;
         patientsInput.disabled = false;
@@ -134,19 +128,15 @@ function updateUIWithData() {
             timeInputs[0].value = timeSlots[0];
             timeInputs[1].value = timeSlots[timeSlots.length - 1];
         }
-
         if (timeSlots && timeSlots.length > 1) {
             const startTime = new Date(`1970-01-01T${timeSlots[0]}`);
             const endTime = new Date(`1970-01-01T${timeSlots[1]}`);
             unitInput.value = (endTime - startTime) / (1000 * 60);
-        }
-        else{
+        } else {
             unitInput.value = 0;
         }
-
         patientsInput.value = resDateOption.patientsPerUnit;
-    }
-    else{
+    } else {
         timeInputs.forEach(input => input.disabled = true);
         unitInput.disabled = true;
         patientsInput.disabled = true;
@@ -154,26 +144,22 @@ function updateUIWithData() {
 }
 
 function onDayClick(event) {
-    // 누른 요소의 Index 추출
     currentDayIndex = Array.from(event.target.parentNode.children).indexOf(event.target);
-    // 각 Day의 'active' 클래스 토글
     Array.from(event.target.parentNode.children).forEach(element => {
         element.classList.remove('active');
     });
-
     event.target.classList.add('active');
-
     updateUIWithData();
 }
 
-function toggleDay(event){
+function toggleDay(event) {
     if (event.target.checked) {
         resDateOption.enabledDays.push(currentDayIndex);
     } else {
         resDateOption.enabledDays = resDateOption.enabledDays.filter(day => day !== currentDayIndex);
     }
-
     updateUIWithData();
+    updateCalendarOnDayChange();
 }
 
 function updateTimeSlots() {
@@ -181,29 +167,21 @@ function updateTimeSlots() {
     const endTime = document.querySelectorAll('.time-input')[1].value;
     const timeUnit = document.querySelector('.unit-input').value;
 
-    // 시작 시간과 종료 시간을 Date 객체로 변환
     let currentTime = new Date(`2000-01-01T${startTime}:00`);
     const endDateTime = new Date(`2000-01-01T${endTime}:00`);
 
-    // timeSlots 배열 생성
     const timeSlots = [];
 
-    // 시작 시간부터 종료 시간까지 timeUnit 간격으로 시간 추가
     while (currentTime < endDateTime) {
         timeSlots.push(currentTime.toTimeString().slice(0, 5));
-        currentTime.setMinutes(currentTime.getMinutes() + timeUnit);
+        currentTime.setMinutes(currentTime.getMinutes() + parseInt(timeUnit));
     }
 
-    // resDateOption의 timeSlots 업데이트
     resDateOption.timeSlots[currentDayIndex.toString()] = timeSlots;
-
-    // JSON 형태로 출력 (테스트용)
     console.log(JSON.stringify(resDateOption, null, 2));
 }
 
 function updateHolidays() {
-    alert("Update begins");
-
     const startMonth = document.querySelector('#holiday-start .month-input').value;
     const startDay = document.querySelector('#holiday-start .day-input').value;
     const endMonth = document.querySelector('#holiday-end .month-input').value;
@@ -214,15 +192,12 @@ function updateHolidays() {
         let startYear = currentYear;
         let endYear = currentYear;
 
-        // 시작 날짜와 종료 날짜 생성
         let startDate = new Date(startYear, parseInt(startMonth) - 1, parseInt(startDay), 9);
         let endDate = new Date(endYear, parseInt(endMonth) - 1, parseInt(endDay), 9);
 
-        // 오늘 날짜
         const today = new Date();
         today.setHours(9, 0, 0, 0);
 
-        // 시작 날짜가 오늘보다 이전이면 내년으로 설정
         if (startDate < today) {
             startYear++;
             endYear++;
@@ -230,7 +205,6 @@ function updateHolidays() {
             endDate.setFullYear(endYear);
         }
 
-        // 종료 날짜가 시작 날짜보다 이전이면 내년으로 설정
         if (endDate < startDate) {
             endYear++;
             endDate.setFullYear(endYear);
@@ -240,17 +214,17 @@ function updateHolidays() {
         for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
             resDateOption.disabledDates.push(d.toISOString().split('T')[0]);
         }
+
+        updateCalendarOnHolidayChange();
     }
 }
 
-function updateAvailablePatient(event){
-    // 환자 수 저장
-    resDateOption.patientsPerUnit = parseInt(event.value);
+function updateAvailablePatient(event) {
+    resDateOption.patientsPerUnit = parseInt(event.target.value);
 }
 
 function saveChanges(event) {
     event.preventDefault();
-
     fetch('/BackEnd/php/resDateOptionHandler.php', {
         method: 'POST',
         headers: {
