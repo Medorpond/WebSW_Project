@@ -32,8 +32,9 @@ try {
 
     // 파일에 데이터 쓰기
     if (file_put_contents($filePath, $jsonData) === false) {
-        throw new Exception('파일 쓰기 실패');
+        throw new Exception('파일 쓰기 실패: ' . error_get_last()['message']);
     }
+
 
     // 성공 응답
     echo json_encode(['success' => true, 'message' => '설정이 성공적으로 저장되었습니다.']);

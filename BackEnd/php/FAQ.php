@@ -1,8 +1,13 @@
 <?php
-require_once 'generalFunction.php';
+/** @var mysqli $conn */
+require_once __DIR__ . '/../../config/dbconnection.php';
 
-$pdo = getPdo();
 header('Content-Type: application/json');
+
+// 세션 시작
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // 관리자 권한 확인
 function isAdmin() {
@@ -12,15 +17,17 @@ function isAdmin() {
 // GET 요청 처리 (FAQ 목록 조회)
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     try {
-        $stmt = $pdo->query("SELECT faq_id, title, content, created_at, updated_at FROM FAQ ORDER BY created_at DESC");
-        $faqs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt = $conn->prepare("SELECT faq_id, title, content, created_at, updated_at FROM FAQ ORDER BY created_at DESC");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $faqs = $result->fetch_all(MYSQLI_ASSOC);
 
         echo json_encode([
             'success' => true,
             'faqs' => $faqs,
             'isAdmin' => isAdmin()
         ]);
-    } catch (PDOException $e) {
+    } catch (Exception $e) {
         echo json_encode(['success' => false, 'message' => 'FAQ 조회 중 오류가 발생했습니다.']);
     }
 }
@@ -41,15 +48,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     }
 
     try {
-        $stmt = $pdo->prepare("UPDATE FAQ SET title = :title, content = :content, updated_at = NOW() WHERE faq_id = :faq_id");
-        $stmt->execute([
-            ':title' => $data['title'],
-            ':content' => $data['content'],
-            ':faq_id' => $data['faq_id']
-        ]);
+        $stmt = $conn->prepare("UPDATE FAQ SET title = ?, content = ?, updated_at = NOW() WHERE faq_id = ?");
+        $stmt->bind_param("ssi", $data['title'], $data['content'], $data['faq_id']);
+        $stmt->execute();
 
         echo json_encode(['success' => true, 'message' => 'FAQ가 수정되었습니다.']);
-    } catch (PDOException $e) {
+    } catch (Exception $e) {
         echo json_encode(['success' => false, 'message' => 'FAQ 수정 중 오류가 발생했습니다.']);
     }
 }
@@ -70,11 +74,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     }
 
     try {
-        $stmt = $pdo->prepare("DELETE FROM FAQ WHERE faq_id = :faq_id");
-        $stmt->execute([':faq_id' => $data['faq_id']]);
+        $stmt = $conn->prepare("DELETE FROM FAQ WHERE faq_id = ?");
+        $stmt->bind_param("i", $data['faq_id']);
+        $stmt->execute();
 
         echo json_encode(['success' => true, 'message' => 'FAQ가 삭제되었습니다.']);
-    } catch (PDOException $e) {
+    } catch (Exception $e) {
         echo json_encode(['success' => false, 'message' => 'FAQ 삭제 중 오류가 발생했습니다.']);
     }
 }
+
+// 연결 종료
+$conn->close();
