@@ -1,8 +1,7 @@
 /* reservationOverview.css */
 main {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 20px;
+    width: 100%;
+    padding: 20px 100px;
 }
 
 h1 {
@@ -141,18 +140,27 @@ hr {
     background: #555;
 }
 @media (max-width: 1200px) {
+    main{
+        padding: 20px 60px !important;
+    }
     #calendar {
         grid-template-columns: repeat(5, 1fr);
     }
 }
 
 @media (max-width: 900px) {
+    main{
+        padding: 20px 40px !important;
+    }
     #calendar {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
 @media (max-width: 600px) {
+    main{
+        padding: 20px 20px !important;
+    }
     #calendar {
         grid-template-columns: repeat(2, 1fr);
     }
