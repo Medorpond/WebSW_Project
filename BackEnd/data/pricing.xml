@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pricingInfo>
+    <content>
+        <![CDATA[
+      <div class="image-container">
+        <img src="/FrontEnd/assets/imgs/priceList.jpg" alt="대운 한의원 비급여수가표" style="width: 100%; max-width: 800px; height: auto;">
+      </div>
+      <p>※ 위 비급여수가표와 실제 가격은 상이할 수 있습니다. 정확한 가격은 직원에게 문의해 주시기 바랍니다.</p>
+    ]]>
+    </content>
+</pricingInfo>
