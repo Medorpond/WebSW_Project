@@ -13,12 +13,14 @@ $menuItems = [
 
 if ($isAdmin) {
     $menuItems['main'] = [
-        ['name' => '예약 정보 수정', 'href' => '/FrontEnd/pages/reservationManage/reservationManage.html'],
-        ['name' => '예약 현황 확인', 'href' => '#']
+        ['name' => 'KIOSK', 'href' => '/kiosk/visit-purpose/여기에 키오스크 연결'],
+        ['name' => '대기열', 'href' => '#'],
+        ['name' => '환자 호출', 'href' => '#']
     ];
     $menuItems['sub'] = [
-        ['name' => 'FAQ', 'href' => '/FrontEnd/pages/FAQ/FAQ.html'],
-        ['name' => 'KIOSK', 'href' => '/kiosk/visit-purpose/여기에 키오스크 연결']
+        ['name' => '예약정보수정', 'href' => '/FrontEnd/pages/reservationManage/reservationManage.html'],
+        ['name' => 'KIOSK 수정', 'href' => '#'],
+        ['name' => 'FAQ', 'href' => '/FrontEnd/pages/FAQ/FAQ.html']
     ];
 } else {
     $menuItems['main'] = [
