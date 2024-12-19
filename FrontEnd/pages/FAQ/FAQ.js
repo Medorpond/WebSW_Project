@@ -38,36 +38,37 @@ class FAQManager {
 
     renderFAQs(faqs) {
         const adminControls = this.isAdmin ? `
-            <svg class="delete-icon" width="24" height="24" viewBox="0 0 24 24">
-                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
-            </svg>
-        ` : '';
+        <svg class="delete-icon" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+        </svg>
+    ` : '';
 
         this.faqList.innerHTML = faqs.map((faq, index) => `
-            <div class="faq-item" data-id="${faq.id}">
-                <div class="faq-question" data-faq-index="${index}">
-                    ${adminControls}
-                    <div class="question-text">
-                        <span class="question-icon">Q.</span>
-                        <span class="editable-text">${faq.question}</span>
-                    </div>
-                    <svg class="dropdown-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M4 8L12 16L20 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
+        <div class="faq-item" data-id="${faq.faq_id}">
+            <div class="faq-question" data-faq-index="${index}">
+                ${adminControls}
+                <div class="question-text">
+                    <span class="question-icon">Q.</span>
+                    <span class="editable-text">${faq.title}</span>
                 </div>
-                <div class="faq-answer">
-                    <span class="Answer-icon">A.</span>
-                    <span class="editable-text">${faq.answer}</span>
-                    ${this.isAdmin ? `
-                        <div class="edit-controls">
-                            <button class="save-btn">저장</button>
-                            <button class="cancel-btn">취소</button>
-                        </div>
-                    ` : ''}
-                </div>
+                <svg class="dropdown-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M4 8L12 16L20 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
             </div>
-        `).join('');
+            <div class="faq-answer">
+                <span class="Answer-icon">A.</span>
+                <span class="editable-text">${faq.content}</span>
+                ${this.isAdmin ? `
+                    <div class="edit-controls">
+                        <button class="save-btn">저장</button>
+                        <button class="cancel-btn">취소</button>
+                    </div>
+                ` : ''}
+            </div>
+        </div>
+    `).join('');
     }
+
 
     attachEventListeners() {
         const questions = document.querySelectorAll('.faq-question');
@@ -129,7 +130,7 @@ class FAQManager {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ id })
+                body: JSON.stringify({ faq_id: id })
             });
 
             if (response.ok) {
@@ -139,6 +140,7 @@ class FAQManager {
             console.error('삭제 중 오류 발생:', error);
         }
     }
+
 
     enableEditMode(faqItem) {
         const questionText = faqItem.querySelector('.question-text .editable-text');
@@ -171,9 +173,9 @@ class FAQManager {
     }
 
     async saveFAQ(faqItem) {
-        const id = faqItem.dataset.id;
-        const question = faqItem.querySelector('.question-text .editable-text').textContent;
-        const answer = faqItem.querySelector('.faq-answer .editable-text').textContent;
+        const faq_id = faqItem.dataset.id;
+        const title = faqItem.querySelector('.question-text .editable-text').textContent;
+        const content = faqItem.querySelector('.faq-answer .editable-text').textContent;
 
         try {
             const response = await fetch('/BackEnd/php/FAQ.php', {
@@ -181,7 +183,7 @@ class FAQManager {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ id, question, answer })
+                body: JSON.stringify({ faq_id, title, content })
             });
 
             if (response.ok) {
@@ -192,6 +194,7 @@ class FAQManager {
             console.error('저장 중 오류 발생:', error);
         }
     }
+
 }
 
 

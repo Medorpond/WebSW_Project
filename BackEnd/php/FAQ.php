@@ -17,7 +17,7 @@ function isAdmin() {
 // GET 요청 처리 (FAQ 목록 조회)
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     try {
-        $stmt = $conn->prepare("SELECT faq_id, title, content, created_at, updated_at FROM FAQ ORDER BY created_at DESC");
+        $stmt = $conn->prepare("SELECT faq_id, title, content, created_at, updated_at FROM FAQ ORDER BY faq_id, created_at DESC");
         $stmt->execute();
         $result = $stmt->get_result();
         $faqs = $result->fetch_all(MYSQLI_ASSOC);
