@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     function fetchReservations(year, month) {
-        fetch(`get_reservations.php?year=${year}&month=${month}`)
+        fetch(`/Backend/php/get_reservations.php?year=${year}&month=${month}`)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
