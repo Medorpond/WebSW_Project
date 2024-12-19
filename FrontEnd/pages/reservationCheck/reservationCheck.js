@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     name: nameInput.value.trim(),
-                    time: phoneInput.value.trim(),
+                    contact: phoneInput.value.trim(),
                     action: 'cancel'
                 })
             })
