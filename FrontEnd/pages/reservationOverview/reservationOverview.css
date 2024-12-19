@@ -1,6 +1,6 @@
 /* reservationOverview.css */
 main {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 20px;
     position: relative;
@@ -17,6 +17,8 @@ h1 {
     justify-content: center;
     align-items: center;
     margin-bottom: 30px;
+    position: relative;
+    padding: 0 50px;
 }
 
 .month-nav {
@@ -28,14 +30,15 @@ h1 {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+    padding: 10px;
 }
 
 #prevMonth {
-    left: 20px;
+    left: 0;
 }
 
 #nextMonth {
-    right: 20px;
+    right: 0;
 }
 
 .date-selector span {
