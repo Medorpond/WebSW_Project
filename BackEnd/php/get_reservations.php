@@ -38,7 +38,7 @@ try {
 
     $stmt->bind_param("ii", $year, $month);
 
-    if (!$stmt->execute()) {..
+    if (!$stmt->execute()) {
         throw new Exception("쿼리 실행 실패: " . $stmt->error);
     }
 
