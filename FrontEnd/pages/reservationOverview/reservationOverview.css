@@ -1,6 +1,6 @@
 /* reservationOverview.css */
 main {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -45,27 +45,63 @@ h1 {
 .calendar-day {
     border: 1px solid #ddd;
     padding: 10px;
-    min-height: 100px;
+    height: 200px;
     background-color: #f9f9f9;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .calendar-day h3 {
     margin-top: 0;
     color: #333;
+    position: sticky;
+    top: 0;
+    background-color: #f9f9f9;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #ddd;
 }
 
 .reservation-count {
     font-weight: bold;
     color: #4CAF50;
+    margin-bottom: 10px;
 }
 
 .reservation-list {
     list-style-type: none;
     padding: 0;
     margin: 0;
+    flex-grow: 1;
+    overflow-y: auto;
 }
 
 .reservation-list li {
     margin-bottom: 5px;
     font-size: 14px;
+    padding: 3px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.reservation-list li:last-child {
+    border-bottom: none;
+}
+
+/* 스크롤바 스타일링 */
+.calendar-day::-webkit-scrollbar {
+    width: 5px;
+}
+
+.calendar-day::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.calendar-day::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+.calendar-day::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
