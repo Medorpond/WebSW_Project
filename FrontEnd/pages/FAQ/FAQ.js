@@ -313,6 +313,10 @@ class FAQManager {
             });
 
             if (response.ok) {
+                const newFaqItem = document.querySelector('.new-faq-item');
+                if (newFaqItem) {
+                    newFaqItem.remove(); // 추가 필드 제거
+                }
                 await this.init();
             }
         } catch (error) {
