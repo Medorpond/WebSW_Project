@@ -1,58 +1,78 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const calendar = flatpickr("#calendar", {
-        inline: true,
-        static: true,
-        defaultDate: new Date(),
-        onMonthChange: function(selectedDates, dateStr, instance) {
-            const date = selectedDates[0];
-            fetchReservations(date.getFullYear(), date.getMonth() + 1);
-        },
-        onDayCreate: function(dObj, dStr, fp, dayElem) {
-            const date = dayElem.dateObj;
-            const dateStr = date.toISOString().split('T')[0];
+// reservationOverview.js
+document.addEventListener('DOMContentLoaded', () => {
+    let currentYear = new Date().getFullYear();
+    let currentMonth = new Date().getMonth();
 
-            const container = document.createElement('div');
-            container.className = 'reservations-container';
-            dayElem.appendChild(container);
+    const prevMonthBtn = document.getElementById('prevMonth');
+    const nextMonthBtn = document.getElementById('nextMonth');
+    const currentDateSpan = document.getElementById('currentDate');
+    const calendarDiv = document.getElementById('calendar');
+
+    prevMonthBtn.addEventListener('click', () => changeMonth(-1));
+    nextMonthBtn.addEventListener('click', () => changeMonth(1));
+
+    function changeMonth(delta) {
+        currentMonth += delta;
+        if (currentMonth < 0) {
+            currentMonth = 11;
+            currentYear--;
+        } else if (currentMonth > 11) {
+            currentMonth = 0;
+            currentYear++;
         }
-    });
+        fetchAndRenderCalendar();
+    }
 
-    function fetchReservations(year, month) {
-        fetch(`/BackEnd/php/get_reservations.php?year=${year}&month=${month}`)
+    function fetchAndRenderCalendar() {
+        fetch(`/BackEnd/php/get_reservations.php?year=${currentYear}&month=${currentMonth + 1}`)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    updateCalendar(data.data);
+                    renderCalendar(data.data);
+                } else {
+                    console.error('Failed to fetch reservations:', data.error);
                 }
             })
             .catch(error => console.error('Error:', error));
     }
- 
-    function updateCalendar(reservations) {
-        const days = document.querySelectorAll('.flatpickr-day');
-        days.forEach(day => {
-            const container = day.querySelector('.reservations-container');
-            container.innerHTML = '';
 
-            const dateStr = day.getAttribute('aria-label');
-            const dayReservations = reservations.filter(r =>
-                new Date(r.time).toLocaleDateString() === new Date(dateStr).toLocaleDateString()
-            );
+    function renderCalendar(reservations) {
+        currentDateSpan.textContent = `${currentYear}년 ${currentMonth + 1}월`;
+        calendarDiv.innerHTML = '';
 
-            dayReservations.forEach(reservation => {
-                const item = document.createElement('div');
-                item.className = 'reservation-item';
-                const time = new Date(reservation.time).toLocaleTimeString('ko-KR', {
-                    hour: '2-digit',
-                    minute: '2-digit'
-                });
-                item.textContent = `${time} - ${reservation.name}`;
-                container.appendChild(item);
+        const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+        const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+
+        for (let i = 0; i < firstDay; i++) {
+            calendarDiv.appendChild(createDayElement());
+        }
+
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dayReservations = reservations.filter(r => {
+                const reservationDate = new Date(r.time);
+                return reservationDate.getDate() === day;
             });
-        });
+
+            calendarDiv.appendChild(createDayElement(day, dayReservations));
+        }
     }
 
-    // 초기 데이터 로드
-    const now = new Date();
-    fetchReservations(now.getFullYear(), now.getMonth() + 1);
+    function createDayElement(day, reservations) {
+        const dayElement = document.createElement('div');
+        dayElement.className = 'calendar-day';
+
+        if (day) {
+            dayElement.innerHTML = `
+        <h3>${day}일</h3>
+        <p class="reservation-count">예약: ${reservations.length}건</p>
+        <ul class="reservation-list">
+          ${reservations.map(r => `<li>${r.name} (${r.time.split(' ')[1].slice(0, 5)})</li>`).join('')}
+        </ul>
+      `;
+        }
+
+        return dayElement;
+    }
+
+    fetchAndRenderCalendar();
 });

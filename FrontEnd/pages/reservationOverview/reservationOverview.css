@@ -1,67 +1,71 @@
-.flatpickr-calendar {
-    width: 100% !important;
-    max-width: none !important;
-    height: calc(100vh - 40px) !important;
+/* reservationOverview.css */
+main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
-.flatpickr-months {
-    padding: 10px 0;
+h1 {
+    text-align: center;
+    color: #333;
 }
 
-.flatpickr-days {
+.date-selector {
     display: flex;
-    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-.dayContainer {
-    width: 100% !important;
-    min-width: 100% !important;
-    max-width: none !important;
+.date-selector button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 0 10px;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
-.flatpickr-day {
-    height: auto !important;
-    min-height: 120px !important;
-    max-height: 200px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    padding: 5px !important;
+.date-selector span {
+    font-size: 18px;
+    font-weight: bold;
 }
 
-.reservations-container {
-    margin-top: 5px;
-    max-height: calc(100% - 25px);
-    overflow-y: auto;
-    width: 100%;
-    scrollbar-width: thin;
+#calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
 }
 
-.reservation-item {
-    font-size: 11px;
-    padding: 3px 5px;
-    margin: 2px 0;
-    background: #e8f5e9;
-    border: 1px solid #c8e6c9;
-    border-radius: 4px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.calendar-day {
+    border: 1px solid #ddd;
+    padding: 10px;
+    min-height: 100px;
+    background-color: #f9f9f9;
 }
 
-.reservation-item:hover {
-    background: #c8e6c9;
+.calendar-day h3 {
+    margin-top: 0;
+    color: #333;
 }
 
-/* 스크롤바 스타일링 */
-.reservations-container::-webkit-scrollbar {
-    width: 4px;
+.reservation-count {
+    font-weight: bold;
+    color: #4CAF50;
 }
 
-.reservations-container::-webkit-scrollbar-track {
-    background: #f1f1f1;
+.reservation-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
-.reservations-container::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 2px;
+.reservation-list li {
+    margin-bottom: 5px;
+    font-size: 14px;
 }
