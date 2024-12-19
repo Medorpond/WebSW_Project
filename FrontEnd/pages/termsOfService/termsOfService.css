@@ -1,0 +1,69 @@
+#terms-content {
+    max-width: 800px !important;
+    margin: 0 auto;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+#terms-content h1 {
+    text-align: center;
+    padding: 20px;
+    font-size: 50px;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    color: #000000;
+}
+
+#terms-content .indent {
+    margin-left: 20px;
+}
+
+#terms-content h2 {
+    color: #000000;
+    margin: 30px 0;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #000000;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+#terms-content hr {
+    margin: 20px 0;
+    border: 0;
+    height: 1px;
+    background: #ddd;
+}
+
+#terms-content p{
+    margin-bottom: 15px;
+}
+
+#terms-content ol, ul {
+    margin-bottom: 20px;
+}
+
+#terms-content li {
+    margin-bottom: 10px;
+}
+
+#terms-content .map-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 비율 */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#terms-content .map-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+

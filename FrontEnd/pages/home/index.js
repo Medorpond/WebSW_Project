@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
             promoTextContainer.style.position = 'absolute';
             promoTextContainer.style.top = `${footerTop - promoTextHeight - 20}px`;
         } else {
-            promoTextContainer.style.position = 'fixed';
+            promoTextContainer.style.position = 'absolute';
             promoTextContainer.style.top = '50%';
             promoTextContainer.style.transform = 'translate(-50%, -50%)';
         }
