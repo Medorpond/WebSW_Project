@@ -68,6 +68,22 @@ if (isset($data['action'])) {
     }
 } else if (isset($data['name'], $data['contact'], $data['time'])) {
     try {
+        // 중복 예약 확인
+        $stmt = $conn->prepare("SELECT COUNT(*) FROM Reservation WHERE patient_id = ? AND time = ?");
+        $stmt->bind_param("ss", $data['contact'], $data['time']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $count = $result->fetch_row()[0];
+
+        if ($count > 0) {
+            echo json_encode([
+                'success' => false,
+                'message' => "이미 동일한 시간에 예약이 존재합니다."
+            ]);
+            exit;
+        }
+
+
         $stmt = $conn->prepare("INSERT INTO Reservation (patient_id, name, time, created_at, updated_at) VALUES (?, ?, ?, NOW(), NOW())");
         $stmt->bind_param("sss", $data['contact'], $data['name'], $data['time']);
         $stmt->execute();
