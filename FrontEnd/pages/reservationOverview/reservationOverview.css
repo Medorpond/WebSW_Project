@@ -12,6 +12,13 @@ h1 {
     margin-bottom: 30px;
 }
 
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 30px 0;
+}
+
 .date-selector {
     display: flex;
     justify-content: center;
@@ -56,7 +63,7 @@ h1 {
     border: 1px solid #e0e0e0;
     border-radius: 10px;
     padding: 15px;
-    height: 250px;
+    aspect-ratio: 1 / 1;
     background-color: #ffffff;
     overflow-y: auto;
     display: flex;
@@ -134,21 +141,33 @@ h1 {
     background: #555;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1400px) {
     #calendar {
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(7, minmax(180px, 1fr));
     }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1300px) {
     #calendar {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(5, minmax(180px, 1fr));
+    }
+}
+
+@media (max-width: 1000px) {
+    #calendar {
+        grid-template-columns: repeat(4, minmax(180px, 1fr));
+    }
+}
+
+@media (max-width: 800px) {
+    #calendar {
+        grid-template-columns: repeat(3, minmax(180px, 1fr));
     }
 }
 
 @media (max-width: 600px) {
     #calendar {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(180px, 1fr));
     }
 }
 
