@@ -84,8 +84,10 @@ class FAQManager {
     attachEventListeners() {
         const questions = document.querySelectorAll('.faq-question');
 
+        // FAQ 질문 클릭 이벤트
         questions.forEach(question => {
             question.addEventListener('click', (e) => {
+                e.stopPropagation(); // 이벤트 버블링 중단
                 if (e.target.closest('.delete-icon')) return;
 
                 const faqItem = question.closest('.faq-item');
@@ -107,26 +109,29 @@ class FAQManager {
                     : 'rotate(0deg)';
             });
         });
-        // 문서 전체에 클릭 이벤트 리스너 추가
+
+        // 문서 전체 클릭 이벤트
         document.addEventListener('click', (e) => {
-            // FAQ 컨테이너 내부 클릭이거나 수정 중이면 무시
-            if (e.target.closest('.faq-container') &&
-                (this.isEditing || e.target.closest('.new-faq-item'))) {
+            // FAQ 컨테이너 내부 클릭이면서 수정 중이면 무시
+            if (e.target.closest('.faq-container') && this.isEditing) {
                 return;
             }
 
-            // 모든 FAQ 닫기
-            document.querySelectorAll('.faq-question').forEach(question => {
-                question.classList.remove('active');
-                question.nextElementSibling.classList.remove('show');
-                question.querySelector('.dropdown-icon').style.transform = 'rotate(0deg)';
-            });
+            // FAQ 영역 외부 클릭시에만 모든 FAQ 닫기
+            if (!e.target.closest('.faq-container')) {
+                questions.forEach(question => {
+                    question.classList.remove('active');
+                    question.nextElementSibling.classList.remove('show');
+                    question.querySelector('.dropdown-icon').style.transform = 'rotate(0deg)';
+                });
+            }
         });
 
         if (this.isAdmin) {
             this.attachAdminEventListeners();
         }
     }
+
 
     attachAdminEventListeners() {
         document.querySelectorAll('.delete-icon').forEach(icon => {
