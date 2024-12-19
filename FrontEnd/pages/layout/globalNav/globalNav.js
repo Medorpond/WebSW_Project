@@ -69,7 +69,7 @@ function loginBtn(e) {
                 document.querySelector('header').classList.remove('blur');
                 document.querySelector('main').classList.remove('blur');
                 document.querySelector('footer').classList.remove('blur');
-                window.location.href = '/pages/home/index.html';
+                window.location.href = '/FrontEnd/pages/home/index.html';
             } else {
                 alert(data.message || '로그인 실패');
             }
