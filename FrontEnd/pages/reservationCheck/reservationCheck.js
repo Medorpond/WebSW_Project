@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
     phoneInput.addEventListener('input', validateInputs);
 
     confirmButton.addEventListener('click', function() {
-        // Simulating POST request to PHP
         fetch('/BackEnd/php/updateReservation.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -31,12 +30,19 @@ document.addEventListener('DOMContentLoaded', function() {
         })
             .then(response => response.json())
             .then(data => {
-                nameInfo.textContent = `${data.name}님`;
-                timeInfo.textContent = `${data.time}`;
-                appointmentForm.style.display = 'none';
-                appointmentInfo.style.display = 'block';
+                if (data.success) {
+                    nameInfo.textContent = `${data.name}님`;
+                    timeInfo.textContent = `${data.time}`;
+                    appointmentForm.style.display = 'none';
+                    appointmentInfo.style.display = 'block';
+                } else {
+                    alert(data.message);
+                }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                console.error('Error:', error);
+                alert('예약 조회 중 오류가 발생했습니다.');
+            });
     });
 
     backButton.addEventListener('click', function() {
