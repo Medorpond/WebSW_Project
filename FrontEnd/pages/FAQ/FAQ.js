@@ -9,6 +9,7 @@ class FAQManager {
         this.isAdmin = false;
         this.init();
         this.addButton = null;
+        this.isEditing = false;
     }
 
     async init() {
@@ -106,6 +107,21 @@ class FAQManager {
                     : 'rotate(0deg)';
             });
         });
+        // 문서 전체에 클릭 이벤트 리스너 추가
+        document.addEventListener('click', (e) => {
+            // FAQ 컨테이너 내부 클릭이거나 수정 중이면 무시
+            if (e.target.closest('.faq-container') &&
+                (this.isEditing || e.target.closest('.new-faq-item'))) {
+                return;
+            }
+
+            // 모든 FAQ 닫기
+            document.querySelectorAll('.faq-question').forEach(question => {
+                question.classList.remove('active');
+                question.nextElementSibling.classList.remove('show');
+                question.querySelector('.dropdown-icon').style.transform = 'rotate(0deg)';
+            });
+        });
 
         if (this.isAdmin) {
             this.attachAdminEventListeners();
@@ -121,6 +137,24 @@ class FAQManager {
                     const id = faqItem.dataset.id;
                     await this.deleteFAQ(id);
                 }
+            });
+
+            document.querySelectorAll('.editable-text').forEach(text => {
+                text.addEventListener('dblclick', (e) => {
+                    if (!this.isAdmin) return;
+                    e.stopPropagation(); // 이벤트 전파 중단
+
+                    const faqItem = text.closest('.faq-item');
+                    const answer = faqItem.querySelector('.faq-answer');
+                    const question = faqItem.querySelector('.faq-question');
+
+                    // FAQ 항목 강제 열기
+                    answer.classList.add('show');
+                    question.classList.add('active');
+                    question.querySelector('.dropdown-icon').style.transform = 'rotate(180deg)';
+
+                    this.enableEditMode(faqItem);
+                });
             });
         });
 
@@ -153,6 +187,7 @@ class FAQManager {
 
 
     enableEditMode(faqItem) {
+        this.isEditing = true;
         const questionText = faqItem.querySelector('.question-text .editable-text');
         const answerText = faqItem.querySelector('.faq-answer .editable-text');
         const controls = faqItem.querySelector('.edit-controls');
@@ -173,6 +208,7 @@ class FAQManager {
     }
 
     disableEditMode(faqItem) {
+        this.isEditing = false;
         const questionText = faqItem.querySelector('.question-text .editable-text');
         const answerText = faqItem.querySelector('.faq-answer .editable-text');
         const controls = faqItem.querySelector('.edit-controls');
@@ -203,11 +239,18 @@ class FAQManager {
         } catch (error) {
             console.error('저장 중 오류 발생:', error);
         }
+        this.isEditing = false;
     }
 
 
 
     showNewFAQForm() {
+        // 이미 열려있는 새 FAQ 폼이 있다면 제거
+        const existingNewFAQ = document.querySelector('.new-faq-item');
+        if (existingNewFAQ) {
+            existingNewFAQ.remove();
+        }
+
         const newFAQHtml = `
             <div class="faq-item new-faq-item show">
                 <div class="faq-question">

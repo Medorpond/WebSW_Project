@@ -24,18 +24,25 @@
 }
 
 .faq-question {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    /* 기본 스타일 유지 */
     padding: 1rem 1.5rem;
     cursor: pointer;
     background: #fff;
     border: 1px solid #eee;
 
-    flex: 1 0 auto; /* flex-grow, flex-shrink, flex-basis 설정 */
-    word-break: break-word; /* 단어 단위 줄바꿈 설정 */
-    overflow-wrap: break-word; /* 긴 단어 줄바꿈 처리 */
+    /* 그리드 레이아웃으로 변경 */
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem;
+    align-items: center;
+
+    /* 텍스트 줄바꿈 관련 속성 유지 */
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
+
+
+
 
 .faq-question.active {
     background: #f8fff8;
@@ -47,13 +54,16 @@
     gap: 1rem;
     font-weight: bold;
 
-    min-width: 0; /* flexbox 내부 텍스트 줄바꿈을 위한 설정 */
+    grid-column: 2;
+    min-width: 0; /* 텍스트 오버플로우 방지 */
 }
 
 
 .dropdown-icon {
     transition: transform 0.3s ease;
     color: #666;
+
+    grid-column: 3;
 }
 
 .active .dropdown-icon {
@@ -86,6 +96,7 @@
     cursor: pointer;
     color: #ff4444;
     margin-right: 10px;
+    grid-column: 1;
 }
 
 .delete-icon:hover {
