@@ -97,12 +97,14 @@ async function saveInsurance(button, id) {
         return;
     }
 
+    const action = id ? 'update' : 'add';
+
     try {
         const response = await fetch('process.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                action: 'update',         
+                action: action,         
                 Insurance_list_id: id,  // 수정 시 ID 포함
                 insurance_list: name,
                 code: code
