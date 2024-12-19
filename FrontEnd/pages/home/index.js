@@ -1,72 +1,55 @@
-document.addEventListener('DOMContentLoaded', initHome)
+document.addEventListener('DOMContentLoaded', function() {
+    let currentImageIndex = 0;
+    const images = document.querySelectorAll('.promo-image');
+    const promoText = document.getElementById('promoText');
+    const promoTextContainer = document.querySelector('.promo-text');
+    const footer = document.querySelector('footer');
+    const transitionInterval = 5000; // 5초마다 전환
 
-function initHome() {
-    const imageContainer = document.querySelector(".slider") ;
-    const imagePaths = [
-        '/FrontEnd/assets/imgs/ricky.jpg',
-        '/FrontEnd/assets/imgs/icon.png',
-        '/FrontEnd/assets/imgs/ricky.jpg',
-        '/FrontEnd/assets/imgs/icon.png',
-        '/FrontEnd/assets/imgs/ricky.jpg',
-        '/FrontEnd/assets/imgs/icon.png']
+    const promoTexts = [
+        "정성을 담은 진료로 여는 건강한 내일",
+        "한방의 향기로 채우는 건강한 몸",
+        "건강한 삶으로 이어가는 가족의 행복"
+    ];
 
-    // 이미지 동적 생성
-    imagePaths.forEach((path, index) => {
-        const img = document.createElement('img');
-        img.className = 'image-section';
-        img.src = `${path}`;
-        imageContainer.appendChild(img);
-    })
-
-    let currentIndex = 0;
-    const slider = document.querySelector('.slider');
-    const slides = slider.querySelectorAll('img');
-    const prevBtn = document.querySelector('.prev');
-    const nextBtn = document.querySelector('.next');
-    const dotsContainer = document.querySelector('.slider-dots');
-
-    // 도트 생성
-    slides.forEach((_, index) => {
-      const dot = document.createElement('div');
-      dot.classList.add('dot');
-      if (index === 0) dot.classList.add('active');
-      dot.addEventListener('click', () => goToSlide(index));
-      dotsContainer.appendChild(dot);
-    });
-
-    const dots = dotsContainer.querySelectorAll('.dot');
-
-    function goToSlide(index) {
-      slider.style.transform = `translateX(-${index * 100}%)`;
-      dots[currentIndex].classList.remove('active');
-      dots[index].classList.add('active');
-      currentIndex = index;
+    function showImage(index) {
+        images.forEach((img, i) => {
+            img.classList.remove('active');
+        });
+        images[index].classList.add('active');
+        promoText.innerText = promoTexts[index];  // 각 이미지에 맞는 홍보 문구 표시
+        promoText.style.opacity = 0;
+        setTimeout(() => {
+            promoText.style.opacity = 1;
+        }, 250);
     }
 
-    prevBtn.addEventListener('click', () => {
-      if (currentIndex > 0) {
-        goToSlide(currentIndex - 1);
-      } else {
-        goToSlide(slides.length - 1);
-      }
-    });
 
-    nextBtn.addEventListener('click', () => {
-      if (currentIndex < slides.length - 1) {
-        goToSlide(currentIndex + 1);
-      } else {
-        goToSlide(0);
-      }
-    });
+    function nextImage() {
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+        showImage(currentImageIndex);
+    }
 
-    // 자동 슬라이드 (선택사항)
-    setInterval(() => {
-      if (currentIndex < slides.length - 1) {
-        goToSlide(currentIndex + 1);
-      } else {
-        goToSlide(0);
-      }
-    }, 5000); // 5초마다 다음 슬라이드로 이동
-}
+    function checkFooterPosition() {
+        const windowHeight = window.innerHeight;
+        const footerTop = footer.offsetTop;
+        const promoTextHeight = promoTextContainer.offsetHeight;
 
+        if (windowHeight > footerTop - promoTextHeight) {
+            promoTextContainer.style.position = 'absolute';
+            promoTextContainer.style.top = `${footerTop - promoTextHeight - 20}px`;
+        } else {
+            promoTextContainer.style.position = 'fixed';
+            promoTextContainer.style.top = '50%';
+            promoTextContainer.style.transform = 'translate(-50%, -50%)';
+        }
+    }
 
+    // 자동 이미지 전환 시작
+    setInterval(nextImage, transitionInterval);
+
+    window.addEventListener('resize', checkFooterPosition);
+
+    showImage(currentImageIndex);
+    checkFooterPosition();
+});
