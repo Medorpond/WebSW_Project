@@ -5,7 +5,6 @@ let flatpickrInstance;
 let currentDayIndex;
 
 function initAdminResPage() {
-    // 기존 데이터 로드
     fetch('/BackEnd/data/resDateOption.json')
         .then(response => response.json())
         .then(data => {
@@ -15,12 +14,11 @@ function initAdminResPage() {
         })
         .catch(err => console.error("Error loading data:", err));
 
-    // 요일 선택 버튼 이벤트 리스너
     document.querySelectorAll('.day-btn').forEach(btn => {
         btn.addEventListener('click', onDayClick);
     });
 
-    // 저장 버튼 이벤트 리스너
+    document.querySelector('#day-toggle').addEventListener('change', toggleDay);
     document.querySelector('.save-btn').addEventListener('click', saveChanges);
 }
 
@@ -31,7 +29,11 @@ function setupAdminCalendar() {
         minDate: "today",
         disable: [
             function(date) {
-                return isDateDisabled(date);
+                if (!resDateOption.enabledDays.includes(date.getDay())) {
+                    return true;
+                }
+                const dateString = date.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\. /g, '-').replace('.', '');
+                return resDateOption.disabledDates.includes(dateString);
             }
         ],
         monthSelectorType: 'static',
@@ -57,14 +59,6 @@ function setupAdminCalendar() {
     });
 }
 
-function isDateDisabled(date) {
-    if (!resDateOption.enabledDays.includes(date.getDay())) {
-        return true;
-    }
-    const dateString = date.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\. /g, '-').replace('.', '');
-    return resDateOption.disabledDates.includes(dateString);
-}
-
 function updateUIWithData() {
     const dayToggle = document.getElementById('day-toggle');
     const timeInputs = document.querySelectorAll('.time-input');
@@ -74,11 +68,11 @@ function updateUIWithData() {
 
     dayToggle.checked = isDayActive;
 
-    if (isDayActive) {
-        timeInputs.forEach(input => input.disabled = false);
-        unitInput.disabled = false;
-        patientsInput.disabled = false;
+    timeInputs.forEach(input => input.disabled = !isDayActive);
+    unitInput.disabled = !isDayActive;
+    patientsInput.disabled = !isDayActive;
 
+    if (isDayActive) {
         const timeSlots = resDateOption.timeSlots[currentDayIndex.toString()];
         if (timeSlots && timeSlots.length > 0) {
             timeInputs[0].value = timeSlots[0];
@@ -93,9 +87,9 @@ function updateUIWithData() {
         }
         patientsInput.value = resDateOption.patientsPerUnit;
     } else {
-        timeInputs.forEach(input => input.disabled = true);
-        unitInput.disabled = true;
-        patientsInput.disabled = true;
+        timeInputs.forEach(input => input.value = '');
+        unitInput.value = '';
+        patientsInput.value = '';
     }
 }
 
@@ -108,13 +102,34 @@ function onDayClick(event) {
     updateUIWithData();
 }
 
+function toggleDay(event) {
+    if (event.target.checked) {
+        resDateOption.enabledDays.push(currentDayIndex);
+    } else {
+        resDateOption.enabledDays = resDateOption.enabledDays.filter(day => day !== currentDayIndex);
+    }
+    updateUIWithData();
+    updateCalendarOnInput();
+}
+
+function updateCalendarOnInput() {
+    flatpickrInstance.set('disable', [
+        function(date) {
+            if (!resDateOption.enabledDays.includes(date.getDay())) {
+                return true;
+            }
+            const dateString = date.toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\. /g, '-').replace('.', '');
+            return resDateOption.disabledDates.includes(dateString);
+        }
+    ]);
+    flatpickrInstance.redraw();
+}
+
 function saveChanges(event) {
     event.preventDefault();
 
-    // 모든 입력 필드의 값을 읽어 resDateOption 업데이트
     updateResDateOption();
 
-    // 서버에 저장
     fetch('/BackEnd/php/resDateOptionHandler.php', {
         method: 'POST',
         headers: {
@@ -131,7 +146,7 @@ function saveChanges(event) {
         .then(data => {
             if (data.success) {
                 alert('설정이 성공적으로 저장되었습니다.');
-                setupAdminCalendar(); // 달력 다시 그리기
+                setupAdminCalendar();
             } else {
                 alert('설정 저장에 실패했습니다: ' + (data.message || '알 수 없는 오류'));
             }
@@ -143,7 +158,6 @@ function saveChanges(event) {
 }
 
 function updateResDateOption() {
-    // 요일 설정 업데이트
     resDateOption.enabledDays = [];
     document.querySelectorAll('.day-btn').forEach((btn, index) => {
         if (btn.classList.contains('active')) {
@@ -151,7 +165,6 @@ function updateResDateOption() {
         }
     });
 
-    // 시간 설정 업데이트
     const startTime = document.querySelectorAll('.time-input')[0].value;
     const endTime = document.querySelectorAll('.time-input')[1].value;
     const timeUnit = parseInt(document.querySelector('.unit-input').value);
@@ -170,10 +183,8 @@ function updateResDateOption() {
         resDateOption.timeSlots[day] = timeSlots;
     });
 
-    // 환자 수 설정 업데이트
     resDateOption.patientsPerUnit = parseInt(document.querySelector('.patients-input input').value);
 
-    // 휴무일 설정 업데이트
     const startMonth = document.querySelector('#holiday-start .month-input').value;
     const startDay = document.querySelector('#holiday-start .day-input').value;
     const endMonth = document.querySelector('#holiday-end .month-input').value;
