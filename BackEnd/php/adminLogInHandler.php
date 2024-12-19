@@ -1,7 +1,11 @@
 <?php
-require_once 'generalFunction.php';
+/** @var mysqli $conn */
+require_once __DIR__ . '/../../config/dbconnection.php';
 
-$pdo = getPdo();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 header('Content-Type: application/json');
 
 // POST 데이터 받기
@@ -17,9 +21,11 @@ if (empty($adminId) || empty($adminPassword)) {
 
 try {
     // 관리자 정보 조회
-    $stmt = $pdo->prepare("SELECT id, password FROM admin_users WHERE username = ?");
-    $stmt->execute([$adminId]); // SQL 인젝션 방지
-    $admin = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt = $conn->prepare("SELECT id, password FROM admin_users WHERE username = ?");
+    $stmt->bind_param("s", $adminId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $admin = $result->fetch_assoc();
 
     if ($admin && password_verify($adminPassword, $admin['password'])) {
         // 로그인 성공
@@ -30,6 +36,9 @@ try {
         // 로그인 실패
         echo json_encode(['success' => false, 'message' => '아이디 또는 비밀번호가 일치하지 않습니다.']);
     }
-} catch (PDOException $e) {
+} catch (Exception $e) {
     echo json_encode(['success' => false, 'message' => '로그인 처리 중 오류가 발생했습니다.']);
 }
+
+// 연결 종료
+$conn->close();

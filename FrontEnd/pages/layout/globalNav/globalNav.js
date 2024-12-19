@@ -1,4 +1,9 @@
+let isAdmin = false;
+
 function onDOMLoad(){
+    // 로그인 점검
+    checkAdminStatus();
+
     // 네비게이션 메뉴 동적 생성 및 초기화
     initNavMenu();
 
@@ -8,11 +13,18 @@ function onDOMLoad(){
 
 // 버튼 동작 이벤트 추가 함수
 function initBtn(){
-    document.getElementById('openSidebarBtn').addEventListener('click', openSidebar)
-    document.getElementById('closeSidebarBtn').addEventListener('click', closeSidebar)
-    document.getElementById('managerLogInBtn').addEventListener('click', popLoginPage)
-    document.getElementById('closePopup').addEventListener('click', closeLoginPage)
-    document.getElementById('loginButton').addEventListener('click', loginBtn)
+    document.getElementById('openSidebarBtn').addEventListener('click', openSidebar);
+    document.getElementById('closeSidebarBtn').addEventListener('click', closeSidebar);
+    document.getElementById('managerLogInBtn').addEventListener('click', handleLoginButtonClick);
+    document.getElementById('closePopup').addEventListener('click', closeLoginPage);
+    document.getElementById('loginButton').addEventListener('click', loginBtn);
+
+    // Enter 키 이벤트 리스너 추가
+    document.getElementById('adminPassword').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            loginBtn(event);
+        }
+    });
 }
 
 function openSidebar(){
@@ -69,7 +81,8 @@ function loginBtn(e) {
                 document.querySelector('header').classList.remove('blur');
                 document.querySelector('main').classList.remove('blur');
                 document.querySelector('footer').classList.remove('blur');
-                window.location.href = '/pages/home/index.html';
+                isAdmin = true;
+                window.location.href = '/FrontEnd/pages/home/index.html';
             } else {
                 alert(data.message || '로그인 실패');
             }
@@ -82,36 +95,101 @@ function loginBtn(e) {
 
 
 // 메뉴 동적 생성
-function initNavMenu(){
-    const mainMenuItems = [
-        { name: "진료 예약", href: "/FrontEnd/pages/reservation/reservation.html"},
-        { name: "예약 확인", href: "/FrontEnd/pages/reservationCheck/reservationCheck.html"}
-    ];
+// function initNavMenu(){
+//     const mainMenuItems = [
+//         { name: "진료 예약", href: "/FrontEnd/pages/reservation/reservation.html"},
+//         { name: "예약 확인", href: "/FrontEnd/pages/reservationCheck/reservationCheck.html"}
+//     ];
+//
+//     const subMenuItems = [
+//         { name: "FAQ", href: "/FrontEnd/pages/FAQ/FAQ.html"},
+//     ];
+//
+//     const mainNavMenu = document.getElementById("mainMenu");
+//     const subNavMenu = document.getElementById("subMenu");
+//     const sidebar_Main = document.getElementById("sidebarMain");
+//     const sidebar_Sub = document.getElementById("sidebarSub");
+//
+//     // 메뉴 항목 생성 함수
+//     const createMenuItems = (parentElement, menuItems) => {
+//         menuItems.forEach((item) => {
+//             const li = document.createElement("li");
+//             const a = document.createElement("a");
+//
+//             a.href = item.href;
+//             a.textContent = item.name;
+//             li.appendChild(a);
+//             parentElement.appendChild(li);
+//         });
+//     };
+//
+//     createMenuItems(mainNavMenu, mainMenuItems);
+//     createMenuItems(subNavMenu, subMenuItems);
+//     createMenuItems(sidebar_Main, mainMenuItems);
+//     createMenuItems(sidebar_Sub, subMenuItems);
+// }
 
-    const subMenuItems = [
-        { name: "FAQ", dataSection: "/FrontEnd/pages/FAQ/FAQ.html"},
-    ];
+function initNavMenu() {
+    fetch('/BackEnd/php/getMenuItems.php')
+        .then(response => response.json())
+        .then(data => {
+            const mainNavMenu = document.getElementById("mainMenu");
+            const subNavMenu = document.getElementById("subMenu");
+            const sidebar_Main = document.getElementById("sidebarMain");
+            const sidebar_Sub = document.getElementById("sidebarSub");
 
-    const mainNavMenu = document.getElementById("mainMenu");
-    const subNavMenu = document.getElementById("subMenu");
-    const sidebar_Main = document.getElementById("sidebarMain");
-    const sidebar_Sub = document.getElementById("sidebarSub");
-
-    // 메뉴 항목 생성 함수
-    const createMenuItems = (parentElement, menuItems) => {
-        menuItems.forEach((item) => {
-            const li = document.createElement("li");
-            const a = document.createElement("a");
-
-            a.href = item.href;
-            a.textContent = item.name;
-            li.appendChild(a);
-            parentElement.appendChild(li);
+            createMenuItems(mainNavMenu, data.main);
+            createMenuItems(subNavMenu, data.sub);
+            createMenuItems(sidebar_Main, data.main);
+            createMenuItems(sidebar_Sub, data.sub);
+        })
+        .catch(error => {
+            console.error('메뉴 로딩 중 오류 발생:', error);
         });
-    };
+}
 
-    createMenuItems(mainNavMenu, mainMenuItems);
-    createMenuItems(subNavMenu, subMenuItems);
-    createMenuItems(sidebar_Main, mainMenuItems);
-    createMenuItems(sidebar_Sub, subMenuItems);
+function createMenuItems(parentElement, menuItems) {
+    parentElement.innerHTML = ''; // 기존 메뉴 항목 제거
+    menuItems.forEach((item) => {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+
+        a.href = item.href;
+        a.textContent = item.name;
+        li.appendChild(a);
+        parentElement.appendChild(li);
+    });
+}
+
+
+function handleLoginButtonClick() {
+    if (isAdmin) {
+        if (confirm('로그아웃하시겠습니까?')) {
+            logout();
+        }
+    } else {
+        popLoginPage();
+    }
+}
+
+function logout() {
+    fetch('/BackEnd/php/logout.php', { method: 'POST' })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                isAdmin = false;
+                alert('로그아웃되었습니다.');
+                window.location.href = '/FrontEnd/pages/home/index.html';
+            } else {
+                alert('로그아웃 중 오류가 발생했습니다.');
+            }
+        });
+}
+
+function checkAdminStatus() {
+    fetch('/BackEnd/php/checkAdminStatus.php')
+        .then(response => response.json())
+        .then(data => {
+            isAdmin = data.isAdmin;
+        });
 }

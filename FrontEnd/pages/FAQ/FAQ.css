@@ -18,17 +18,31 @@
     border-radius: 8px;
     margin-bottom: 1rem;
     width: 100%;
+
+    margin-right: env(safe-area-inset-right);
+    margin-left: env(safe-area-inset-left);
 }
 
 .faq-question {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    /* 기본 스타일 유지 */
     padding: 1rem 1.5rem;
     cursor: pointer;
     background: #fff;
     border: 1px solid #eee;
+
+    /* 그리드 레이아웃으로 변경 */
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem;
+    align-items: center;
+
+    /* 텍스트 줄바꿈 관련 속성 유지 */
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
+
+
+
 
 .faq-question.active {
     background: #f8fff8;
@@ -39,12 +53,17 @@
     align-items: center;
     gap: 1rem;
     font-weight: bold;
+
+    grid-column: 2;
+    min-width: 0; /* 텍스트 오버플로우 방지 */
 }
 
 
 .dropdown-icon {
     transition: transform 0.3s ease;
     color: #666;
+
+    grid-column: 3;
 }
 
 .active .dropdown-icon {
@@ -77,6 +96,7 @@
     cursor: pointer;
     color: #ff4444;
     margin-right: 10px;
+    grid-column: 1;
 }
 
 .delete-icon:hover {
@@ -114,6 +134,37 @@
     background: #fff;
 }
 
+.add-faq-button {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.add-faq-button:hover {
+    background: #f8fff8;
+}
+
+.add-faq-button span {
+    font-size: 24px;
+    color: #00aa00;
+}
+
+.new-faq-item {
+    display: none;
+}
+
+.new-faq-item.show {
+    display: block;
+}
+
+
+
 @media (max-width: 768px) {
     .faq-container {
         padding: 1rem;
@@ -123,3 +174,15 @@
         font-size: 2rem;
     }
 }
+
+@media screen and (max-width: 375px) {
+    .faq-question {
+        flex-wrap: wrap; /* iPhone SE 크기에서 강제 줄바꿈 */
+    }
+
+    .question-text {
+        width: 100%; /* 전체 너비 사용 */
+        white-space: normal; /* 자동 줄바꿈 활성화 */
+    }
+}
+

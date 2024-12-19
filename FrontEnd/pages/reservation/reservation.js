@@ -136,7 +136,7 @@ function setupCalendar(data) {
 }
 
 // 시간 선택 버튼 동적 업데이트
-function updateTimeSelector(data, dayIndex) {
+async function updateTimeSelector(data, dayIndex) {
     const timeSelector = document.querySelector("#time-selector");
     timeSelector.innerHTML = ""; // 초기화
 
@@ -146,18 +146,36 @@ function updateTimeSelector(data, dayIndex) {
         return;
     }
 
-    times.forEach(time => {
+    const selectedDate = document.querySelector("#calendar-container").value;
+
+    for (const time of times) {
         const btn = document.createElement("button");
         btn.type = "button";
         btn.textContent = time;
         btn.classList.add("time-btn");
 
-        if (Math.random() < 0.3) { // 30% 확률로 비활성화 (더미데이터)
-            btn.disabled = true;
+        try {
+            const response = await fetch('/BackEnd/php/checkAvailableTime.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    date: selectedDate,
+                    time: time
+                })
+            });
+
+            const data = await response.json();
+            if (data.success && !data.isAvailable) {
+                btn.disabled = true;
+            }
+        } catch (error) {
+            console.error('Error checking time availability:', error);
         }
 
         timeSelector.appendChild(btn);
-    });
+    }
 }
 
 
