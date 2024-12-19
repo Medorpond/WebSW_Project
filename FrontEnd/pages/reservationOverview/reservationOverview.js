@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .catch(error => console.error('Error:', error));
     }
-
+ 
     function updateCalendar(reservations) {
         const days = document.querySelectorAll('.flatpickr-day');
         days.forEach(day => {
