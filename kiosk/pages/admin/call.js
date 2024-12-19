@@ -123,5 +123,5 @@ async function updateCallStatus(applicationId, newStatus) {
 }
 
 // 5초마다 대기 환자 목록 새로고침
-setInterval(fetchPatients, 5000);
+// setInterval(fetchPatients, 5000);
 fetchPatients(); // 초기 로드
