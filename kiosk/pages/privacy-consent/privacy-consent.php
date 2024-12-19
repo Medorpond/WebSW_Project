@@ -64,6 +64,13 @@
         <img src="/kiosk/assets/img/logo.png" alt="대운한의원 로고" class="logo" />
       </div>
     </div>
+    <!-- 팝업 모달 -->
+    <div id="infoModal" class="modal">
+          <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="privacyContent"></div>
+          </div>
+        </div>
 
     <!-- JavaScript 코드 -->
     <script>
@@ -117,10 +124,55 @@
         ctx.clearRect(0, 0, signatureCanvas.width, signatureCanvas.height);
       }
 
-      // 정보 보기 버튼 동작
+      // 팝업열기
       function showMoreInfo() {
-        alert("개인정보 수집 및 이용에 대한 자세한 정보는 병원 안내 데스크에서 확인하세요.");
+        const modal = document.getElementById("infoModal");
+        const privacyContent = document.getElementById("privacyContent");
+
+        // XML 파일 로드
+        fetch("/BackEnd/data/privacyPolicy.xml")
+          .then((response) => response.text())
+          .then((xmlText) => {
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(xmlText, "text/xml");
+            const content = xmlDoc.getElementsByTagName("content")[0].textContent;
+
+            // XML 데이터를 삽입하고 특정 클래스 추가
+            privacyContent.innerHTML = content;
+            applyCustomStyles(privacyContent); // CSS 적용 함수 호출
+
+            // 모달 열기
+            modal.style.display = "block";
+          })
+          .catch(() => {
+            privacyContent.innerHTML = "<p>개인정보 처리방침을 불러오는 데 실패했습니다.</p>";
+            modal.style.display = "block";
+          });
       }
+
+      // XML 콘텐츠의 스타일 적용 함수
+      function applyCustomStyles(container) {
+        // 모든 <h1>, <h2>, <p>, <div> 태그에 CSS 클래스 추가
+        container.querySelectorAll("h1").forEach((el) => el.classList.add("custom-h1"));
+        container.querySelectorAll("h2").forEach((el) => el.classList.add("custom-h2"));
+        container.querySelectorAll("p").forEach((el) => el.classList.add("custom-p"));
+        container.querySelectorAll("div").forEach((el) => el.classList.add("custom-div"));
+      }
+
+
+      // 팝업 닫기
+      function closeModal() {
+        document.getElementById("infoModal").style.display = "none";
+      }
+
+      // 배경 클릭 시 팝업 닫기
+      window.onclick = function (event) {
+        const modal = document.getElementById("infoModal");
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      };
+
     </script>
     <script src="privacy-consent.js"></script>
   </body>

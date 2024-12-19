@@ -39,8 +39,8 @@ try {
     // JSON 저장
     $jsonDocuments = json_encode($documentsArray);
 
-    $sql = "INSERT INTO Application (patient_id, document, created_at, updated_at) 
-        VALUES (?, ?, NOW(), NOW())";
+    $sql = "INSERT INTO Application (patient_id, document, created_at, updated_at, `call`) 
+        VALUES (?, ?, NOW(), NOW(), '0')";
     $stmt = $conn->prepare($sql);
 
     if (!$stmt) {
