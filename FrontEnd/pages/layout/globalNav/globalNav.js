@@ -89,7 +89,7 @@ function initNavMenu(){
     ];
 
     const subMenuItems = [
-        { name: "FAQ", dataSection: "/FrontEnd/pages/FAQ/FAQ.html"},
+        { name: "FAQ", href: "/FrontEnd/pages/FAQ/FAQ.html"},
     ];
 
     const mainNavMenu = document.getElementById("mainMenu");
