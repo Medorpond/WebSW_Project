@@ -18,13 +18,14 @@ if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
 $data = json_decode(file_get_contents('php://input'), true);
 
 // 파일 경로 설정
-$filePath = '/BackEnd/data/resDateOption.json';
+$filePath = __DIR__ . '/../data/resDateOption.json';
 
 // 파일 쓰기 권한 확인
 if (!is_writable($filePath)) {
     echo json_encode(['success' => false, 'message' => '파일에 쓰기 권한이 없습니다.']);
     exit;
 }
+
 
 try {
     // 데이터를 JSON 형식으로 인코딩

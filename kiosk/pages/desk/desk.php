@@ -13,7 +13,11 @@
     <!-- 왼쪽 섹션 -->
     <div class="left-section">
       <div class="logo-container">
-        <img src="/kiosk/assets/img/logo.png" alt="대운한의원 로고">
+        <div id="logIn">
+            <button id="managerLogInBtn">
+                <img src="/kiosk/assets/img/logo.png" alt="대운한의원 로고" class="logo" />
+            </button>
+        </div>
       </div>
       <div class="waiting-title">대기 환자</div>
       <ul id="waiting-patient-list" class="patient-list"></ul>
@@ -25,7 +29,22 @@
       <ul id="called-patient-list" class="patient-called-list"></ul>
     </div>
   </div>
+  <!-- 관리자 로그인 팝업 -->
+  <div id="logInPopup" class="hidden">
+        <div class="popup-content">
+            <button id="closePopup">&times;</button>
+            <h2>관리자 로그인</h2>
+            <form id="loginForm">
+                <label for="adminId">관리자 ID:</label>
+                <input type="text" id="adminId" name="adminId" placeholder="아이디 입력" required />
 
+                <label for="adminPassword">비밀번호:</label>
+                <input type="password" id="adminPassword" name="adminPassword" placeholder="비밀번호 입력" required />
+            </form>
+            <button type="submit" id="loginButton">로그인</button>
+        </div>
+    </div>
+    
   <script>
     // 대기 환자 목록 및 호출 업데이트
     async function fetchPatients() {
@@ -65,5 +84,6 @@
     setInterval(fetchPatients, 5000);
     fetchPatients(); // 초기 실행
   </script>
+  <script src="desk.js"></script>
 </body>
 </html>

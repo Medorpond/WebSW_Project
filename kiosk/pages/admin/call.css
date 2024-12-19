@@ -56,15 +56,13 @@ main {
 /* 전체 컨테이너 */
 .container {
   width: 100%;
-  min-width: 80%;
   max-width: 100%;
-  text-align: center;
-  align-items: center;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
+  min-width: 80%;
+  background: white;
   padding: 20px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 /* 테이블 스타일 */
@@ -100,13 +98,7 @@ td {
   vertical-align: middle;
 }
 
-/* 서류 열 줄바꿈 */
-.table-container th:nth-child(12),
-.table-container td:nth-child(12) {
-  white-space: pre-line;  /* 줄바꿈 적용 */
-  text-align: left;       /* 왼쪽 정렬 */
-  padding-left: 10px;     /* 여백 추가 */
-}
+
 
 /* 테이블 레이아웃 개선 */
 .table-container th:first-child,
@@ -119,15 +111,24 @@ td {
   width: 80px;
 }
 
+.table-container th:nth-child(3),
+.table-container td:nth-child(3) {
+  width: 100px;
+}
+
 .table-container th:nth-child(4),
 .table-container td:nth-child(4) {
   width: 80px;
 }
 
+.table-container th:nth-child(5),
+.table-container td:nth-child(5) {
+  width: 120px;
+}
+
 .table-container th:nth-child(6),
 .table-container td:nth-child(6) {
-  width: 150px; /* 주소 열 */
-  white-space: nowrap;
+  width: 200px; /* 주소 열 */
   overflow: hidden; /* 넘치는 텍스트 숨김 */
   text-overflow: ellipsis; /* 텍스트가 길면 생략 (...) */
 }
@@ -137,9 +138,33 @@ td {
   width: 80px;
 }
 
+.table-container th:nth-child(8),
+.table-container td:nth-child(8) {
+  width: 80px;
+}
+
+.table-container th:nth-child(9),
+.table-container td:nth-child(9) {
+  width: 80px;
+}
+
 .table-container th:nth-child(10),
 .table-container td:nth-child(10) {
-  width: 100px;
+  width: 80px;
+}
+
+.table-container th:nth-child(11),
+.table-container td:nth-child(11) {
+  width: 120px;
+}
+
+/* 서류 열 줄바꿈 */
+.table-container th:nth-child(12),
+.table-container td:nth-child(12) {
+  width: 150px;
+  white-space: pre-line;  /* 줄바꿈 적용 */
+  text-align: left;       /* 왼쪽 정렬 */
+  padding-left: 10px;     /* 여백 추가 */
 }
 
 .table-container th:nth-child(13),
