@@ -8,6 +8,7 @@ class FAQManager {
         this.faqList = document.querySelector('.faq-list');
         this.isAdmin = false;
         this.init();
+        this.addButton = null;
     }
 
     async init() {
@@ -67,6 +68,15 @@ class FAQManager {
             </div>
         </div>
     `).join('');
+    if (this.isAdmin) {
+        this.faqList.insertAdjacentHTML('afterend', `
+            <div class="add-faq-button">
+                <span>+</span>
+            </div>
+        `);
+        this.addButton = document.querySelector('.add-faq-button');
+        this.addButton.addEventListener('click', () => this.showNewFAQForm());
+        }
     }
 
 
@@ -195,6 +205,63 @@ class FAQManager {
         }
     }
 
+
+
+    showNewFAQForm() {
+        const newFAQHtml = `
+            <div class="faq-item new-faq-item show">
+                <div class="faq-question">
+                    <div class="question-text">
+                        <span class="question-icon">Q.</span>
+                        <span class="editable-text" contenteditable="true"></span>
+                    </div>
+                </div>
+                <div class="faq-answer show">
+                    <span class="Answer-icon">A.</span>
+                    <span class="editable-text" contenteditable="true"></span>
+                    <div class="edit-controls" style="display: block;">
+                        <button class="save-btn">저장</button>
+                        <button class="cancel-btn">취소</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        this.addButton.insertAdjacentHTML('beforebegin', newFAQHtml);
+
+        const newFAQItem = document.querySelector('.new-faq-item');
+        const saveBtn = newFAQItem.querySelector('.save-btn');
+        const cancelBtn = newFAQItem.querySelector('.cancel-btn');
+
+        saveBtn.addEventListener('click', () => this.saveNewFAQ(newFAQItem));
+        cancelBtn.addEventListener('click', () => newFAQItem.remove());
+    }
+
+    async saveNewFAQ(faqItem) {
+        const title = faqItem.querySelector('.question-text .editable-text').textContent;
+        const content = faqItem.querySelector('.faq-answer .editable-text').textContent;
+
+        if (!title.trim() || !content.trim()) {
+            alert('질문과 답변을 모두 입력해주세요.');
+            return;
+        }
+
+        try {
+            const response = await fetch('/BackEnd/php/FAQ.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ title, content })
+            });
+
+            if (response.ok) {
+                await this.init();
+            }
+        } catch (error) {
+            console.error('FAQ 추가 중 오류 발생:', error);
+        }
+    }
 }
 
 

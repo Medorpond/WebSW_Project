@@ -114,6 +114,37 @@
     background: #fff;
 }
 
+.add-faq-button {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.add-faq-button:hover {
+    background: #f8fff8;
+}
+
+.add-faq-button span {
+    font-size: 24px;
+    color: #00aa00;
+}
+
+.new-faq-item {
+    display: none;
+}
+
+.new-faq-item.show {
+    display: block;
+}
+
+
+
 @media (max-width: 768px) {
     .faq-container {
         padding: 1rem;

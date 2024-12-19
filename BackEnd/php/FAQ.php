@@ -84,5 +84,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     }
 }
 
+// POST 요청 처리 (FAQ 추가)
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!isAdmin()) {
+        http_response_code(403);
+        echo json_encode(['success' => false, 'message' => '권한이 없습니다.']);
+        exit;
+    }
+
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    if (!isset($data['title']) || !isset($data['content'])) {
+        echo json_encode(['success' => false, 'message' => '필수 데이터가 누락되었습니다.']);
+        exit;
+    }
+
+    try {
+        $stmt = $conn->prepare("INSERT INTO FAQ (title, content) VALUES (?, ?)");
+        $stmt->bind_param("ss", $data['title'], $data['content']);
+        $stmt->execute();
+
+        echo json_encode(['success' => true, 'message' => 'FAQ가 추가되었습니다.']);
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => 'FAQ 추가 중 오류가 발생했습니다.']);
+    }
+}
+
 // 연결 종료
 $conn->close();
