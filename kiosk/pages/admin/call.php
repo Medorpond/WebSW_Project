@@ -4,14 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>진료실 호출</title>
-  <link rel="stylesheet" href="/kiosk/globals.css" />
-  <link rel="stylesheet" href="/kiosk/styleguide.css" />
   <link rel="stylesheet" href="call.css">
 </head>
 <body>
-  <div class="container">
-    <!-- 타이틀 -->
-    <h1 class="title">진료실 호출</h1>
+
+<main>
+<h1>진료실 호출</h1>
+<div class="container">
     <!-- 테이블 -->
     <div class="table-container">
       <table>
@@ -29,7 +28,7 @@
             <th>담당자이름</th>
             <th>담당자번호</th>
             <th>서류</th>
-            <th>호출버튼</th>
+            <th>호출</th>
           </tr>
         </thead>
         <tbody id="patient-list">
@@ -37,8 +36,8 @@
         </tbody>
       </table>
     </div>
-  </div>
-
+</div>
+</main>
   <script src="call.js"></script>
 </body>
 </html>
