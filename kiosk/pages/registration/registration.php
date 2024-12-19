@@ -28,10 +28,28 @@
       </div>
     </div>
 
-    <div class="header">
-      <img src="/kiosk/assets/img/logo.png" alt="대운한의원 로고" class="logo" />
+    <div id="logIn">
+        <button id="managerLogInBtn">
+            <img src="/kiosk/assets/img/logo.png" alt="대운한의원 로고" class="logo" />
+        </button>
     </div>
   </div>
+
+    <!-- 관리자 로그인 팝업 -->
+    <div id="logInPopup" class="hidden">
+        <div class="popup-content">
+            <button id="closePopup">&times;</button>
+            <h2>관리자 로그인</h2>
+            <form id="loginForm">
+                <label for="adminId">관리자 ID:</label>
+                <input type="text" id="adminId" name="adminId" placeholder="아이디 입력" required />
+
+                <label for="adminPassword">비밀번호:</label>
+                <input type="password" id="adminPassword" name="adminPassword" placeholder="비밀번호 입력" required />
+            </form>
+            <button type="submit" id="loginButton">로그인</button>
+        </div>
+    </div>
 
   <!-- PHP -->
   <div>
@@ -44,7 +62,7 @@
     // DB 연결 경로 확인
     require_once __DIR__ . '/../../../config/dbconnection.php';
 
-    echo "DB 연결이 성공적으로 설정되었습니다!<br>";
+    // echo "DB 연결이 성공적으로 설정되었습니다!<br>";
     ?>
   </div>
 

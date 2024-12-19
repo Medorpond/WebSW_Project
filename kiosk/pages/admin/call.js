@@ -87,16 +87,16 @@ function attachCallButtonEvents() {
             } else if (currentStatus == "1") {
                 // 사용자 선택 팝업
                 const choice = prompt(
-                    `${patientName}님에 대한 작업을 선택하세요:\n1: 재호출\n2: 리스트에서 삭제\n\n취소 버튼을 누르면 아무 작업도 하지 않습니다.`,
+                    `${patientName}님에 대한 작업을 선택하세요:\n1: 리스트에서 삭제\n2: 재호출\n\n`,
                     "1"
                 );
 
                 if (choice === "1") {
-                    await updateCallStatus(applicationId, 1); // 재호출
-                    alert(`${patientName}님이 재호출되었습니다.`);
-                } else if (choice === "2") {
-                    await updateCallStatus(applicationId, 2); // 삭제
+                    await updateCallStatus(applicationId, 2); // 재호출
                     alert(`${patientName}님이 리스트에서 삭제되었습니다.`);
+                } else if (choice === "2") {
+                    await updateCallStatus(applicationId, 1); // 삭제
+                    alert(`${patientName}님이 재호출되었습니다.`);
                 }
             }
             fetchPatients(); // 테이블 새로고침
@@ -123,5 +123,5 @@ async function updateCallStatus(applicationId, newStatus) {
 }
 
 // 5초마다 대기 환자 목록 새로고침
-setInterval(fetchPatients, 5000);
+// setInterval(fetchPatients, 5000);
 fetchPatients(); // 초기 로드

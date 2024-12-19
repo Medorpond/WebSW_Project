@@ -13,9 +13,9 @@ $menuItems = [
 
 if ($isAdmin) {
     $menuItems['main'] = [
-        ['name' => 'KIOSK', 'href' => '/kiosk/visit-purpose/여기에 키오스크 연결'],
-        ['name' => '대기열', 'href' => '#'],
-        ['name' => '환자 호출', 'href' => '#']
+        ['name' => 'KIOSK', 'href' => '/kiosk/pages/registration/registration.php'],
+        ['name' => '대기열', 'href' => '/kiosk/pages/desk/desk.php'],
+        ['name' => '환자 호출', 'href' => '/kiosk/pages/admin/call.php']
     ];
     $menuItems['sub'] = [
         ['name' => '예약정보수정', 'href' => '/FrontEnd/pages/reservationManage/reservationManage.html'],
