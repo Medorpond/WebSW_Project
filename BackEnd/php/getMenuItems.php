@@ -20,7 +20,7 @@ if ($isAdmin) {
     ];
     $menuItems['sub'] = [
         ['name' => '예약정보수정', 'href' => '/FrontEnd/pages/reservationManage/reservationManage.html'],
-        ['name' => 'KIOSK 수정', 'href' => '/kiosk/pages/edintisurance/editinsurance.php'],
+        ['name' => 'KIOSK 수정', 'href' => '/kiosk/pages/editinsurance/editinsurance.php'],
         ['name' => 'FAQ', 'href' => '/FrontEnd/pages/FAQ/FAQ.html']
     ];
 } else {
