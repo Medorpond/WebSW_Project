@@ -1,0 +1,142 @@
+/* 기본 설정 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+body {
+  background-color: #fdfdfd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* 전체 컨테이너 */
+.container {
+  width: 95%;
+  max-width: 80%;
+  text-align: center;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 타이틀 스타일 */
+.title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+/* 테이블 스타일 */
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  background-color: #e5e8d7;
+  color: #333;
+  font-weight: bold;
+}
+
+/* 행 배경 */
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+td {
+  color: #555;
+  vertical-align: middle;
+}
+
+/* 서류 열 줄바꿈 */
+.table-container th:nth-child(12),
+.table-container td:nth-child(12) {
+  white-space: pre-line;  /* 줄바꿈 적용 */
+  text-align: left;       /* 왼쪽 정렬 */
+  padding-left: 10px;     /* 여백 추가 */
+}
+
+/* 테이블 레이아웃 개선 */
+.table-container th:first-child,
+.table-container td:first-child {
+  width: 50px; /* 번호 열 크기 */
+}
+
+.table-container th:nth-child(2),
+.table-container td:nth-child(2) {
+  width: 80px;
+}
+
+.table-container th:nth-child(4),
+.table-container td:nth-child(4) {
+  width: 80px;
+}
+
+.table-container th:nth-child(6),
+.table-container td:nth-child(6) {
+  width: 150px; /* 주소 열 */
+  white-space: nowrap;
+  overflow: hidden; /* 넘치는 텍스트 숨김 */
+  text-overflow: ellipsis; /* 텍스트가 길면 생략 (...) */
+}
+
+.table-container th:nth-child(7),
+.table-container td:nth-child(7) {
+  width: 80px;
+}
+
+.table-container th:nth-child(10),
+.table-container td:nth-child(10) {
+  width: 100px;
+}
+
+.table-container th:nth-child(13),
+.table-container td:nth-child(13) {
+  width: 90px;
+}
+
+/* 호출 버튼 스타일 */
+.call-btn {
+  padding: 5px 10px;
+  background-color: #5a7535;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+/* 호출됨 상태의 버튼 스타일 */
+.call-btn.disabled {
+  background-color: #b0b0b0; /* 회색 */
+  color: #ffffff; /* 텍스트 색상 */
+  cursor: not-allowed; /* 커서를 금지 표시로 변경 */
+}
+
+.call-btn:hover {
+  background-color: #4a5e2a;
+}
+
+/* 가독성 개선 */
+tr:hover {
+  background-color: #f1f1f1;
+}
