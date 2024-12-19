@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>진료실 호출</title>
+  <title>환자 호출</title>
   <link rel="stylesheet" href="call.css">
 </head>
 <body>
@@ -11,7 +11,7 @@
         <header id="headerSection"></header>
         <main>
             <section class="callpatient">
-                <h1>진료실 호출</h1>
+                <h1>환자 호출</h1>
                 <div class="container">
                     <div class="table-container">
                         <table>
