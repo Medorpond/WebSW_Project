@@ -54,8 +54,9 @@ hr {
 
 #calendar {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(7, 1fr);
     gap: 15px;
+    width: 100%;
 }
 
 .calendar-day {
@@ -139,39 +140,20 @@ hr {
 .calendar-day::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
-
-@media (max-width: 1400px) {
+@media (max-width: 1200px) {
     #calendar {
-        grid-template-columns: repeat(7, minmax(180px, 1fr));
+        grid-template-columns: repeat(5, 1fr);
     }
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 900px) {
     #calendar {
-        grid-template-columns: repeat(5, minmax(180px, 1fr));
-    }
-}
-
-@media (max-width: 1000px) {
-    #calendar {
-        grid-template-columns: repeat(4, minmax(180px, 1fr));
-    }
-}
-
-@media (max-width: 800px) {
-    #calendar {
-        grid-template-columns: repeat(3, minmax(180px, 1fr));
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
 @media (max-width: 600px) {
     #calendar {
-        grid-template-columns: repeat(2, minmax(180px, 1fr));
-    }
-}
-
-@media (max-width: 400px) {
-    #calendar {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
 }
