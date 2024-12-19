@@ -39,6 +39,12 @@ class FAQManager {
     }
 
     renderFAQs(faqs) {
+        // 기존 add 버튼이 있다면 제거
+        const existingAddButton = document.querySelector('.add-faq-button');
+        if (existingAddButton) {
+            existingAddButton.remove();
+        }
+
         const adminControls = this.isAdmin ? `
         <svg class="delete-icon" width="24" height="24" viewBox="0 0 24 24">
             <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
@@ -69,16 +75,19 @@ class FAQManager {
             </div>
         </div>
     `).join('');
-    if (this.isAdmin) {
-        this.faqList.insertAdjacentHTML('afterend', `
+
+        // 관리자인 경우에만 새로운 add 버튼 추가
+        if (this.isAdmin) {
+            this.faqList.insertAdjacentHTML('afterend', `
             <div class="add-faq-button">
                 <span>+</span>
             </div>
         `);
-        this.addButton = document.querySelector('.add-faq-button');
-        this.addButton.addEventListener('click', () => this.showNewFAQForm());
+            this.addButton = document.querySelector('.add-faq-button');
+            this.addButton.addEventListener('click', () => this.showNewFAQForm());
         }
     }
+
 
 
     attachEventListeners() {
