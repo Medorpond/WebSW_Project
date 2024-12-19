@@ -14,6 +14,7 @@ $menuItems = [
 if ($isAdmin) {
     $menuItems['main'] = [
         ['name' => 'KIOSK', 'href' => '/kiosk/pages/registration/registration.php'],
+        ['name' => '예약 현황', 'href' => '/FrontEnd/pages/reservationOverview/reservationOverview.html'],
         ['name' => '대기열', 'href' => '/kiosk/pages/desk/desk.php'],
         ['name' => '환자 호출', 'href' => '/kiosk/pages/admin/call.php']
     ];
