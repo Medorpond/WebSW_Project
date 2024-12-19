@@ -1,0 +1,67 @@
+.flatpickr-calendar {
+    width: 100% !important;
+    max-width: none !important;
+    height: calc(100vh - 40px) !important;
+}
+
+.flatpickr-months {
+    padding: 10px 0;
+}
+
+.flatpickr-days {
+    display: flex;
+    flex-grow: 1;
+}
+
+.dayContainer {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: none !important;
+}
+
+.flatpickr-day {
+    height: auto !important;
+    min-height: 120px !important;
+    max-height: 200px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 5px !important;
+}
+
+.reservations-container {
+    margin-top: 5px;
+    max-height: calc(100% - 25px);
+    overflow-y: auto;
+    width: 100%;
+    scrollbar-width: thin;
+}
+
+.reservation-item {
+    font-size: 11px;
+    padding: 3px 5px;
+    margin: 2px 0;
+    background: #e8f5e9;
+    border: 1px solid #c8e6c9;
+    border-radius: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.reservation-item:hover {
+    background: #c8e6c9;
+}
+
+/* 스크롤바 스타일링 */
+.reservations-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.reservations-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.reservations-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 2px;
+}
