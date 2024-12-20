@@ -1,6 +1,13 @@
 document.addEventListener("DOMContentLoaded", initAdminResPage);
 
-let resDateOption = {};
+let resDateOption = {
+    enabledDays: [],
+    timeSlots: {
+        0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: []
+    },
+    patientsPerUnit: {},
+    disabledDates: []
+};
 let flatpickrInstance;
 let currentDayIndex;
 
@@ -28,7 +35,7 @@ function setupAdminCalendar() {
         inline: true,
         minDate: "today",
         disable: [
-            function(date) {
+            function (date) {
                 if (!resDateOption.enabledDays.includes(date.getDay())) {
                     return true;
                 }
@@ -46,7 +53,7 @@ function setupAdminCalendar() {
                 longhand: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
             }
         },
-        onReady: function(dateObj, dateStr, instance) {
+        onReady: function (dateObj, dateStr, instance) {
             const yearElement = instance.currentYearElement;
             const monthElement = instance.monthElements[0];
             const monthParent = monthElement.parentNode;
@@ -73,7 +80,7 @@ function updateUIWithData() {
     patientsInput.disabled = !isDayActive;
 
     if (isDayActive) {
-        const timeSlots = resDateOption.timeSlots[currentDayIndex.toString()];
+        const timeSlots = resDateOption.timeSlots[currentDayIndex];
         if (timeSlots && timeSlots.length > 0) {
             timeInputs[0].value = timeSlots[0];
             timeInputs[1].value = timeSlots[timeSlots.length - 1];
@@ -85,7 +92,7 @@ function updateUIWithData() {
         } else {
             unitInput.value = 0;
         }
-        patientsInput.value = resDateOption.patientsPerUnit;
+        patientsInput.value = resDateOption.patientsPerUnit[currentDayIndex] || '';
     } else {
         timeInputs.forEach(input => input.value = '');
         unitInput.value = '';
@@ -104,9 +111,13 @@ function onDayClick(event) {
 
 function toggleDay(event) {
     if (event.target.checked) {
-        resDateOption.enabledDays.push(currentDayIndex);
+        if (!resDateOption.enabledDays.includes(currentDayIndex)) {
+            resDateOption.enabledDays.push(currentDayIndex);
+        }
     } else {
         resDateOption.enabledDays = resDateOption.enabledDays.filter(day => day !== currentDayIndex);
+        resDateOption.timeSlots[currentDayIndex] = [];
+        delete resDateOption.patientsPerUnit[currentDayIndex];
     }
     updateUIWithData();
     updateCalendarOnInput();
@@ -114,7 +125,7 @@ function toggleDay(event) {
 
 function updateCalendarOnInput() {
     flatpickrInstance.set('disable', [
-        function(date) {
+        function (date) {
             if (!resDateOption.enabledDays.includes(date.getDay())) {
                 return true;
             }
@@ -158,19 +169,12 @@ function saveChanges(event) {
 }
 
 function updateResDateOption() {
-    resDateOption.enabledDays = [];
-    document.querySelectorAll('.day-btn').forEach((btn, index) => {
-        if (btn.classList.contains('active')) {
-            resDateOption.enabledDays.push(index);
-        }
-    });
-
     const startTime = document.querySelectorAll('.time-input')[0].value;
     const endTime = document.querySelectorAll('.time-input')[1].value;
     const timeUnit = parseInt(document.querySelector('.unit-input').value);
+    const patientsPerUnit = parseInt(document.querySelector('.patients-input input').value);
 
-    resDateOption.timeSlots = {};
-    resDateOption.enabledDays.forEach(day => {
+    if (resDateOption.enabledDays.includes(currentDayIndex)) {
         let currentTime = new Date(`2000-01-01T${startTime}:00`);
         const endDateTime = new Date(`2000-01-01T${endTime}:00`);
         const timeSlots = [];
@@ -180,10 +184,12 @@ function updateResDateOption() {
             currentTime.setMinutes(currentTime.getMinutes() + timeUnit);
         }
 
-        resDateOption.timeSlots[day] = timeSlots;
-    });
-
-    resDateOption.patientsPerUnit = parseInt(document.querySelector('.patients-input input').value);
+        resDateOption.timeSlots[currentDayIndex] = timeSlots;
+        resDateOption.patientsPerUnit[currentDayIndex] = patientsPerUnit;
+    } else {
+        resDateOption.timeSlots[currentDayIndex] = [];
+        delete resDateOption.patientsPerUnit[currentDayIndex];
+    }
 
     const startMonth = document.querySelector('#holiday-start .month-input').value;
     const startDay = document.querySelector('#holiday-start .day-input').value;
