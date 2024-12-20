@@ -1,0 +1,363 @@
+/* 메인 레이아웃 */
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    padding: 20px;
+    margin-bottom: 40px;
+}
+
+/* 예약 섹션 */
+.reservation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 70%;
+    padding: 20px;
+}
+
+.reservation h1 {
+    font-size: 50px;
+    margin: 20px 0;
+}
+
+/* 예약 정보 */
+.reservation-info {
+    margin: 0;
+    padding: 5px;
+    text-align: left;
+    width: 100%;
+    min-width: 300px;
+}
+
+.reservation-info h3 {
+    font-size: 20px;
+    margin: 10px 0 5px 0;
+}
+
+.reservation-info p {
+    font-size: 16px;
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+.reservation-info span {
+    font-weight: bold;
+    color: #333;
+}
+
+/* 예약 데이터 */
+.reservationData {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 40px;
+    width: 100%;
+}
+
+/* 캘린더 컨테이너 */
+#calendar-container {
+    flex: 1;
+    max-width: 700px;
+    min-width: 300px;
+}
+
+#calendar-container .flatpickr-calendar {
+    width: 100% !important;
+    aspect-ratio: 5 / 4;
+    height: auto !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-top: 3px solid #e6e6e6;
+    border-bottom: 3px solid #e6e6e6;
+    font-size: 16px;
+    max-width: 100% !important;
+    min-width: 0;
+}
+
+/* 캘린더 내부 요소 */
+#calendar-container .flatpickr-months,
+#calendar-container .flatpickr-weekdays,
+#calendar-container .flatpickr-days,
+#calendar-container .flatpickr-innerContainer,
+#calendar-container .flatpickr-rContainer {
+    background: transparent !important;
+    width: 100% !important;
+}
+
+#calendar-container .dayContainer {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: auto !important;
+    flex-grow: 1;
+}
+
+/* 날짜 셀 스타일 */
+#calendar-container .flatpickr-day {
+    background: transparent !important;
+    border: none !important;
+    height: 40px;
+    line-height: 40px;
+    max-width: 14.28% !important;
+    flex-basis: 14.28% !important;
+}
+
+#calendar-container .flatpickr-day:hover {
+    background: rgba(244, 162, 97, 0.1) !important;
+}
+
+#calendar-container .flatpickr-day.selected,
+#calendar-container .flatpickr-day.startRange,
+#calendar-container .flatpickr-day.endRange,
+#calendar-container .flatpickr-day.selected.inRange,
+#calendar-container .flatpickr-day.startRange.inRange,
+#calendar-container .flatpickr-day.endRange.inRange,
+#calendar-container .flatpickr-day.selected:focus,
+#calendar-container .flatpickr-day.startRange:focus,
+#calendar-container .flatpickr-day.endRange:focus {
+    background: #4A6D2F !important;
+    border-color: #4A6D2F !important;
+    color: #fff !important;
+}
+
+/* 월 선택 스타일 */
+#calendar-container .flatpickr-months {
+    padding: 10px 0;
+}
+
+#calendar-container .flatpickr-month {
+    height: 34px;
+    display: flex;
+    align-items: center;
+}
+
+#calendar-container .flatpickr-current-month {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    position: relative;
+    width: 100%;
+    padding: 0;
+}
+
+#calendar-container .flatpickr-current-month .flatpickr-monthDropdown-months,
+#calendar-container .flatpickr-current-month .numInputWrapper {
+    font-size: 1em;
+    font-weight: 400;
+    height: auto;
+    line-height: inherit;
+    border-radius: 0;
+    vertical-align: initial;
+    -webkit-appearance: menulist;
+    -moz-appearance: menulist;
+    appearance: menulist-button;
+}
+
+#calendar-container .flatpickr-current-month .flatpickr-monthDropdown-months {
+    width: 60px;
+}
+
+#calendar-container .flatpickr-current-month .numInputWrapper {
+    width: auto;
+    margin-right: 10px;
+    margin-left: 5px;
+}
+
+#calendar-container .numInputWrapper input {
+    display: inline-block;
+    width: 100%;
+    background: transparent;
+    cursor: pointer;
+}
+
+#calendar-container .numInputWrapper .arrowUp,
+#calendar-container .numInputWrapper .arrowDown {
+    display: none;
+}
+
+#calendar-container .flatpickr-monthDropdown-months {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: transparent;
+    border: none;
+    cursor: default;
+}
+
+#calendar-container .flatpickr-monthDropdown-months::-ms-expand,
+#calendar-container .numInputWrapper input::-ms-expand {
+    display: none;
+}
+
+#calendar-container .flatpickr-monthDropdown-months:after {
+    content: '\25BC';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+#calendar-container .flatpickr-monthDropdown-month {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#calendar-container .flatpickr-monthDropdown-month:hover {
+    background-color: #f0f0f0;
+}
+
+/* 예약 폼 */
+.reservation-form {
+    flex: 1;
+    max-width: 400px;
+    min-width: 300px;
+    padding: 5px;
+}
+
+.reservation-form input {
+    margin-bottom: 10px;
+}
+
+label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.required {
+    color: red;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+/* 시간 선택기 */
+#time-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.time-btn {
+    flex: 1 0 21%;
+    max-width: 23%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4A6D2F;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.time-btn:hover:not(:disabled) {
+    background-color: #395922;
+}
+
+.time-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.time-btn.selected {
+    background-color: #395922;
+}
+
+/* 동의 및 확인 */
+.agreement {
+    margin: 20px 0;
+}
+
+#confirmation-text {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #4A6D2F;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background-color: #395922;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1100px) {
+    .reservation h1 {
+        font-size: 30px;
+    }
+
+    .reservationData {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    #calendar-container,
+    .reservation-form {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .reservationData {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    #calendar-container,
+    .reservation-form {
+        flex: none;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .reservation {
+        width: 90%;
+        padding: 10px;
+    }
+
+    .reservation h1 {
+        font-size: 24px;
+    }
+
+    input[type="text"] {
+        font-size: 14px;
+    }
+
+    .submit-btn {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .time-btn {
+        flex: 1 0 46%;
+        max-width: 48%;
+    }
+}

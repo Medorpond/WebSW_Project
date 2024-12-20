@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>예약 인원 확인</title>
+    <!--CSS 파일-->
+    <link rel="stylesheet" href="/FrontEnd/pages/global.css">
+    <link rel="stylesheet" href="/FrontEnd/pages/reservationOverview/reservationOverview.css">
+
+    <!-- flatpickr 스타일 다운로드 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- flatpickr 스크립트 다운로드 -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <!--JavaScript 파일-->
+    <script src="/FrontEnd/pages/layout/layoutLoader.js"></script>
+    <script src="/FrontEnd/pages/reservationOverview/reservationOverview.js"></script>
+</head>
+
+<body>
+<div id="headerSection">
+    <!-- Header Section -->
+</div>
+
+<main>
+    <main>
+        <h1>예약 현황</h1>
+        <hr>
+        <div class="date-selector">
+            <button id="prevMonth" class="month-nav">&lt;</button>
+            <span id="currentDate"></span>
+            <button id="nextMonth" class="month-nav">&gt;</button>
+        </div>
+        <div id="calendar"></div>
+    </main>
+</main>
+
+
+<footer>
+    <!-- Footer Section -->
+</footer>
+</body>
+</html>

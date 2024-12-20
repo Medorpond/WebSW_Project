@@ -1,0 +1,226 @@
+/* 기본 설정 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* 전체 페이지 설정 */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* 레이아웃 설정 */
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 메인 콘텐츠는 자동 확장 */
+main {
+  gap: 40px;
+      padding: 20px;
+      margin-bottom: 40px;
+  flex: 1;
+}
+
+/* 푸터 스타일 (기존 유지) */
+footer {
+  background-color: #333;
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+  padding: 20px;
+  text-align: center;
+}
+
+/*
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+  */
+/* .callpatient 스타일 수정 */
+.callpatient {
+  display: flex;
+  flex-direction: column;
+  align-items: center;  /* 수평 중앙 정렬 */
+  justify-content: center;  /* 수직 중앙 정렬 */
+  gap: 20px;
+  width: 80%;
+  max-width: 80%;  /* 최대 크기 제한 */
+  padding: 20px;
+  margin: 0 auto;  /* 수평 중앙 정렬 */
+  text-align: center;  /* 텍스트 중앙 정렬 */
+}
+
+
+.callpatient h1 {
+    font-size: 50px;
+    margin: 20px 0;
+}
+
+/* 전체 컨테이너 */
+.container {
+  width: 100%;
+  max-width: 100%;
+  min-width: 80%;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* 테이블 스타일 */
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  background-color: #e5e8d7;
+  color: #333;
+  font-weight: bold;
+}
+
+/* 행 배경 */
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+td {
+  color: #555;
+  vertical-align: middle;
+}
+
+
+
+/* 테이블 레이아웃 개선 */
+.table-container th:first-child,
+.table-container td:first-child {
+  width: 50px; /* 번호 열 크기 */
+}
+
+.table-container th:nth-child(2),
+.table-container td:nth-child(2) {
+  width: 80px;
+}
+
+.table-container th:nth-child(3),
+.table-container td:nth-child(3) {
+  width: 100px;
+}
+
+.table-container th:nth-child(4),
+.table-container td:nth-child(4) {
+  width: 80px;
+}
+
+.table-container th:nth-child(5),
+.table-container td:nth-child(5) {
+  width: 120px;
+}
+
+.table-container th:nth-child(6),
+.table-container td:nth-child(6) {
+  width: 200px; /* 주소 열 */
+  overflow: hidden; /* 넘치는 텍스트 숨김 */
+  text-overflow: ellipsis; /* 텍스트가 길면 생략 (...) */
+}
+
+.table-container th:nth-child(7),
+.table-container td:nth-child(7) {
+  width: 80px;
+}
+
+.table-container th:nth-child(8),
+.table-container td:nth-child(8) {
+  width: 80px;
+}
+
+.table-container th:nth-child(9),
+.table-container td:nth-child(9) {
+  width: 80px;
+}
+
+.table-container th:nth-child(10),
+.table-container td:nth-child(10) {
+  width: 80px;
+}
+
+.table-container th:nth-child(11),
+.table-container td:nth-child(11) {
+  width: 120px;
+}
+
+/* 서류 열 줄바꿈 */
+.table-container th:nth-child(12),
+.table-container td:nth-child(12) {
+  width: 150px;
+  white-space: pre-line;  /* 줄바꿈 적용 */
+  text-align: left;       /* 왼쪽 정렬 */
+  padding-left: 10px;     /* 여백 추가 */
+}
+
+.table-container th:nth-child(13),
+.table-container td:nth-child(13) {
+  width: 90px;
+}
+
+/* 호출 버튼 스타일 */
+.call-btn {
+  padding: 5px 10px;
+  background-color: #5a7535;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+/* 호출됨 상태의 버튼 스타일 */
+.call-btn.disabled {
+  background-color: #b0b0b0; /* 회색 */
+  color: #ffffff; /* 텍스트 색상 */
+  cursor: not-allowed; /* 커서를 금지 표시로 변경 */
+}
+
+.call-btn:hover {
+  background-color: #4a5e2a;
+}
+
+/* 가독성 개선 */
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+
+@media (max-width: 400px) {
+  * {
+      white-space: nowrap;
+  }
+
+  .reservation-form {
+      overflow-x: auto;
+  }
+}
+

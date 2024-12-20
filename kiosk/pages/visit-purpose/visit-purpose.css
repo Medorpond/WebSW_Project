@@ -1,0 +1,135 @@
+.screen {
+  background-color: #f5f7ff;
+  display: flex;
+  justify-content: space-between;  
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  font-family: var(--large-title-font-family);
+  padding: 20px 0; 
+}
+
+/* 메인 컨테이너 */
+.main-container {
+  width: 90%;
+  max-width: 1280px;
+  height: auto;
+  min-height: 832px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transform: translateY(5%);
+}
+
+/* 안내 텍스트 */
+.centered-text {
+  margin: 0;
+  text-align: center;
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: var(--main-textk);
+  flex: 0 0 auto; 
+  position: relative;
+  top: 15%; 
+  margin-bottom: 70px;
+}
+  
+
+.visit-form {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+  /* 공통 카드 스타일 */
+  .card {
+    width: 100%;
+    max-width: 600px;
+    height: 80px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: var(--mini-button);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px; /* 박스 간격 */
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px); /* 카드가 살짝 위로 올라가는 효과 */
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--darkk);
+    text-align: center;
+    margin-right: 10px;
+    transition: color 0.3s ease;
+  }
+  
+  .card-subtitle {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #7f9cb3;
+    text-align: center;
+  }
+
+  /* 선택된 상태 */
+.card.selected {
+  background-color: var(--maink); /* 선택된 상태 배경색 */
+  color: #ffffff; /* 선택된 상태 텍스트 색 */
+  border: 2px solid var(--maink); /* 선택된 상태 테두리 */
+}
+
+.card.selected .card-title {
+  color: #ffffff; /* 텍스트 색상 유지 */
+}
+
+.card.selected .card-subtitle {
+  color: #ffffff; /* 텍스트 색상 유지 */
+}
+
+/* 네비게이션 버튼 - 공통 위치 */
+.nav-buttons {
+  width: 100%;
+  max-width: 1280px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5%;
+  position: fixed; /* 화면에 고정 */
+  bottom: 10%; /* 화면 하단에서 20px 위로 띄움 */
+  left: 0; /* 좌측 기준 */
+  right: 0; /* 우측 기준 */
+  z-index: 100; /* 다른 요소 위에 표시 */
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.nav-button {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-icon {
+  width: 100%;
+  height: 100%;
+}
+
+.logo {
+  position: fixed;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px; /* 로고 크기 조정 */
+  height: auto;
+}

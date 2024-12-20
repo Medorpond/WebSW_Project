@@ -1,0 +1,214 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+  }
+  
+  html,
+  body {
+      height: 100%;
+  }
+  
+  body{
+      display: flex;
+      flex-direction: column; /* 콘텐츠가 수직으로 배치되도록 설정 */
+      min-height: 100vh;
+  }
+  
+  body.blur {
+      filter: blur(5px);
+      pointer-events: none; /* 클릭 방지 */
+  }
+
+main {
+    display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      padding: 20px;
+      margin-bottom: 40px;
+  }
+
+.insurance-management {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 70%;
+    padding: 20px;
+}
+
+.insurance-management h1 {
+    font-size: 50px;
+    margin: 20px 0;
+}
+
+.container {
+    width: 100%;
+    max-width: 100%;
+    min-width: 80%;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* 테이블 스타일 */
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+th {
+    background-color: #e5e8d7;
+    color: #333;
+    font-weight: bold;
+  }
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #e6f7ff;
+}
+
+button {
+    padding: 5px 10px;
+    background-color: #5a7535;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #4a5e2a;
+}
+
+
+.save-btn {
+    padding: 5px 10px;
+    background-color: #e5e8d7;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.save-btn:hover {
+    background-color: #4a5e2a;
+    color: white;
+}
+
+/* 팝업 스타일 */
+.popup-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    width: 350px;
+    z-index: 1000;
+    display: none;
+}
+
+.popup-content.active {
+    display: block;
+}
+
+.popup-content h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+.popup-content form label {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.popup-content form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.popup-content form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #5a7535;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.popup-content form button:hover {
+    background-color: #4a5e2a;
+}
+
+#closeEditPopup, #closeAddPopup {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background-color: transparent;
+    font-size: 24px;
+    line-height: 1;
+    border: none;
+    cursor: pointer;
+}
+
+.loading {
+    text-align: center;
+    color: #777;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+
+    .popup {
+        width: 90%;
+    }
+
+    th, td {
+        font-size: 0.9rem;
+    }
+}

@@ -1,0 +1,275 @@
+.hidden {
+    display: none !important;
+}
+
+/* Blur 효과 */
+.blur {
+    filter: blur(5px);
+    transition: filter 0.3s ease-in-out;
+    pointer-events: none; /* 클릭 방지 */
+}
+
+/* Header 스타일 */
+header{
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;          /* Flexbox 활성화 */
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center;
+    background-color: #ffffff;
+    border-bottom: 1px solid #ccc;
+    z-index: 1000;
+}
+nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    padding: 0 10px;
+}
+#mainNav, #subNav {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
+
+/* 로고 영역 */
+#mainNav h1 {
+    font-size: 20px;
+    font-weight: bold;
+    white-space: nowrap;
+    width: auto;
+    margin: 0 5px;
+}
+
+#mainNav h1 a img {
+    width: 242px; /* 비율에 맞춘 너비 */
+    height: 70px; /* 고정된 높이 */
+    display: block;
+}
+
+
+/* Main Navigation 메뉴 스타일 */
+#mainNav ul, #subNav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0 10px;
+}
+
+#mainNav ul li {
+    margin: 0 20px;
+}
+
+#mainNav ul li a {
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    transition: color 0.2s ease-in-out;
+}
+
+#mainNav ul li a:hover {
+    color: #007BFF;
+}
+
+
+#subNav ul li {
+    margin: 0 10px;
+}
+
+#subNav ul li a {
+    text-decoration: none;
+    font-size: 16px;
+    color: #666;
+    transition: color 0.2s ease-in-out;
+}
+
+#subNav ul li a:hover {
+    color: #007BFF;
+}
+#logIn{
+    width: 30px; /* 이미지 너비에 맞춤 */
+    height: 30px; /* 이미지 높이에 맞춤 */
+}
+
+#logIn button {
+    all: unset; /* 기본 스타일 초기화 */
+    display: inline-block; /* 버튼을 인라인 요소로 설정 */
+    cursor: pointer; /* 클릭 가능한 상태 */
+}
+
+#logIn button img {
+    width: 30px; /* 이미지 크기 조정 */
+    height: auto;
+}
+
+
+/* 사이드바 토글 버튼 */
+#openSidebarBtn {
+    display: none;
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+/* 사이드바 스타일 */
+#sidebar {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100%;
+    background-color: #fff;
+    transition: transform 0.3s ease-in-out;
+    z-index: 1001;
+    padding: 20px;
+}
+
+#sidebar.active {
+    transform: translateX(-100%);
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+}
+
+#closeSidebarBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 18px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333;
+}
+
+#sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+#sidebar ul li {
+    margin: 10px 0;
+}
+
+#sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    display: block;
+    transition: color 0.2s ease-in-out;
+}
+
+#sidebar ul li a:hover {
+    color: #007BFF;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 800px) {
+    header {
+        justify-content: center;
+    }
+
+    #mainNav ul,
+    #subNav ul {
+        display: none; /* 메뉴 숨김 */
+    }
+
+    #openSidebarBtn {
+        display: block; /* 햄버거 메뉴 표시 */
+    }
+
+    #mainNav h1 {
+        text-align: center;
+    }
+}
+/* 팝업창 배경 */
+#logInPopup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* 팝업 내용 */
+.popup-content {
+    position: relative;
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    width: 320px;
+    text-align: center;
+}
+
+.popup-content h2 {
+    margin-bottom: 24px;
+    color: #333;
+    font-size: 24px;
+}
+
+.popup-content label {
+    display: block;
+    text-align: left;
+    margin: 6px 6px;
+    font-size: 14px;
+    color: #555;
+}
+
+.popup-content input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.popup-content button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    background-color: #4A6D2F;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.popup-content button:hover {
+    background-color: #395922;
+}
+
+/* 닫기 버튼 스타일 */
+#closePopup {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    color: #555;
+    font-size: 24px;
+    line-height: 1;
+    padding: 0;
+    margin: 0;
+    border: none;
+    cursor: pointer;
+}
+
+#closePopup:hover {
+    color: #FF6B6B;
+}

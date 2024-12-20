@@ -1,0 +1,243 @@
+.screen {
+  background-color: #f5f7ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  font-family: var(--large-title-font-family);
+}
+
+/* 메인 컨테이너 */
+.main-container {
+  width: 90%;
+  max-width: 1280px;
+  height: auto;
+  min-height: 832px;
+  display: flex;
+  flex-direction: column; /* 세로 정렬 */
+  align-items: center;
+  justify-content: flex-start;
+  transform: translateY(5%);
+}
+
+/* 안내 텍스트 */
+.centered-text {
+  margin: 0;
+  text-align: center;
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: var(--main-textk);
+  flex: 0 0 auto; 
+  position: relative;
+  top: 15%; 
+  margin-bottom: 100px;
+}
+
+/* 카드 컨테이너 */
+.card-container {
+  display: flex;
+  justify-content: center; /* 카드 좌우 정렬 */
+  align-items: center;
+  gap: 150px; /* 카드 간 간격 */
+}
+
+/* 공통 카드 스타일 */
+.card {
+  width: 280px;
+  height: 400px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: var(--mini-button);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px); /* 카드가 살짝 위로 올라가는 효과 */
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* 선택된 상태 */
+.card.selected {
+  background-color: var(--maink); /* 박스 배경색 유지 */
+}
+
+.card-title {
+  font-size: 2.5rem;
+  font-weight: 700;  
+  color: var(--main-textk);
+  margin-bottom: 10px;
+}
+
+.card-line {
+  width: 80%;
+  height: 2px;
+  background-color: #b3d4fc;
+  margin: 10px 0;
+}
+
+.card-subtitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #7f9cb3;
+  text-align: center;
+}
+
+/* Hover 상태 */
+.card:hover {
+  background-color: var(--maink); /* 박스 배경색 변경 */
+}
+
+.card:hover .card-title {
+  color: #ffffff; /* 텍스트 색상 변경 */
+}
+
+.card:hover .card-line{
+  background-color: #e4ebf0;
+}
+
+.card:hover .card-subtitle {
+  color: #e4ebf0;
+}
+
+/* 선택된 상태 */
+.card.selected {
+  background-color: var(--maink); /* 박스 배경색 유지 */
+}
+
+.card.selected .card-title {
+  color: #ffffff; /* 텍스트 색상 유지 */
+}
+
+.card.selected .card-subtitle {
+  color: #e4ebf0;
+}
+
+#logIn{
+  position: fixed;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px; /* 로고 크기 조정 */
+  height: auto;
+}
+
+#logIn button {
+  all: unset; /* 기본 스타일 초기화 */
+  display: inline-block; /* 버튼을 인라인 요소로 설정 */
+  cursor: pointer; /* 클릭 가능한 상태 */
+}
+
+#logIn button img {
+  position: fixed;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px; /* 로고 크기 조정 */
+  height: auto;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Blur 효과 */
+.blur {
+  filter: blur(5px);
+  transition: filter 0.3s ease-in-out;
+  pointer-events: none; /* 클릭 방지 */
+}
+
+/* 팝업창 배경 */
+#logInPopup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* 팝업 내용 */
+.popup-content {
+  position: relative;
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 320px;
+  text-align: center;
+}
+
+.popup-content h2 {
+  margin-bottom: 24px;
+  color: #333;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.popup-content label {
+  display: block;
+  text-align: left;
+  margin: 6px 6px;
+  font-size: 14px;
+  color: #555;
+}
+
+.popup-content input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.popup-content button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  background-color: #4A6D2F;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.popup-content button:hover {
+  background-color: #395922;
+}
+
+/* 닫기 버튼 스타일 */
+#closePopup {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  color: #555;
+  font-size: 24px;
+  line-height: 1;
+  padding: 0;
+  margin: 0;
+  border: none;
+  cursor: pointer;
+}
+
+#closePopup:hover {
+  color: #FF6B6B;
+}

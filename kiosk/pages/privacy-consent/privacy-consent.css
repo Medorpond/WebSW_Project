@@ -1,0 +1,287 @@
+.screen {
+  background-color: #f5f7ff;
+  display: flex;
+  justify-content: space-between;  
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  font-family: var(--large-title-font-family);
+  padding: 20px 0; 
+}
+
+/* 메인 컨테이너 */
+.main-container {
+  width: 90%;
+  max-width: 1280px;
+  height: auto;
+  min-height: 832px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transform: translateY(5%);
+}
+
+/* 안내 텍스트 - 공통 위치 */
+.centered-text {
+  margin: 0;
+  text-align: center;
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: var(--main-textk);
+  flex: 0 0 auto; 
+  position: relative;
+  top: 15%; 
+  margin-bottom: 70px;
+}
+
+/* 개인정보 동의 섹션 */
+.consent-box {
+  width: 90%;
+  max-width: 982px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: var(--textbox);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.consent-title {
+  font-weight: 600;
+  font-size: 1.7rem;
+  color: #000000;
+}
+
+.consent-description {
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  color: #000000;
+}
+
+.option-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.agree {
+  display: flex; /* Flexbox 적용 */
+  flex-direction: row; /* 가로 방향 정렬 */
+  align-items: center; /* 텍스트와 박스의 세로 중앙 정렬 */
+  gap: 10px; /* 텍스트와 박스 사이 간격 */
+}
+
+.agree-text {
+  font-weight: 400;
+  font-size: 1.3rem;
+  color: #000000;
+}
+
+.agree-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid #d9d9d9;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.agree-box:hover {
+  background-color: #f0f0f0;
+}
+
+.agree-box.selected {
+  background-color: var(--maink); /* 선택된 상태 배경 */
+  border-color: var(--maink); /* 선택된 상태 테두리 */
+}
+
+.more-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info-button {
+  border-radius: 5px;
+  box-shadow: var(--button);
+  background-color: #96c3ff;
+  color: #ffffff;
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.info-button:hover {
+  background-color: #769fdb;
+}
+
+/* 모달 스타일 */
+.modal {
+  display: none; /* 숨김 상태로 초기화 */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6); /* 반투명 배경 */
+}
+
+.modal-content {
+  background: white;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 900px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  text-align: left;
+  position: relative;
+}
+
+.modal-content h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.modal-content hr {
+  margin-bottom: 15px;
+}
+
+.modal-content .close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+}
+
+.modal-content .close:hover {
+  color: #ff0000;
+}
+
+#privacyContent {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+/* 기본 스타일 */
+.custom-h1 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.custom-h2 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #555;
+  margin-top: 15px;
+  margin-bottom: 8px;
+}
+
+.custom-p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.custom-div {
+  margin-left: 20px;
+  padding-left: 15px;
+  border-left: 2px solid #ddd;
+}
+
+#privacyContent ul {
+  margin: 10px 0;
+  padding-left: 20px;
+  list-style-type: disc;
+}
+
+#privacyContent li {
+  margin-bottom: 5px;
+}
+
+
+/* 서명 캔버스 */
+.signature-canvas {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: var(--textbox);
+  width: 60%;
+  max-width: 500px;
+  height: 200px;
+  margin: 30px 0 20px 0;
+}
+
+/* 서명 지우기 버튼 */
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.clear-button {
+  padding: 10px 20px;
+  background-color: #96c3ff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  box-shadow: var(--button);
+}
+
+.clear-button:hover {
+  background-color: #769fdb;
+}
+
+/* 네비게이션 버튼 - 공통 위치 */
+.nav-buttons {
+  width: 100%;
+  max-width: 1280px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5%;
+  position: fixed; 
+  bottom: 10%; /* 화면 하단에서 20px 위로 띄움 */
+  left: 0; /* 좌측 기준 */
+  right: 0; /* 우측 기준 */
+  z-index: 100; /* 다른 요소 위에 표시 */
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.nav-button {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-icon {
+  width: 100%;
+  height: 100%;
+}
+
+.logo {
+  position: fixed;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px; /* 로고 크기 조정 */
+  height: auto;
+}
