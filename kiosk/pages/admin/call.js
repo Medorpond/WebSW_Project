@@ -20,10 +20,10 @@ async function fetchPatients() {
                     <td>${patient.phone}</td>
                     <td>${patient.address}</td>
                     <td>${patient.visit_purpose || "미지정"}</td>
-                    <td>${patient.insurance_company || "N/A"}</td>
-                    <td>${patient.application_code || "N/A"}</td>
-                    <td>${patient.manager_name || "N/A"}</td>
-                    <td>${patient.manager_phone || "N/A"}</td>
+                    <td>${patient.insurance_company || "-"}</td>
+                    <td>${patient.application_code || "-"}</td>
+                    <td>${patient.manager_name || "-"}</td>
+                    <td>${patient.manager_phone || "-"}</td>
                     <td>${documents}</td>
                     <td>
                         <button class="call-btn ${patient.call === '1' ? 'disabled' : ''}" 

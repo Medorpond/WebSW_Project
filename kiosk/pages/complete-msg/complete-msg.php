@@ -64,7 +64,7 @@ try {
         이용해 주셔서 감사합니다.         
       </div>
       <p class="countdown-text">
-        <span id="countdown">5</span> 초 뒤에 접수 화면으로 돌아갑니다.
+        <span id="countdown">5</span> 초 뒤에 접수 화면으로 돌아갑니다.<br><br> 대기실에서 호출 대기 부탁드립니다.
       </p>
     </div>
     <div class="header">
