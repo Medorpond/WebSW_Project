@@ -17,7 +17,7 @@ try {
             a.application_id,
             p.name,
             DATE_FORMAT(a.created_at, '%m-%d %H:%i') AS received_at,
-            LEFT(p.ssh, 6) AS ssh,
+            p.ssh AS ssh,
             p.phone_number AS phone,
             p.address,
             a.disease AS visit_purpose,
